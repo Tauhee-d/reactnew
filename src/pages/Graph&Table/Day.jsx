@@ -121,6 +121,7 @@ export default function Day() {
                     </div>
                     {/* <div> */}
                     <div className='right'>
+                        <h4>Time and Temperature</h4>
 
 
                         <ResponsiveContainer width={600} height={250} aspect={3} className='graph' >
