@@ -1,0 +1,13 @@
+#title {
+    font-size: 30px;
+    color: black;
+}
+#navheight {
+    height: 80px;
+    background-color: #eb9a05;
+    top: 0px;
+}
+.Topbar{
+    position: sticky;
+
+}

@@ -1,0 +1,9 @@
+.body {
+    flex: 4;
+    background-color: rgb(187, 205, 181);
+}
+
+#Table{
+    width: 500px;
+background-color: #04AA6D;
+}

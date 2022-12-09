@@ -1,0 +1,70 @@
+.Rooms {
+    flex: 4;
+  
+    background-color:  rgb(187, 205, 181);
+    
+}
+
+.container{
+    display: flex;
+    /* display: flex; */
+}
+.roomsContent {
+    margin: 26px;
+    padding: 10px;
+    background-color:  rgb(150, 218, 208);
+    height: 230px;
+    width: 250px;
+    justify-content: center;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+
+}
+
+.titlep{
+    background-color:  rgb(71, 172, 157);
+    /* margin-top: 14px; */
+    text-align: center;
+}
+.totalPatients{
+    display: flex;
+}
+.tph{
+    padding: 8px;
+    width: 80px;
+   /* margin-left: 12px; */
+    background-color:  rgb(183, 238, 232);
+}
+.apd{
+    width: 140px;
+    padding: 8px;
+    margin-left: 10px;
+    background-color:  rgb(183, 238, 232);
+}
+.Devices {
+    padding: 8px;
+
+    background-color:  rgb(183, 238, 232);
+    /* margin: 10px; */
+    margin-top:12px ;
+}
+.dc{
+    display: flex;
+}
+.count{
+    margin-left: 30px;
+}
+.status{
+    margin-left: 30px;
+}
+
+/* Add book css  */
+.atag {
+    width: 230px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

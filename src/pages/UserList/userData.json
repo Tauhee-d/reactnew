@@ -1,0 +1,17 @@
+[
+    {
+        "_id":1,"email":"A@gmail.com","name":"A","deviceName":"Adevice","deviceId":"1231"
+    },
+    {
+        "_id":2,"email":"B@gmail.com","name":"B","deviceName":"Adevice","deviceId":"1232"
+    },
+    {
+        "_id":3,"email":"C@gmail.com","name":"C","deviceName":"Adevice","deviceId":"1233"
+    },
+    {
+        "_id":4,"email":"D@gmail.com","name":"D","deviceName":"Adevice","deviceId":"1234"
+    },
+    {
+        "_id":5,"email":"E@gmail.com","name":"E","deviceName":"Adevice","deviceId":"1235"
+    }
+]

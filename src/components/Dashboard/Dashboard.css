@@ -1,0 +1,25 @@
+.Dashboard {
+    flex: 4;
+    background-color:  rgb(187, 205, 181);
+    /* height: 100; */
+}
+/* .container{
+    flex-direction: row;
+
+}
+
+.graph{
+    margin-top: 150px;
+} */
+.button-group {
+    display: flex;
+    justify-content:space-around;
+    margin-left: 40%;
+}
+.button{
+    height: 35px;
+    width: 80px;
+    padding: 0%;
+    background-color: rgb(51, 51, 242);
+    color: white;
+}
