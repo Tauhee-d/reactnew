@@ -47,7 +47,7 @@ export default function Week() {
 
 
 
-    for (let k = 0; k < 10; k++) {
+    for (let k = 0; k < 14; k++) {
 
         var weektime = Math.round(Math.random() * (wmax - wmin) + wmin);
         ranWeek.push(weektime);
@@ -60,7 +60,7 @@ export default function Week() {
 
 
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 14; i++) {
         var temp = Math.round(Math.random() * (450 - 220) + 220);
         temp = temp / 10;
 

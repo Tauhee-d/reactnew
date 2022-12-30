@@ -28,11 +28,11 @@ export default function DashProfile() {
                     <Col className="px-1" md="3">
                       <Form.Group>
                         <label>Username</label>
-                        <Form.Control
-                          defaultValue="michael23"
-                          placeholder="Username"
-                          type="text"
-                        ></Form.Control>
+                       
+                        <p style={{ backgroundColor:'white',border: '1px solid #dee2e6',borderRadius:'4px' }}>
+
+                          xyz
+                        </p>
                       </Form.Group>
                     </Col>
                     <Col className="pl-1" md="4">
@@ -40,10 +40,14 @@ export default function DashProfile() {
                         <label htmlFor="exampleInputEmail1">
                           Email address
                         </label>
-                        <Form.Control
+                        {/* <Form.Control
                           placeholder="Email"
                           type="email"
-                        ></Form.Control>
+                        ></Form.Control> */}
+                         <p style={{ backgroundColor:'white',border: '1px solid #dee2e6',borderRadius:'4px' }}>
+
+xyz@gmail.com
+</p>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -51,21 +55,19 @@ export default function DashProfile() {
                     <Col className="pr-1" md="6">
                       <Form.Group>
                         <label>First Name</label>
-                        <Form.Control
-                          defaultValue="Mike"
-                          placeholder="Company"
-                          type="text"
-                        ></Form.Control>
+                        <p style={{ backgroundColor:'white',border: '1px solid #dee2e6',borderRadius:'4px' }}>
+
+                          xyz
+                        </p>
                       </Form.Group>
                     </Col>
                     <Col className="pl-1" md="6">
                       <Form.Group>
                         <label>Last Name</label>
-                        <Form.Control
-                          defaultValue="Andrew"
-                          placeholder="Last Name"
-                          type="text"
-                        ></Form.Control>
+                        <p style={{ backgroundColor:'white',border: '1px solid #dee2e6',borderRadius:'4px' }}>
+
+                          xyz
+                        </p>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -73,11 +75,11 @@ export default function DashProfile() {
                     <Col md="12">
                       <Form.Group>
                         <label>Address</label>
-                        <Form.Control
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                          placeholder="Home Address"
-                          type="text"
-                        ></Form.Control>
+                       
+                         <p style={{ backgroundColor:'white',border: '1px solid #dee2e6',borderRadius:'4px' }}>
+
+                         Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09
+</p>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -85,30 +87,25 @@ export default function DashProfile() {
                     <Col className="pr-1" md="4">
                       <Form.Group>
                         <label>City</label>
-                        <Form.Control
-                          defaultValue="Mike"
-                          placeholder="City"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
+                         <p style={{ backgroundColor:'white',border: '1px solid #dee2e6',borderRadius:'4px' }}>
+
+bangalore</p>
+xyz                      </Form.Group>
                     </Col>
                     <Col className="px-1" md="4">
                       <Form.Group>
                         <label>Country</label>
-                        <Form.Control
-                          defaultValue="Andrew"
-                          placeholder="Country"
-                          type="text"
-                        ></Form.Control>
+                        <p style={{ backgroundColor:'white',border: '1px solid #dee2e6',borderRadius:'4px' }}>
+
+xyz</p>
                       </Form.Group>
                     </Col>
                     <Col className="pl-1" md="4">
                       <Form.Group>
                         <label>Postal Code</label>
-                        <Form.Control
-                          placeholder="ZIP Code"
-                          type="number"
-                        ></Form.Control>
+                        <p style={{ backgroundColor:'white',border: '1px solid #dee2e6',borderRadius:'4px' }}>
+
+1234</p>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -116,14 +113,12 @@ export default function DashProfile() {
                     <Col md="12">
                       <Form.Group>
                         <label>About Me</label>
-                        <Form.Control
-                          cols="80"
-                          defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
+                        "Lamborghini Mercy, Your chick she so thirsty, I'm in
                           that two seat Lambo."
-                          placeholder="Here can be your description"
-                          rows="4"
-                          as="textarea"
-                        ></Form.Control>
+                        <p style={{ backgroundColor:'white',border: '1px solid #dee2e6',borderRadius:'4px' }}>
+                        "Lamborghini Mercy, Your chick she so thirsty, I'm in
+                          that two seat Lambo."
+</p>
                       </Form.Group>
                     </Col>
                   </Row>
