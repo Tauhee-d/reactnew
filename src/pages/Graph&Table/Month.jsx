@@ -43,7 +43,7 @@ export default function Month() {
     const mmin = getZeroTimeOfMonth().getTime();
     const mmax = addDateMonth(1).getTime() - 1;
 
-    for (let k = 0; k < 17; k++) {
+    for (let k = 0; k < 10; k++) {
 
         var monthtime = Math.round(Math.random() * (mmax - mmin) + mmin);
         ranMonth.push(monthtime);
@@ -56,7 +56,7 @@ export default function Month() {
 
 
 
-    for (let i = 0; i < 17; i++) {
+    for (let i = 0; i < 10; i++) {
         var temp = Math.round(Math.random() * (450 - 220) + 220);
         temp = temp / 10;
 
