@@ -1,6 +1,19 @@
 import React, { useState } from 'react'
 import './Graph&Table.css'
 import { LineChart, ResponsiveContainer, Legend, Tooltip, Line, XAxis, YAxis } from 'recharts';
+import Topbar from '../../components/Topbar/Topbar';
+// import DashProfile from '../../';
+import DashProfile from '../Dashboard/DashProfile';
+import {
+ 
+    Card,
+   
+    Table,
+    Container,
+    Row,
+    Col,
+  } from "react-bootstrap";
+// import DashProfile from '../Profile/DashProfile';
 
 
 export default function Week() {
@@ -73,33 +86,38 @@ export default function Week() {
         return (
             <tr className='Heading' >
                 <th>Time</th>
-                <th>Temp</th>
-
-
+                <th>Temperature</th>
+               
+    
             </tr>
         )
     }
-    const Row = (props) => {
+    const Rows = (props) => {
         const { Time, Temperature } = props
         return (
             <tr>
-                <td>{Time}</td>
-                <td>{Temperature}</td>
-
+    
+                <td className='tabledata'>{Time}</td>
+                <td className='tabledata'>{Temperature}</td>
+              
+    
+    
+    
+    
+              
             </tr>
         )
+       
     }
-    const Table = (props) => {
+    const RowTable = (props) => {
         const { data } = props
+        console.log(data);
         return (
-            <table class="table table-striped table-bordered table-sm" id='Table'>
-                <tbody>
-                    <Header />
+           <>
                     {data.map(row =>
-                        <Row Time={row.Time} Temperature={row.Temperature} />
+                        <Rows Time={row.Time} Temperature={row.Temperature}  />
                     )}
-                </tbody>
-            </table>
+              </>
         )
     }
     const [rows, setRows] = useState(weekData)
@@ -110,34 +128,60 @@ export default function Week() {
     return (
         <>
 
-
-            <div className="Dashboard" >
-                <div className="container">
-
-                    <div className='left'>
-
-                        <h4>Time and Temperature Table</h4>
-                        <Table data={rows} />
-                    </div>
-                    {/* <div> */}
-                    <div className='right'>
-
-                        <h4>Time and Temperature</h4>
-
-                        <ResponsiveContainer width={600} height={250} aspect={3} className='graph' >
-                            <LineChart data={weekData}>
-                                <Line dataKey='Temperature' stroke='red' />
-                                <Legend />
-                                <XAxis dataKey='Time' interval={'preserveStartEnd'} />
-                                <YAxis dataKey='Temperature' interval={'preserveStartEnd'} />
-                                <Tooltip />
-                            </LineChart>
-                        </ResponsiveContainer>
-
-                    </div>
-                </div>
-
-            </div>
+<div className="containers">
+      <div>
+        <Topbar />
+        <div style={{ marginTop: "20px", }}>
+          <DashProfile />
+          
+        </div>
+        <div style={{ margin: "15px",backgroundColor:'white',border: '1px solid #dee2e6',borderRadius:'4px' }}>
+          <h4>Time and Temperature</h4>
+          <ResponsiveContainer
+            width={"100%"}
+            aspect={3}
+            className="graph"
+          >
+            <LineChart data={weekData}>
+              <Line dataKey="Temperature" stroke="red" />
+              <Legend />
+              <XAxis dataKey="Time" interval={"preserveStartEnd"} />
+              <YAxis dataKey="Temperature" interval={"preserveStartEnd"} />
+              <Tooltip />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+        <div style={{ margin: "15px",backgroundColor:'white',border: '1px solid #dee2e6',borderRadius:'4px',padding:'20px' }}>
+          <h4>Time and Temperature Table</h4>
+          <Container fluid>
+        <Row>
+          <Col md="12">
+            <Card className="strpied-tabled-with-hover">
+                
+              <Card.Header>
+              <Card.Title as="h4">Table </Card.Title>
+                <p className="card-category">
+                  Here is a list of users
+                </p>
+              </Card.Header>
+              <Card.Body className="table-full-width table-responsive px-0">
+                <Table className="table-hover table-striped">
+                                
+                  <thead>
+                <Header/>            
+                  </thead>
+                  <tbody>
+                      <RowTable data={rows} />
+                  </tbody>
+                </Table>
+              </Card.Body>
+            </Card>
+          </Col>
+         
+        </Row>
+      </Container>        </div>
+      </div>
+    </div>
         </>
     )
 }

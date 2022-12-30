@@ -1,19 +1,41 @@
-import React, { useState } from 'react'
-import './UserTable.css'
-import UserDetail from '../UserDetail/UserDetail'
-import { NavLink } from "react-router-dom";
-import { Link } from 'react-router-dom';
 
+import React, { useState } from 'react'
+// import { NavLink } from "react-router-dom";
+import {NavLink, Link,Outlet } from 'react-router-dom';
+import MainNavbar from '../../components/Navbar/Navbar';
+// import Devices from 'views/Devices/Devices';
+
+
+// react-bootstrap components
+import './UserTable.css'
+
+import {
+  Badge,
+  Button,
+  Card,
+  Navbar,
+  Nav,
+  Table,
+  Container,
+  Row,
+  Col,
+} from "react-bootstrap";
+import Topbar from '../../components/Topbar/Topbar';
 
 const UserData = [
-    { userId: "1", name: "xyz", gender: "m", weight: "44", age: "12", addedOn: "11:00" },
-    { userId: '2', name: 'xyz', gender: 'male', weight: '44', age: "12", addedOn: '11:00' },
-    { userId: '3', name: 'xyz', gender: 'male', weight: '44', age: "12", addedOn: '11:00' },
-    { userId: '4', name: 'xyz', gender: 'male', weight: '44', age: "12", addedOn: '11:00' },
-    { userId: '5', name: 'xyz', gender: 'male', weight: '44', age: "12", addedOn: '11:00' },
+        { userId: "1", name: "xyz", gender: "male", weight: "44", age: "12", addedOn: "11:00" },
+        { userId: '2', name: 'abc', gender: 'female', weight: '44', age: "12", addedOn: '12:00' },
+        { userId: '3', name: 'xyz', gender: 'male', weight: '44', age: "12", addedOn: '01:00' },
+        { userId: '4', name: 'abc', gender: 'female', weight: '44', age: "12", addedOn: '02:00' },
+        { userId: '5', name: 'xyz', gender: 'male', weight: '44', age: "12", addedOn: '03:00' },
+        { userId: '6', name: 'xyz', gender: 'male', weight: '44', age: "12", addedOn: '03:00' },
+        { userId: '7', name: 'xyz', gender: 'male', weight: '44', age: "12", addedOn: '03:00' },
+        { userId: '8', name: 'xyz', gender: 'male', weight: '44', age: "12", addedOn: '03:00' },
+        { userId: '9', name: 'xyz', gender: 'male', weight: '44', age: "12", addedOn: '03:00' },
+    
+    ]
 
-]
-const Header = () => {
+    const Header = () => {
     return (
         <tr className='Heading' >
             <th>UserId</th>
@@ -26,59 +48,83 @@ const Header = () => {
         </tr>
     )
 }
-const Row = (props) => {
+const Rows = (props) => {
     const { userId, name, gender, weight, age, addedOn } = props
     return (
-        // <Link to='../UserDetail/UserDetail.jsx'> <tr>
         <tr>
 
+            {/* <Outlet/> */}
+            <td className='tabledata'><Link exact to="/dashboard">{userId}</Link></td>
+            <td className='tabledata'><Link to='/dashboard'  > {name}</Link></td>
+            <td className='tabledata'><Link to='./dashboard'  >{gender}</Link></td>
+            <td className='tabledata'><Link to='./dashboard'  >{weight}</Link></td>
+            <td className='tabledata'><Link to='./dashboard'  >{age}</Link></td>
+            <td className='tabledata'><Link to='./dashboard'  >{addedOn}</Link></td>
 
-            {/* <td><Link to='./userDetail'>{userId}</Link></td>
-            <td><Link to='./userDetail'>{name}</Link></td>
-            <td><Link to='./userDetail'>{gender}</Link></td>
-            <td><Link to='./userDetail'>{weight}</Link></td>
-            <td><Link to='./userDetail'>{age}</Link></td>
-            <td><Link to='./userDetail'>{addedOn}</Link></td> */}
-
-
-
-            <td>{userId}</td>
-            <td>{name}</td>
-            <td>{gender}</td>
-            <td>{weight}</td>
-            <td>{age}</td>
-            <td>{addedOn}</td>
+          
         </tr>
-        // </tr></Link>
     )
+   
 }
-const Table = (props) => {
+const RowTable = (props) => {
     const { data } = props
     console.log(data);
     return (
-        <table class="table table-hover">
-            <tbody>
-                <Header />
+      
+       <>
                 {data.map(row =>
-                    <Row userId={row.userId} name={row.name} gender={row.gender}
+                    <Rows userId={row.userId} name={row.name} gender={row.gender}
                         weight={row.weight} age={row.gender} addedOn={row.addedOn} />
                     // <Row userId={row.userId} />
                 )}
-            </tbody>
-        </table>
+          </>
     )
 }
-
 function UserTable() {
-    const [rows, setRows] = useState(UserData)
-    return (
-        <div className='UserTable'>
-            <h4>UserTAble</h4>
-            <Table data={rows} />
+        const [rows, setRows] = useState(UserData)
 
-        </div>
+  return (
+    <>
+<div className="Maincontainer" >
+    <div className="leftBox">
 
-    )
+    <MainNavbar/>
+    </div>
+    <div className="rightBox">
+    <Topbar/>
+    <div style={{marginTop:'15px'}}>
+      <Container fluid>
+        <Row>
+          <Col md="12">
+            <Card className="strpied-tabled-with-hover">
+                
+              <Card.Header>
+              <Card.Title as="h4">Table </Card.Title>
+                <p className="card-category">
+                  Here is a list of users
+                </p>
+              </Card.Header>
+              <Card.Body className="table-full-width table-responsive px-0">
+                <Table className="table-hover table-striped">
+                                
+                  <thead>
+                <Header/>            
+                  </thead>
+                  <tbody>
+                      <RowTable data={rows} />
+                  </tbody>
+                </Table>
+              </Card.Body>
+            </Card>
+          </Col>
+         
+        </Row>
+      </Container>
+      </div>
+      </div>
+      </div>
+    </>
+  );
 }
 
-export default UserTable
+export default UserTable;

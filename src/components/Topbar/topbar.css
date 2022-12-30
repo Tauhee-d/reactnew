@@ -4,10 +4,12 @@
 }
 #navheight {
     height: 80px;
-    background-color: #eb9a05;
+    background-color: #f8f9fa;
     top: 0px;
 }
 .Topbar{
     position: sticky;
+    border:1px solid #dee2e6;
 
 }
+/* <div style={{ margin: "15px",backgroundColor:'white',border: '1px solid #dee2e6',borderRadius:'4px' }}> */

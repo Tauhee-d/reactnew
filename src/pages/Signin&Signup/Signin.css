@@ -1,0 +1,42 @@
+.signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: #e4ebf2;
+}
+
+.signup-form-layout {
+    width: 30%;
+    height: 50%;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin-top: 5%;
+    /* text-align: center; */
+}
+
+.signup-heading {
+    margin-bottom: 15%;
+
+}
+.button_container{
+    display: flex;
+justify-content: space-around;    
+
+}
+input{
+    width: 80%;
+    height: 25px;
+}
+button{
+    width: 82%;
+    height: 28px;
+    background-color:#007bff;
+    color: white;
+    font-size:medium
+}

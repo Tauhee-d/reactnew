@@ -196,28 +196,44 @@
 
 import React, { useState } from 'react'
 import './Dashboard.css'
-import Day from '../../pages/Graph&Table/Day'
-import Week from '../../pages/Graph&Table/Week'
-import Month from '../../pages/Graph&Table/Month'
+import Day from '../Graph&Table/Day'
+import Week from '../Graph&Table/Week'
+import Month from '../Graph&Table/Month'
+import Navbar from '../../components/Navbar/Navbar'
+import { Scrollbars } from 'react-custom-scrollbars';
+
 
 function Dashboard() {
   const [active, setActive] = useState("dayData")
   return (
+    <>
+    <div>
+
     <div className='Dashboard'>
+      <div className="leftBox">
 
+      <Navbar/>
+      </div>
 
-      <div>
+<div className="rightBox">
+<Scrollbars>
+
         {active === "dayData" && <Day />}
         {active === "weekData" && <Week />}
         {active === "monthData" && <Month />}
-      </div>
 
       <nav className='button-group'>
         <button className='button' onClick={() => setActive("dayData")} >Day</button>
         <button className='button' onClick={() => setActive("weekData")} >Week</button>
         <button className='button' onClick={() => setActive("monthData")} >Month</button>
       </nav>
+      </Scrollbars>
+
     </div>
+    </div>
+    </div>
+    
+    </>
   )
 }
 

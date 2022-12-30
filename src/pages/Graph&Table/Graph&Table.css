@@ -1,11 +1,11 @@
 .Dashboard {
-    flex: 4;
-    background-color: rgb(187, 205, 181);
+    flex: 2;
+    background-color:#f8f9fa;
     /* height: 100; */
 }
 
-.container {
-    flex-direction: row;
+.containers {
+    width: 100%;
 
 }
 
