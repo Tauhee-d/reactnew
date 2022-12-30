@@ -134,6 +134,7 @@ const RowTable = (props) => {
           <Table data={rows}  />
         </div> */}
         <div style={{ margin: "15px",backgroundColor:'white',border: '1px solid #dee2e6',borderRadius:'4px',padding:'20px' }}>
+        <h4>Time and Temperature Table</h4>
         <Container fluid>
         <Row>
           <Col md="12">

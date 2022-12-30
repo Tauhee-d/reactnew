@@ -65,7 +65,9 @@ export default function Month() {
 
         console.log("month", m);
 
-        var z = m.getHours() + ":" + m.getMinutes();
+        // var z = m.getHours() + ":" + m.getMinutes();
+        var z = m.getDate() + "/" + m.getMonth() + " "+ m.getHours() + ":" + m.getMinutes();
+
 
         monthData.push({
             Time: z,

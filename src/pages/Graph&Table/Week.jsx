@@ -66,7 +66,7 @@ export default function Week() {
 
         var w = new Date(ranWeek[i])
         console.log("week", w);
-        var y = w.getHours() + ":" + w.getMinutes();
+        var y = w.getDate() + "/" + w.getMonth() + " "+ w.getHours() + ":" + w.getMinutes();
 
         weekData.push({
             Time: y,
@@ -144,6 +144,7 @@ export default function Week() {
           >
             <LineChart data={weekData}>
               <Line dataKey="Temperature" stroke="red" />
+              <Line dataKey="Date" stroke="blue" />
               <Legend />
               <XAxis dataKey="Time" interval={"preserveStartEnd"} />
               <YAxis dataKey="Temperature" interval={"preserveStartEnd"} />
