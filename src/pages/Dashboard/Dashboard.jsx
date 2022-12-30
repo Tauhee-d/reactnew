@@ -204,7 +204,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 
 function Dashboard() {
-  const [active, setActive] = useState("weekData")
+  const [active, setActive] = useState("dayData")
   return (
     <>
     <div>
