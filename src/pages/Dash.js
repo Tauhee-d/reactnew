@@ -1,5 +1,5 @@
 import React from "react";
-import ChartistGraph from "react-chartist";
+// import ChartistGraph from "react-chartist";
 import './Dash.css'
 // react-bootstrap components
 import {
@@ -147,7 +147,7 @@ function Dash() {
               </Card.Header>
               <Card.Body>
                 <div className="ct-chart" id="chartHours">
-                  <ChartistGraph
+                  {/* <ChartistGraph
                     data={{
                       labels: [
                         "9:00AM",
@@ -194,7 +194,7 @@ function Dash() {
                         },
                       ],
                     ]}
-                  />
+                  /> */}
                 </div>
               </Card.Body>
               <Card.Footer>
@@ -223,13 +223,13 @@ function Dash() {
                   className="ct-chart ct-perfect-fourth"
                   id="chartPreferences"
                 >
-                  <ChartistGraph
+                  {/* <ChartistGraph
                     data={{
                       labels: ["40%", "20%", "40%"],
                       series: [40, 20, 40],
                     }}
                     type="Pie"
-                  />
+                  /> */}
                 </div>
                 <div className="legend">
                   <i className="fas fa-circle text-info"></i>
@@ -254,7 +254,7 @@ function Dash() {
                 <p className="card-category">All products including Taxes</p>
               </Card.Header>
               <Card.Body>
-                <div className="ct-chart" id="chartActivity">
+                {/* <div className="ct-chart" id="chartActivity">
                   <ChartistGraph
                     data={{
                       labels: [
@@ -324,7 +324,7 @@ function Dash() {
                       ],
                     ]}
                   />
-                </div>
+                </div> */}
               </Card.Body>
               <Card.Footer>
                 <div className="legend">
