@@ -222,7 +222,7 @@ function Dashboard() {
         {active === "weekData" && <Week />}
         {active === "monthData" && <Month />}
 
-      <nav className='button-group'>
+      <nav className='button-group' style={{marginBottom:'20px'}}>
         <button className='button' onClick={() => setActive("dayData")} >Day</button>
         <button className='button' onClick={() => setActive("weekData")} >Week</button>
         <button className='button' onClick={() => setActive("monthData")} >Month</button>
