@@ -49,6 +49,11 @@ const Navbar = () => {
             <AiFillPieChart size={20} className='icons' /> Devices <AiOutlineRight className='icons4' />
           </Link>
         </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/table" id='acolor'>
+            <AiFillPieChart size={20} className='icons' /> UserTbl <AiOutlineRight className='icons4' />
+          </Link>
+        </li>
        
       
       </ul>

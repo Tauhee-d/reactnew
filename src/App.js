@@ -10,11 +10,14 @@ import TimeTemp from "./pages/TimeTemp/TimeTemp";
 import Signin from "./pages/Signin&Signup/Signin";
 import Device from "./pages/Device/Device";
 import Dash from "./pages/Dash";
+import Graph from "./components/Graph";
+import DayData from "./components/DayData";
+import FirebaseTable from "./pages/FirebaseTable/FirebaseTable";
 
 function App() {
   return (
     // <>
-    // <Navbar/>
+    //     <Graph Data="Data"/>
     // </>
     <Router>
         
@@ -46,6 +49,9 @@ function App() {
           </Route>
           <Route path="/doctors">
             <TimeTemp />
+          </Route>
+          <Route path="/table">
+            <FirebaseTable />
           </Route>
 
         

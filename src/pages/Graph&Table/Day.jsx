@@ -10,7 +10,7 @@ import {
   Tooltip,
   Line,
   XAxis,
-  YAxis,
+  YAxis,Brush
 } from "recharts";
 import { Card, Table, Container, Row, Col } from "react-bootstrap";
 import Topbar from "../../components/Topbar/Topbar";
@@ -158,10 +158,10 @@ export default function Day() {
               <XAxis dataKey="Time" interval={"preserveStartEnd"} />
               <YAxis dataKey="Temperature" interval={"preserveStartEnd"} />
               <Tooltip />
+              <Brush height={30}  />
             </LineChart>
           </ResponsiveContainer>
         </div>
-        
         {/* <div style={{ margin: "15px",backgroundColor:'white',border: '1px solid #dee2e6',borderRadius:'4px',padding:'20px' }}>
           <h4>Time and Temperature Table</h4>
           <Table data={rows}  />

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useTable, usePagination } from "react-table";
 import { useMemo } from "react";
 import './Graph&Table.css'
-import { LineChart, ResponsiveContainer, Legend, Tooltip, Line, XAxis, YAxis } from 'recharts';
+import { LineChart, ResponsiveContainer, Legend, Tooltip, Line, XAxis, YAxis,Brush } from 'recharts';
 import Topbar from '../../components/Topbar/Topbar';
 // import DashProfile from '../../';
 import DashProfile from '../Dashboard/DashProfile';
@@ -184,6 +184,7 @@ export default function Week() {
               <XAxis dataKey="Time" interval={"preserveStartEnd"} />
               <YAxis dataKey="Temperature" interval={"preserveStartEnd"} />
               <Tooltip />
+              <Brush height={30}  />
             </LineChart>
           </ResponsiveContainer>
         </div>
