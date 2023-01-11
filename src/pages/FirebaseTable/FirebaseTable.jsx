@@ -1,4 +1,6 @@
 import React,{useState,useEffect} from 'react';
+import { Link } from 'react-router-dom';
+
 import Navbar from '../../components/Navbar/Navbar';
 import Topbar from '../../components/Topbar/Topbar'
 import { db } from '../../firebase';
@@ -80,10 +82,18 @@ setUserData({...userData, [name]:value})
         <tbody>
         {userValue.map((valData,i)=>
       <tr className="collection-item" key={i}>
-        <td>{valData.user}</td>
-        <td>{valData.email}</td>
-        <td>{valData.device}</td>
-        <td>{valData.temperature}</td>
+        <td><Link exact to="/dashboard">{valData.user}</Link></td>
+        <td><Link  to="/dashboard">{valData.email}</Link></td>
+        <td><Link  to="/dashboard">{valData.device}</Link></td>
+        <td><Link  to="/dashboard">{valData.temperature}</Link></td>
+        
+
+        <tr>
+
+
+
+
+</tr>
         
         </tr>
 
