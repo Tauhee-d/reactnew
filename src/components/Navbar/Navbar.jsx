@@ -40,11 +40,11 @@ const Navbar = () => {
             <AiFillPieChart size={20} className='icons' /> Dashboard <AiOutlineRight className='icons3' />
           </Link>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <Link className="nav-link" to="/users" id='acolor'>
             <AiFillPieChart size={20} className='icons' /> Users <AiOutlineRight className='icons2' />
           </Link>
-        </li>
+        </li> */}
         <li className="nav-item">
           <Link className="nav-link" to="/Device" id='acolor'>
             <AiFillPieChart size={20} className='icons' /> Devices <AiOutlineRight className='icons4' />
@@ -55,16 +55,16 @@ const Navbar = () => {
             <AiFillPieChart size={20} className='icons' /> UserTbl <AiOutlineRight className='icons4' />
           </Link>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <Link className="nav-link" to="/rooms" id='acolor'>
             <AiFillPieChart size={20} className='icons' /> Rooms <AiOutlineRight className='icons1' />
           </Link>
-        </li>
-        <li className="nav-item">
+        </li> */}
+        {/* <li className="nav-item">
           <Link className="nav-link" to="/room1" id='acolor'>
             <AiFillPieChart size={20} className='icons' /> Room1 <AiOutlineRight className='icons1' />
           </Link>
-        </li>
+        </li> */}
        
       
       </ul>
