@@ -4,6 +4,7 @@ import { TbDeviceLaptop } from 'react-icons/tb';
 import Navbar from '../../components/Navbar/Navbar';
 import Topbar from '../../components/Topbar/Topbar';
 import { Scrollbars } from 'react-custom-scrollbars';
+import SubTopbar from '../../components/SubTopbar/SubTopbar'
 import {roomData} from './RoomData'
 
 const Rooms = () => {
@@ -70,7 +71,7 @@ console.log(roomData);
             <div className="rightBox">
             <Scrollbars>
 
-               <Topbar/> 
+               <SubTopbar/>
 
                <div id='Rooms'>
                {Room}

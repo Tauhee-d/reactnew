@@ -2,6 +2,7 @@ import React from 'react'
 import './Room>1.css'
 import Navbar from '../../components/Navbar/Navbar';
 import Topbar from '../../components/Topbar/Topbar';
+import SubTopbar from '../../components/SubTopbar/SubTopbar'
 import profile from '../../assets/img/profile.jpg'
 import { roomData } from './Room1Data';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -55,7 +56,8 @@ const Room1 = () => {
             <div className="rightBox">
             <Scrollbars>
 
-            <Topbar/> 
+            {/* <Topbar/>  */}
+            <SubTopbar/>
             {/* <div className="profile-container">
             <img src={profile} alt="" />
             <div className="profile">
