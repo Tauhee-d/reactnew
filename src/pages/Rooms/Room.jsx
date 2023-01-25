@@ -62,7 +62,7 @@ const Room = roomData.map((data,i)=> {
         <Card variant='outlined' style={{margin:'30px'}} className='card-style'>
          <React.Fragment>
           <CardContent>
-            <Typography fontSize={'20px'} textAlign={'center'} color="text.secondary" backgroundColor={'#a9c2eb'} padding={'8px'}  gutterBottom>
+            <Typography fontSize={'20px'} textAlign={'center'} color="text.secondary" backgroundColor={' #007bff'} padding={'8px'}  gutterBottom>
               {data.title}
             </Typography>
             <Typography variant="p" sx={{ mt: 2 }} component="div">

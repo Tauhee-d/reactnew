@@ -12,15 +12,15 @@ img{
 
 }
 .profile-container{
-    margin-left: 8%;
+    margin-left: 7.2%;
     padding: 0%;
     margin-top: 0%;
 }
 .profile{
     background-color: #f8f9fa;
     /* margin-left: 3rem; */
-    width:16rem;
-    height: 15rem;
+    width:17rem;
+    height: 16rem;
     gap: 1rem;
     -webkit-box-shadow: inset 0px 5px 5px 0px rgba(0,0,0,0.47);
     -moz-box-shadow: inset 0px 5px 5px 0px rgba(0,0,0,0.47);
@@ -80,6 +80,6 @@ img{
 .profile-flex{
     display: flex;
     flex-wrap: wrap;
-    margin-left:2.5%
+    /* margin-left:0.1% */
 }
 

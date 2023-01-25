@@ -94,6 +94,7 @@ const Room1 = () => {
             {roomProfile}
             </div>
             </Scrollbars>
+            
 
 
             </div>
