@@ -13,6 +13,7 @@ import Dash from "./pages/Dash";
 import Graph from "./components/Graph";
 import DayData from "./components/DayData";
 import FirebaseTable from "./pages/FirebaseTable/FirebaseTable";
+import Room1 from "./pages/Room>1/Room>1";
 
 function App() {
   return (
@@ -52,6 +53,9 @@ function App() {
           </Route>
           <Route path="/table">
             <FirebaseTable />
+          </Route>
+          <Route path="/room1">
+            <Room1/>
           </Route>
 
         

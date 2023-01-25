@@ -1,6 +1,7 @@
-import { MdSpeed, MdPersonOutline } from 'react-icons/md';
-import { AiOutlinePlus, AiFillPieChart, AiOutlineRight } from 'react-icons/ai';
-import { RiBarChart2Fill } from 'react-icons/ri';
+// import { MdSpeed, MdPersonOutline } from 'react-icons/md';
+import {  AiFillPieChart, AiOutlineRight } from 'react-icons/ai';
+// import { AiOutlinePlus, AiFillPieChart, AiOutlineRight } from 'react-icons/ai';
+// import { RiBarChart2Fill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 // import logo from '../../assets/img/yantram'
 // import Dashboard from '../Dashboard/Dashboard';
@@ -52,6 +53,16 @@ const Navbar = () => {
         <li className="nav-item">
           <Link className="nav-link" to="/table" id='acolor'>
             <AiFillPieChart size={20} className='icons' /> UserTbl <AiOutlineRight className='icons4' />
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/rooms" id='acolor'>
+            <AiFillPieChart size={20} className='icons' /> Rooms <AiOutlineRight className='icons1' />
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/room1" id='acolor'>
+            <AiFillPieChart size={20} className='icons' /> Room1 <AiOutlineRight className='icons1' />
           </Link>
         </li>
        
