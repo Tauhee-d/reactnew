@@ -1,0 +1,16 @@
+.Container{
+    display: flex;
+}
+.left-profile{
+    flex: 1;
+}
+.right-profile{
+    flex: 4;
+}
+.Profile{
+    display: flex;
+    gap: 0.2;
+}
+.Profile>.profile-left{
+    display: flex;
+}

@@ -1,19 +1,22 @@
 import React from 'react'
-import './Room>1.css'
+import './Patient.css'
 import Navbar from '../../components/Navbar/Navbar';
 import Topbar from '../../components/Topbar/Topbar';
 import SubTopbar from '../../components/SubTopbar/SubTopbar'
 import profile from '../../assets/img/profile.jpg'
 import { roomData } from './Room1Data';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { Link } from 'react-router-dom';
 
 
 
-const Room1 = () => {
+const Patient = () => {
     const roomProfile = roomData.map((data,i)=> {
         return(
             <>
              <div className="profile-container">
+             <Link style={{textDecoration:'none'}} exact to="/profile">
+
             <img src={profile} alt="" />
             <div className="profile">
                 <div>
@@ -43,6 +46,7 @@ const Room1 = () => {
                     <button>Visit patient page </button>
                 </div>
             </div>
+            </Link>
             </div>
             </>
         )
@@ -102,4 +106,4 @@ const Room1 = () => {
     )
 }
 
-export default Room1
+export default Patient

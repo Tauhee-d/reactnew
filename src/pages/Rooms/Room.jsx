@@ -57,7 +57,7 @@ const Rooms = () => {
 const Room = roomData.map((data,i)=> {
     return(
         <div key={i} className='room-card' > 
-                <Link exact to="/room1">
+                <Link style={{textDecoration:'none'}} exact to="/patient">
 
         <Card variant='outlined' style={{margin:'30px'}} className='card-style'>
          <React.Fragment>
