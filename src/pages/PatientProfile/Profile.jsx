@@ -14,6 +14,7 @@ const Profile = () => {
     const [curentValue, setCurentValue] = useState(11)
 
   return (
+
     <div className='Container'>
         <div className="left-profile">
             <Navbar/>
@@ -141,10 +142,23 @@ const Profile = () => {
                         </div>
                     </div>
                 </div>
+                    <div className="profile-2block">
+                        Temperature Graph
+                    </div>
+                    <div className="profile-3block">
+                        <div className="block3-left">
+                            Sleep Analysis Graph
+                        </div>
+                        <div className="block3-right">
+                            Some other vitals
+                        </div>
+                    </div>
+            
 
             </Scrollbars>
         </div>
     </div>
+  
   )
 }
 
