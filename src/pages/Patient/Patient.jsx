@@ -17,7 +17,7 @@ const Patient = () => {
              <div className="profile-container">
              <Link style={{textDecoration:'none'}} exact to="/profile">
 
-            <img src={profile} alt="" />
+            <img className='img' src={profile} alt="" />
             <div className="profile">
                 <div>
                 <span>
