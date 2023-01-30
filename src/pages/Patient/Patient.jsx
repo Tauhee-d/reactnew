@@ -4,53 +4,76 @@ import Navbar from '../../components/Navbar/Navbar';
 import Topbar from '../../components/Topbar/Topbar';
 import SubTopbar from '../../components/SubTopbar/SubTopbar'
 import profile from '../../assets/img/profile.jpg'
-import { roomData } from './Room1Data';
+// import { roomData1 } from './Room1Data';
+import { roomData} from '../Rooms/RoomData'
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Link } from 'react-router-dom';
 
 
 
 const Patient = () => {
+    // const roomProfile = roomData.map((data,i)=> {
+    //     return(
+    //         <div key={i}>
+    //             {/* <span>{data.device}</span> */}
+    //             {data.patients.map((detail,index)=> {
+    //                 return(
+    //                     <div key={index}> 
+    //                         <span>{detail.name}</span>
+    //                     </div>
+    //                 )
+    //             })}
+    //         </div>
+    //     )
+    // })
     const roomProfile = roomData.map((data,i)=> {
         return(
             <>
-             <div className="profile-container">
-             <Link style={{textDecoration:'none'}} exact to="/profile">
+             <div className="profile-container" key={i}>
 
             <img className='img' src={profile} alt="" />
-            <div className="profile">
+        
+        {data.patients.map((details)=>{
+            return(
+            <div className="profile" >
+                
                 <div>
                 <span>
-                   {data.name}
+                   {details.name}
                 </span>
                 <span>
-                    Patient Id:{data.patientId}
+                    Patient Id:{details.deviceId}
                 </span>
                 </div>
                 <div>
                     <span>
-                        Temp:{data.temp}
+                        Temp:{details.temp}
                     </span>
                     <span>
                         Devices
                     </span>
                     <span>
-                        {data.device}   {data.deviceId}
+                        {details.device}  {details.deviceId}
                     </span>
                 </div>
                 <div>
-                    <span>
-                        Add Note
-                        <input style={{height:'15px',width:"100px"}}></input>
-                    </span>
-                    <button>Visit patient page </button>
+                   
+                <Link style={{textDecoration:'none'}} exact to="/profile">
+                 <button>Visit patient page </button>
+                </Link>
                 </div>
             </div>
-            </Link>
+
+            )
+        })}
+
+                     
+                    
             </div>
             </>
         )
     })
+
   return (
         <div className="Maincontainer">
             <div className="leftBox">
@@ -94,6 +117,20 @@ const Patient = () => {
             </div>
             </div> */}
             <div className="profile-flex">
+                {/* {roomData.map((data,i)=> {
+                    return(
+                        <div key={i}>
+                            <span>{data.id}</span>
+                            {data.patients.map((details,index)=>{
+                                return(
+                                    <div key={index}>
+                                        <span>{details.name}</span>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    )
+                })} */}
 
             {roomProfile}
             </div>

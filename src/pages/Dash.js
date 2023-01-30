@@ -32,7 +32,7 @@ function Dash() {
     <div className="rightBox">
     <Scrollbars>
     <Topbar/>
-      {/* <Container fluid>
+      <Container fluid>
         <Row>
           <Col lg="3" sm="6">
             <Card className="card-stats">
@@ -522,8 +522,8 @@ function Dash() {
             </Card>
           </Col>
         </Row>
-      </Container> */}
-      <Rooms/>
+      </Container>
+      {/* <Rooms/> */}
       </Scrollbars>
       </div>
       </div>

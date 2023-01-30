@@ -1,4 +1,4 @@
-export const roomData = [
+export const roomData1 = [
     {
        name:"sarah jones",
        patientId:"14556347",

@@ -7,12 +7,56 @@ import Avatar from '../../../src/assets/img/Avatar.jpeg'
 import { GrAlarm,GrDocumentPdf,GrMailOption } from 'react-icons/gr';
 import { FiEdit } from 'react-icons/fi';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { LineChart,  ResponsiveContainer,  Legend,  Tooltip, Line, XAxis, YAxis,Brush } from "recharts";
 
 
 const Profile = () => {
     const [currentValue, setCurrentValue] = useState(1)
     const [curentValue, setCurentValue] = useState(11)
-
+    const Data = [
+        { time: "12:00", temp: "120" },
+        { time: "01:00", temp: "130" },
+        { time: "02:00", temp: "120" },
+        { time: "03:00", temp: "150" },
+        { time: "04:00", temp: "120" },
+        { time: "05:00", temp: "170" },
+        { time: "06:00", temp: "140" },
+    
+    
+    ]
+    const Header = () => {
+        return (
+            <thead>
+           
+            </thead>
+        )
+    }
+    const Row = (props) => {
+        const { time, temp } = props
+        return (
+            <tr>
+                <td>{time}</td>
+                <td>{temp}</td>
+    
+            </tr>
+        )
+    }
+    const Table = (props) => {
+        const { data } = props
+        console.log(data);
+        return (
+            <table className="centered"  id='Table'>
+                <tbody>
+                    <Header />
+                    {data.map(row =>
+                        <Row time={row.time} temp={row.temp} />
+                        // <Row userId={row.userId} />
+                    )}
+                </tbody>
+            </table>
+        )
+    }
+    
   return (
 
     <div className='Container'>
@@ -143,16 +187,34 @@ const Profile = () => {
                     </div>
                 </div>
                     <div className="profile-2block">
-                        Temperature Graph
+                        <div style={{width:'50%'}}>
+                        Graph
+            <ResponsiveContainer width={"100%"}  aspect={3} className="graph">
+            <LineChart data={Data}>
+              <Line dataKey="temp" stroke="red" />
+              <Legend />
+              <XAxis dataKey="time" interval={"preserveStartEnd"} />
+              <YAxis dataKey="temp" interval={"preserveStartEnd"} />
+              <Tooltip />
+              {/* <Brush height={30}  /> */}
+            </LineChart>
+          </ResponsiveContainer>
+
+                        </div>
+                        <div style={{width:'50%'}} >
+                        Table
+                        <Table  data={Data} />
+
+                        </div>
                     </div>
-                    <div className="profile-3block">
+                    {/* <div className="profile-3block">
                         <div className="block3-left">
                             Sleep Analysis Graph
                         </div>
                         <div className="block3-right">
                             Some other vitals
                         </div>
-                    </div>
+                    </div> */}
             
 
             </Scrollbars>

@@ -14,57 +14,41 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import profile from '../../assets/img/profile.jpg'
 
 
 
 const Rooms = () => {
 
-    const bull = (
-        <Box
-          component="span"
-          sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-        >
-          •
-        </Box>
-      );
-      
-      const card = (
-        <React.Fragment>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Word of the Day
-            </Typography>
-            <Typography variant="h5" component="div">
-              be{bull}nev{bull}o{bull}lent
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              adjective
-            </Typography>
-            <Typography variant="body2">
-              well meaning and kindly.
-              <br />
-              {'"a benevolent smile"'}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions>
-        </React.Fragment>
-      );
+    const [selectedRoom, setSelectedRoom] = useState(null)
+    const [show, setShow] = useState(true);
 
+   
+ 
 
-
-const Room = roomData.map((data,i)=> {
+const Room = roomData.map((data)=> {
+  const handleOnClick = () => {
+    setSelectedRoom(data)
+    setShow(!show)
+  }
     return(
-        <div key={i} className='room-card' > 
-                <Link style={{textDecoration:'none'}} exact to="/patient">
+      <>
+
+{show && 
+<div>
+          
+          
+        <div key={data._id} className='room-card' onClick={handleOnClick} 
+        style={{ cursor:'pointer'}} > 
 
         <Card variant='outlined' style={{margin:'30px'}} className='card-style'>
          <React.Fragment>
           <CardContent>
             <Typography fontSize={'20px'} textAlign={'center'} color="text.secondary" backgroundColor={' #007bff'} padding={'8px'}  gutterBottom>
-              {data.title}
+              {data._id}
             </Typography>
+
             <Typography variant="p" sx={{ mt: 2 }} component="div">
               Patients <span style={{marginLeft:'130px'}}>{data.patient}</span>
             </Typography>
@@ -83,50 +67,37 @@ const Room = roomData.map((data,i)=> {
          
         </React.Fragment>
         </Card>
-        </Link>
-            {/* <div className="Rooms" >
-                <div className="container" >
-                    <div className="row row-cols-3" >
-                        <div className="col" >
-                            <div className="roomsContent">
-                                <nav><h3 className='titlep'>{data.title}</h3></nav>
-                                <div className="patients">
-                                    <div className="totalPatients">
-                                        <div className="tph">
-                                            <h6 >Patients</h6>
-                                            <span className='tp'>{data.patient}</span>
-                                        </div>
-                                        <div className="apd">
-                                            <div className="AddPatients">
-                                                <a href="/" className='ap'><BsFillPersonFill />  Add Patients</a>
-                                            </div>
-
-                                            <div className="AddDevices">
-                                                <a href="/" className="ad"><TbDeviceLaptop />  Add Devices</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="Devices">
-                                    <h6>Devices</h6>
-                                    <div className="DeviceContent">
-                                        <span className='dc'><h6>{data.device}</h6>
-                                            <span className='count'>{data.count}</span>
-                                            <span className="status">{data.status}</span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                       
-
-                    </div>
-
-                </div>
-            </div> */}
-       
+           
         </div>
+          </div>
+          }
+
+      
+        {selectedRoom && (
+          <div className='patient-details'>
+            {data.patients.map((details)=>{
+              return(
+                <div key={details.id} >
+                  <img id='profile-img' src={profile} alt="" width={'80px'} height={'80px'} />
+                  <span>{details.name}</span>
+                  <span>Patient Id:{details.patientId}</span>
+                  <span>Temp:{details.temp}</span>
+                  <span>Devices</span>
+                  <div>
+                  <span>{details.device}</span>
+                  <span>{details.deviceId}</span>
+                  </div>
+                  <Link className='profile-btn' style={{textDecoration:'none'}} exact to="/profile">
+                 <button >Visit patient page </button>
+                </Link>
+                </div>
+              )
+            })}
+          </div>
+        )}
+
+      </>
+        
     )
 })
 console.log(roomData);
@@ -137,26 +108,24 @@ console.log(roomData);
 
         <>
         <div className="Maincontainer">
-            {/* <div className="leftBox"> */}
-                {/* <Navbar/> */}
-            {/* </div> */}
-            {/* <div className="rightBox"> */}
-            {/* <Scrollbars> */}
+            <div className="leftBox">
+                <Navbar/>
+            </div>
+            <div className="rightBox">
+            <Scrollbars>
 
-               {/* <SubTopbar/> */}
+               <SubTopbar/>
 
                <div id='Rooms'>
-               {/* <Box sx={{ minWidth: 275 }}> */}
-      {/* <Card variant="outlined">{Room}</Card> */}
-    {/* </Box> */}
+             
                {Room}
                </div>
               
             
         
-            {/* </Scrollbars> */}
+            </Scrollbars>
 
-            {/* </div> */}
+            </div>
 
             </div>
         </>
