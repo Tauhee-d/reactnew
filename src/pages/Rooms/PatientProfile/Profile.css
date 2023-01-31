@@ -1,11 +1,12 @@
 .Container{
-    display: flex;
+    /* display: flex; */
 }
-.left-profile{
+/* .left-profile{
     flex: 1;
-}
+} */
 .right-profile{
-    flex: 4;
+    /* flex: 4; */
+    height: 100vh;
 }
 .Profile{
     display: flex;

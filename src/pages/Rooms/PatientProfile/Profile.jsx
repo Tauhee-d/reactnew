@@ -1,13 +1,11 @@
 import React,{useState} from 'react'
 import Scrollbars from 'react-custom-scrollbars'
-import Navbar from '../../components/Navbar/Navbar'
 import './Profile.css'
-import SubTopbar from '../../components/SubTopbar/SubTopbar'
-import Avatar from '../../../src/assets/img/Avatar.jpeg'
+import Avatar from '../../../assets/img/Avatar.jpeg'
 import { GrAlarm,GrDocumentPdf,GrMailOption } from 'react-icons/gr';
 import { FiEdit } from 'react-icons/fi';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { LineChart,  ResponsiveContainer,  Legend,  Tooltip, Line, XAxis, YAxis,Brush } from "recharts";
+import { FormControl, MenuItem, Select } from '@mui/material';
+import { LineChart,  ResponsiveContainer,  Legend,  Tooltip, Line, XAxis, YAxis } from "recharts";
 
 
 const Profile = () => {
@@ -58,14 +56,12 @@ const Profile = () => {
     }
     
   return (
+   
 
     <div className='Container'>
-        <div className="left-profile">
-            <Navbar/>
-        </div>
+       
         <div className="right-profile">
             <Scrollbars>
-                <SubTopbar/>
 
                 <div className="Profile">
                     <div className="profile-left">
@@ -196,7 +192,6 @@ const Profile = () => {
               <XAxis dataKey="time" interval={"preserveStartEnd"} />
               <YAxis dataKey="temp" interval={"preserveStartEnd"} />
               <Tooltip />
-              {/* <Brush height={30}  /> */}
             </LineChart>
           </ResponsiveContainer>
 

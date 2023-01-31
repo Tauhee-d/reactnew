@@ -1,52 +1,50 @@
 import './room.css'
-import { BsFillPersonFill } from 'react-icons/bs';
-import { TbDeviceLaptop } from 'react-icons/tb';
-import Navbar from '../../components/Navbar/Navbar';
-import Topbar from '../../components/Topbar/Topbar';
+import Navbar from '../../../components/Navbar/Navbar';
 import { Scrollbars } from 'react-custom-scrollbars';
-import SubTopbar from '../../components/SubTopbar/SubTopbar'
+import SubTopbar from '../../../components/SubTopbar/SubTopbar'
 import {roomData} from './RoomData'
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import profile from '../../assets/img/profile.jpg'
+import Patient from '../Patient/Patient';
+import Profile from '../PatientProfile/Profile';
 
 
 
 const Rooms = () => {
 
-    const [selectedRoom, setSelectedRoom] = useState(null)
-    const [show, setShow] = useState(true);
+  const [state, setState] = useState(1);
+
+  const handleClick1 = () => {
+    setState(2);
+  };
+
+  const handleClick2 = () => {
+    setState(3);
+  };
 
    
  
 
 const Room = roomData.map((data)=> {
-  const handleOnClick = () => {
-    setSelectedRoom(data)
-    setShow(!show)
-  }
+  
     return(
       <>
 
-{show && 
+
 <div>
           
           
-        <div key={data._id} className='room-card' onClick={handleOnClick} 
-        style={{ cursor:'pointer'}} > 
+        <div key={data.id} className='room-card' style={{ cursor:'pointer'}} > 
 
         <Card variant='outlined' style={{margin:'30px'}} className='card-style'>
          <React.Fragment>
           <CardContent>
             <Typography fontSize={'20px'} textAlign={'center'} color="text.secondary" backgroundColor={' #007bff'} padding={'8px'}  gutterBottom>
-              {data._id}
+              {data.id}
             </Typography>
 
             <Typography variant="p" sx={{ mt: 2 }} component="div">
@@ -70,31 +68,11 @@ const Room = roomData.map((data)=> {
            
         </div>
           </div>
-          }
+          
 
       
-        {selectedRoom && (
-          <div className='patient-details'>
-            {data.patients.map((details)=>{
-              return(
-                <div key={details.id} >
-                  <img id='profile-img' src={profile} alt="" width={'80px'} height={'80px'} />
-                  <span>{details.name}</span>
-                  <span>Patient Id:{details.patientId}</span>
-                  <span>Temp:{details.temp}</span>
-                  <span>Devices</span>
-                  <div>
-                  <span>{details.device}</span>
-                  <span>{details.deviceId}</span>
-                  </div>
-                  <Link className='profile-btn' style={{textDecoration:'none'}} exact to="/profile">
-                 <button >Visit patient page </button>
-                </Link>
-                </div>
-              )
-            })}
-          </div>
-        )}
+        
+         
 
       </>
         
@@ -116,11 +94,19 @@ console.log(roomData);
 
                <SubTopbar/>
 
-               <div id='Rooms'>
-             
-               {Room}
+               <div >
+             {state === 1 && (
+             <div id='Rooms-flex' onClick={handleClick1}>{Room}</div>
+               )}
+               
                </div>
-              
+               {state ===2 && (
+                <div onClick={handleClick2}><Patient/>
+                </div>
+               )}
+              {state === 3 && (
+                <div><Profile/></div>
+              )}
             
         
             </Scrollbars>

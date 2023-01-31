@@ -1,24 +1,25 @@
 .Rooms {
-    flex: 4;
+    /* flex: 4; */
   
     /* background-color: #f8f9fa; */
     background-color: white;
     
 }
-#Rooms{
+.room-card{
+    /* display: flex; */
+
+    /* flex-direction: column; */
+
+    /* flex-direction: row; */
+}
+#Rooms-flex{
     display: flex;
     flex-wrap: wrap;
     margin-left: 5%;
-    /* margin: 50px; */
-    /* justify-content: space-between; */
-    /* flex: 33.33%; */
-    /* background-color: blue; */
-    /* width: 600px; */
+  
 
 }
-/* .rooom-card{
-    margin: 20px;
-} */
+
 .card-style{
     width: 18rem;
     height: 15rem;

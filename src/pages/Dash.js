@@ -1,13 +1,8 @@
 import React from "react";
-// import ChartistGraph from "react-chartist";
 import './Dash.css'
-// react-bootstrap components
 import {
-  Badge,
   Button,
   Card,
-  Navbar,
-  Nav,
   Table,
   Container,
   Row,
@@ -19,7 +14,6 @@ import {
 import MainNavbar from "../components/Navbar/Navbar";
 import Topbar from "../components/Topbar/Topbar";
 import { Scrollbars } from 'react-custom-scrollbars';
-import Rooms from "./Rooms/Room";
 
 function Dash() {
   return (
