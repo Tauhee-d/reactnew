@@ -85,11 +85,9 @@ console.log(roomData);
     return (
 
         <>
-        <div className="Maincontainer">
-            <div className="leftBox">
-                <Navbar/>
-            </div>
-            <div className="rightBox">
+        <div className="rooms">
+           
+            <div className="rightRoom">
             <Scrollbars>
 
                <SubTopbar/>

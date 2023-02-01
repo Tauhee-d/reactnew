@@ -1,5 +1,5 @@
 import React from "react";
-import './Dash.css'
+import './DashboardAdmin.css'
 import {
   Button,
   Card,
@@ -11,11 +11,11 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
-import MainNavbar from "../components/Navbar/Navbar";
-import Topbar from "../components/Topbar/Topbar";
+import MainNavbar from "../../components/Navbar/Navbar";
+import Topbar from "../../components/Topbar/Topbar";
 import { Scrollbars } from 'react-custom-scrollbars';
 
-function Dash() {
+function DashboardAdmin() {
   return (
     <>
     <div className="Maincontainer" >
@@ -525,4 +525,4 @@ function Dash() {
   );
 }
 
-export default Dash;
+export default DashboardAdmin;

@@ -151,3 +151,6 @@
     display: flex;
     justify-content: center;
 }
+.rightRoom{
+    height: 100vh;
+}

@@ -7,10 +7,21 @@ import UserTable from "./pages/UserTable/UserTable";
 import TimeTemp from "./pages/TimeTemp/TimeTemp";
 import Signin from "./pages/Signin&Signup/Signin";
 import Device from "./pages/Device/Device";
-import Dash from "./pages/Dash";
+import DashboardAdmin from "./pages/DashboardAdmin/DashboardAdmin";
 import FirebaseTable from "./pages/FirebaseTable/FirebaseTable";
 import Patient from "./pages/Rooms/Patient/Patient";
 import Profile from "./pages/Rooms/PatientProfile/Profile";
+import ParentRoom from "./pages/Rooms/Room/ParentRoom";
+import DashboardDoc from "./pages/DashboardDoc/DashboardDoc";
+import Patient1 from "./pages/Patient/Patient";
+
+
+const UserTypes = {
+  doctor:"Doctor User",
+  patient:'Patient User',
+  admin:'Admin User'
+}
+const CurrentUserType = UserTypes.patient
 
 function App() {
   return (
@@ -18,43 +29,50 @@ function App() {
     <Router>
         
           <Route exact path="/">
-            <Signin />
+            <Signin /> 
           </Route>
       <div className="containers">
         <Switch>
-          <Route  path="/dash">
-            <Dash />
-          </Route>
           <Route  path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route  path="/dash">
-            <Dash />
-          </Route>
-          <Route path="/rooms">
-            <Rooms />
-          </Route>
-          <Route path="/patients">
-            <UserList />
-          </Route>
-          <Route path="/users">
-            <UserTable />
+            {<ProtectedElement>{CurrentUserType === UserTypes.admin? <DashboardAdmin />:CurrentUserType === UserTypes.doctor? <DashboardDoc />:null}</ProtectedElement>}
           </Route>
           <Route path="/Device">
-          <Device />
-          </Route>
-          <Route path="/doctors">
-            <TimeTemp />
+           {<Device />}
           </Route>
           <Route path="/table">
             <FirebaseTable />
           </Route>
+          <Route path="/parentrooms">
+            <ParentRoom/>
+          </Route>
           <Route path="/patient">
+            {<ProtectedElement>{CurrentUserType === UserTypes.patient?<Patient1/>:CurrentUserType === UserTypes.admin? <Patient1 />:null}</ProtectedElement>}
+          </Route>
+          <Route path="*">
+            <div>Page Not Found!</div>
+          </Route>
+          
+         
+          {/* <Route path="/rooms">
+            <Rooms />
+          </Route> */}
+          {/* <Route path="/patients">
+            <UserList />
+          </Route> */}
+          {/* <Route path="/users">
+            <UserTable />
+          </Route> */}
+          {/* <Route path="/doctors">
+            <TimeTemp />
+          </Route> */}
+         
+          {/* <Route path="/patient">
             <Patient/>
-          </Route>
-          <Route path="/profile">
+          </Route> */}
+          {/* <Route path="/profile">
             <Profile/>
-          </Route>
+          </Route> */}
+         
 
         
         </Switch>
@@ -63,5 +81,18 @@ function App() {
     </Router>
   );
 }
+
+function ProtectedElement({children}){
+  return<>
+  {children}
+  </>
+}
+// function UserElement({children}){
+//   if(CurrentUserType === UserTypes.PATIENT_USER || CurrentUserType === UserTypes.ADMIN_USER){
+//     return<>{children}</>
+//   }else{
+//     return<div>you do not have access to this page</div>
+//   }
+// }
 
 export default App;

@@ -132,7 +132,7 @@ const Signin = () => {
         )
         .then(res => {
             console.log("res:",res.data)
-            navigation.push("/dash")
+            navigation.push("/dashboard")
 
         })
         .catch(err => {

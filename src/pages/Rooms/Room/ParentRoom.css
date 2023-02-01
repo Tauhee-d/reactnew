@@ -1,0 +1,9 @@
+.parentRoom{
+    display: flex;
+}
+.left-parent{
+    flex: 1;
+}
+.right-parent{
+    flex: 4;
+}
