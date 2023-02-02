@@ -107,7 +107,10 @@ console.log(roomData);
               {state === 3 && (
                 <div><Profile/></div>
               )} */}
+              <div id='Rooms-flex'>
               {Room}
+
+              </div>
             
         
             </Scrollbars>

@@ -30,33 +30,38 @@ const Signin = (props) => {
     
     const submitData = async (e) => {
         e.preventDefault()
+        sessionStorage.clear()
         
         
         setFormErrors(validate(formValues))
         setIsSubmit(true)
     
 
-        await axios.post("https://dashboard-login.onrender.com/signin",
-        // await axios.post("http://localhost:3055/signin",
+        // await axios.post("https://dashboard-login.onrender.com/signin",
+        await axios.post("http://localhost:3055/signin",
         // axios.post("https://yantram-backend.onrender.com/api/v1/auth/home/login",
         {email:formValues.email,password:formValues.password },
         
         
         
         )
+        
         .then(res => {
             // const response = res.data.user
+            sessionStorage.setItem('user', res.data.user);
+            
+            
             setRole(res.data.user);
-            console.log("response1",role)
             console.log("response2",res.data.user)
-            // navigation.push("/dashboard")
-
+            console.log("response1",role)
+            props.onSubmit(role)
+            navigation.push("/dashboard")
+            
         })
         .catch(err => {
             console.log("err:",err);
         })
-
-        props.onSubmit(role)
+        
     }
     useEffect(() => {
         console.log(formErrors);

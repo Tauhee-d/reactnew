@@ -15,6 +15,7 @@ import ParentRoom from "./pages/Rooms/Room/ParentRoom";
 import DashboardDoc from "./pages/DashboardDoc/DashboardDoc";
 import Patient1 from "./pages/Patient/Patient";
 import { useState } from "react";
+import { useEffect } from "react";
 
 
 // const UserTypes = {
@@ -29,19 +30,26 @@ import { useState } from "react";
 
 
 function App() {
+
   
-  const [app ,setApp] = useState('')
+  const [role ,setRole] = useState('')
+  
   const UserTypes = {
-    doctor:"Doctor User",
-    patient:'Patient User',
-    admin:'Admin User'
+    doctor:"doctor",
+    patient:'patient',
+    admin:"admin"
   }
-  const CurrentUserType = UserTypes.doctor
+  // const CurrentUserType = UserTypes.doctor
   // const CurrentUserType = app
-  const roleData = (role) => {
-    setApp(role)
-    console.log("user role1",app)
-    console.log("user role2",role)
+
+  const Role = sessionStorage.getItem('user')
+  console.log("first",Role)
+
+  const roleData = (userrole) => {
+    console.log("first",sessionStorage)
+    setRole(userrole)
+    console.log("user role1",role)
+    console.log("user role2",userrole)
 
   }
   return (
@@ -55,7 +63,8 @@ function App() {
         <Switch>
           <Route  path="/dashboard">
             {/* {<ProtectedElement>{CurrentUserType && app && UserTypes.admin? <DashboardAdmin />:CurrentUserType && app && UserTypes.doctor? <DashboardDoc />:null}</ProtectedElement>} */}
-            {<ProtectedElement>{CurrentUserType === UserTypes.admin? <DashboardAdmin />:CurrentUserType === UserTypes.doctor? <DashboardDoc />:null}</ProtectedElement>}
+            {  <ProtectedElement>{   Role === UserTypes.admin? <DashboardAdmin />:Role === UserTypes.doctor? <DashboardDoc />:<Patient1/>}</ProtectedElement>}
+            
           </Route>
           <Route path="/Device">
            {<Device />}
@@ -67,7 +76,7 @@ function App() {
             <ParentRoom/>
           </Route>
           <Route path="/patient">
-            {<ProtectedElement>{CurrentUserType === UserTypes.patient?<Patient1/>:CurrentUserType === UserTypes.admin? <Patient1 />:null}</ProtectedElement>}
+            {<ProtectedElement>{Role === UserTypes.patient?<Patient1/>:Role === UserTypes.admin? <Patient1 />:null}</ProtectedElement>}
           </Route>
           <Route path="*">
             <div>Page Not Found!</div>
