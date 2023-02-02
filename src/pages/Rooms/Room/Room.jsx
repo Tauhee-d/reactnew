@@ -14,19 +14,21 @@ import Profile from '../PatientProfile/Profile';
 
 
 
-const Rooms = () => {
+const Rooms = ({state}) => {
 
-  const [state, setState] = useState(1);
+  // const [state, setState] = useState(1);
 
-  const handleClick1 = () => {
-    setState(2);
-  };
+  // const handleClick1 = () => {
+  //   setState(2);
+  // };
 
-  const handleClick2 = () => {
-    setState(3);
-  };
+  // const handleClick2 = () => {
+  //   setState(3);
+  // };
 
-   
+   const handleClick = () => {
+    state(2)
+   }
  
 
 const Room = roomData.map((data)=> {
@@ -38,7 +40,7 @@ const Room = roomData.map((data)=> {
 <div>
           
           
-        <div key={data.id} className='room-card' style={{ cursor:'pointer'}} > 
+        <div key={data.id} className='room-card' style={{ cursor:'pointer'}} onClick={handleClick} > 
 
         <Card variant='outlined' style={{margin:'30px'}} className='card-style'>
          <React.Fragment>
@@ -92,7 +94,7 @@ console.log(roomData);
 
                <SubTopbar/>
 
-               <div >
+               {/* <div >
              {state === 1 && (
              <div id='Rooms-flex' onClick={handleClick1}>{Room}</div>
                )}
@@ -104,7 +106,8 @@ console.log(roomData);
                )}
               {state === 3 && (
                 <div><Profile/></div>
-              )}
+              )} */}
+              {Room}
             
         
             </Scrollbars>

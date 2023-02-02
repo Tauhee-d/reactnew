@@ -14,27 +14,47 @@ import Profile from "./pages/Rooms/PatientProfile/Profile";
 import ParentRoom from "./pages/Rooms/Room/ParentRoom";
 import DashboardDoc from "./pages/DashboardDoc/DashboardDoc";
 import Patient1 from "./pages/Patient/Patient";
+import { useState } from "react";
 
 
-const UserTypes = {
-  doctor:"Doctor User",
-  patient:'Patient User',
-  admin:'Admin User'
-}
-const CurrentUserType = UserTypes.patient
+// const UserTypes = {
+//   doctor:"Doctor User",
+//   patient:'Patient User',
+//   admin:'Admin User'
+// }
+// const CurrentUserType = UserTypes.admin
+
+
+
+
 
 function App() {
+  const [app ,setApp] = useState('')
+  const UserTypes = {
+    doctor:"Doctor User",
+    patient:'Patient User',
+    admin:'Admin User'
+  }
+  // const CurrentUserType = UserTypes.doctor
+  const CurrentUserType = app
+  const roleData = (role) => {
+    setApp(role)
+    console.log("user role1",app)
+    console.log("user role2",role)
+
+  }
   return (
     
     <Router>
         
           <Route exact path="/">
-            <Signin /> 
+            <Signin onSubmit={roleData} /> 
           </Route>
       <div className="containers">
         <Switch>
           <Route  path="/dashboard">
-            {<ProtectedElement>{CurrentUserType === UserTypes.admin? <DashboardAdmin />:CurrentUserType === UserTypes.doctor? <DashboardDoc />:null}</ProtectedElement>}
+            {<ProtectedElement>{CurrentUserType === app? <DashboardAdmin />:CurrentUserType === app? <DashboardDoc />:null}</ProtectedElement>}
+            {/* {<ProtectedElement>{CurrentUserType === UserTypes.admin? <DashboardAdmin />:CurrentUserType === UserTypes.doctor? <DashboardDoc />:null}</ProtectedElement>} */}
           </Route>
           <Route path="/Device">
            {<Device />}

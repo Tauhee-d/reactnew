@@ -1,137 +1,54 @@
-// import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import './Signin.css'
-// import { NavLink } from "react-router-dom";
-// import axios from 'axios'
 
-
-// const Signin = () => {
-//     const history = useNavigate()
-//     const [inputData, setInputData] = useState({
-//         email: '', password: ''
-//     })
-//     const getData = (e) => {
-//         // console.log(e.target.value);
-//         setInputData(() => {
-//             const { value, name } = e.target;
-//             return {
-//                 ...inputData,
-//                 [name]: value
-//             }
-//         })
-//     }
-//     // const [data, setData] = useState([])
-//     const submitData = (e) => {
-//         e.preventDefault();
-//         const getUserData = localStorage.getItem("userDetails")
-//         console.log(getUserData);
-//         axios.post("http://localhost:6068/api/v1/auth/home/login",
-//         {email:inputData.email,password:inputData.password },
-
-       
-
-//         )
-//         .then(res => {
-//             console.log("res:",res.data)
-//             history("/orders")
-
-//         })
-//         .catch(err => {
-//             console.log("err:",err);
-//         })
-
-//         const { email, password } = inputData
-//         if (email === "") {
-//             alert("email field is required")
-//         } else if (!email.includes('@')) {
-//             alert("enter valid email address")
-//         } else if (password === "") {
-//             alert("password field is required")
-//         } else {
-//             if (getUserData && getUserData.length) {
-//                 const UserData = JSON.parse(getUserData)
-//                 const userLogin = UserData.filter((el, k) => {
-//                     return el.email === email && el.password === password
-//                 })
-//                 if (userLogin.length === 0) {
-//                     alert("Invalid username or password")
-//                 } else {
-//                     console.log("user login sucessfully");
-//                     // history("/Home")
-//                 }
-//             }
-//         }
-
-//     }
-//     return (
-//         <>
-//             <div className="signup">
-//                 <form className="signup-form-layout">
-//                     <h2 className=" mb-6">Signin</h2>
-
-//                     <div className="mb-3" >
-//                         <label for="exampleInputEmail1" className="form-label">Email address</label>
-//                         <input type="email" onChange={getData} name='email' className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-//                     </div>
-//                     <div className="mb-3">
-//                         <label for="exampleInputPassword1" className="form-label">Password</label>
-//                         <input type="password" onChange={getData} name='password' className="form-control" id="exampleInputPassword1" />
-//                     </div>
-
-// <div className="button_container">
-
-//                     <button type="submit" onClick={submitData} className="btn btn-primary col-lg-4">Sign in</button>
-//                     <button type="submit"  className="btn btn-primary col-lg-4"><span><NavLink to="/ForgetPwd">SignUp</NavLink></span></button>
-// </div>
-//                     <p className="mt-3">Create a New Account? <span><NavLink to="/Signup">SignUp</NavLink></span></p>
-
-
-//                 </form>
-//             </div>
-//         </>
-//     )
-// }
-// export default Signin
 
 import React, { useEffect, useState } from "react";
 import './Signin.css'
 import { NavLink, useHistory } from "react-router-dom";
 import axios from 'axios'
+import App from "../../App";
 
-const Signin = () => {
+const Signin = (props) => {
+    // const [show , setShow] =useState(false)
     const getUserData = localStorage.getItem("userDetails")
     const navigation = useHistory();
-
-
-
-
+    
+    
+    
+    
     const initialValues = { email: '', password: '' }
     const [formValues, setFormValues] = useState(initialValues)
     const [formErrors, setFormErrors] = useState({})
     const [isSubmit, setIsSubmit] = useState(false)
-    const [data, setData] = useState([])
-
+    // const [data, setData] = useState([])
+    const [role , setRole] = useState('')
+    
     const getData = (e) => {
         const { name, value } = e.target
         setFormValues({ ...formValues, [name]: value })
     }
-
     
-
-    const submitData = (e) => {
+    
+    
+    const submitData = async (e) => {
         e.preventDefault()
-
-
+        
+        
         setFormErrors(validate(formValues))
         setIsSubmit(true)
-        axios.post("https://yantram-backend.onrender.com/api/v1/auth/home/login",
+    
+
+        await axios.post("https://dashboard-login.onrender.com/signin",
+        // await axios.post("http://localhost:3055/signin",
+        // axios.post("https://yantram-backend.onrender.com/api/v1/auth/home/login",
         {email:formValues.email,password:formValues.password },
-
-       
-
+        
+        
+        
         )
         .then(res => {
-            console.log("res:",res.data)
+            // const response = res.data.user
+            setRole(res.data.user);
+            console.log("response1",role)
+            console.log("response2",res.data.user)
             navigation.push("/dashboard")
 
         })
@@ -139,6 +56,7 @@ const Signin = () => {
             console.log("err:",err);
         })
 
+        props.onSubmit(role)
     }
     useEffect(() => {
         console.log(formErrors);
@@ -184,9 +102,11 @@ const Signin = () => {
 
     return (
         <>
+        {/* {show === <App role={role}/>} */}
+
             <div className="signup">
                 {/* <pre>{JSON.stringify(formValues, undefined, 2)}</pre> */}
-                <form className="signup-form-layout" >
+                <form className="signup-form-layout" onSubmit={submitData} >
                     <h1 className=" mb-6">Signin</h1>
 
                     <div className="mb-3" >
@@ -204,7 +124,7 @@ const Signin = () => {
 
 
 
-                    <button type="submit" onClick={submitData} className="btn btn-primary col-lg-4">Sign in</button>
+                    <button type="submit"  className="btn btn-primary col-lg-4">Sign in</button>
                     <p className="mt-3">Already Have an Account <span><NavLink to="/Signup">SignUp</NavLink></span></p>
 
                 </form>

@@ -15,8 +15,7 @@ router.post("/table", async (req, res) => {
   try {
     const emailExits = await User.findOne({ email: email });
     if (emailExits) {
-      return res.status(422).json({ error: "email is already exists" });
-    }
+     }
     const table = new User(req.body);
     const tableData = await table.save();
     if (tableData) {

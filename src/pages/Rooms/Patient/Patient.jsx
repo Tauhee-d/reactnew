@@ -7,7 +7,11 @@ import { Link } from 'react-router-dom';
 
 
 
-const Patient = () => {
+const Patient = ({state}) => {
+
+    const handleClick = () => {
+        state(3)
+    }
     
     const roomProfile = roomData1.map((data,i)=> {
         return(
@@ -47,7 +51,7 @@ const Patient = () => {
                 <div>
                    
                 {/* <Link style={{textDecoration:'none'}} exact to="/profile"> */}
-                 <button>Visit patient page </button>
+                 <button onClick={handleClick}>Visit patient page </button>
                 {/* </Link> */}
                 </div>
             </div>
@@ -70,9 +74,7 @@ const Patient = () => {
 
             
             <div className="profile-flex">
-              
-
-            {roomProfile}
+              {roomProfile}
             </div>
             </Scrollbars>
             

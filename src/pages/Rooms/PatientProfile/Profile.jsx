@@ -9,6 +9,7 @@ import { LineChart,  ResponsiveContainer,  Legend,  Tooltip, Line, XAxis, YAxis 
 
 
 const Profile = () => {
+    
     const [currentValue, setCurrentValue] = useState(1)
     const [curentValue, setCurentValue] = useState(11)
     const Data = [
@@ -41,7 +42,7 @@ const Profile = () => {
     }
     const Table = (props) => {
         const { data } = props
-        console.log(data);
+        // console.log(data);
         return (
             <table className="centered"  id='Table'>
                 <tbody>
