@@ -49,7 +49,7 @@ const Signin = (props) => {
             setRole(res.data.user);
             console.log("response1",role)
             console.log("response2",res.data.user)
-            navigation.push("/dashboard")
+            // navigation.push("/dashboard")
 
         })
         .catch(err => {

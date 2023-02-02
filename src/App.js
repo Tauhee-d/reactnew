@@ -29,14 +29,15 @@ import { useState } from "react";
 
 
 function App() {
+  
   const [app ,setApp] = useState('')
   const UserTypes = {
     doctor:"Doctor User",
     patient:'Patient User',
     admin:'Admin User'
   }
-  // const CurrentUserType = UserTypes.doctor
-  const CurrentUserType = app
+  const CurrentUserType = UserTypes.doctor
+  // const CurrentUserType = app
   const roleData = (role) => {
     setApp(role)
     console.log("user role1",app)
@@ -53,8 +54,8 @@ function App() {
       <div className="containers">
         <Switch>
           <Route  path="/dashboard">
-            {<ProtectedElement>{CurrentUserType === app? <DashboardAdmin />:CurrentUserType === app? <DashboardDoc />:null}</ProtectedElement>}
-            {/* {<ProtectedElement>{CurrentUserType === UserTypes.admin? <DashboardAdmin />:CurrentUserType === UserTypes.doctor? <DashboardDoc />:null}</ProtectedElement>} */}
+            {/* {<ProtectedElement>{CurrentUserType && app && UserTypes.admin? <DashboardAdmin />:CurrentUserType && app && UserTypes.doctor? <DashboardDoc />:null}</ProtectedElement>} */}
+            {<ProtectedElement>{CurrentUserType === UserTypes.admin? <DashboardAdmin />:CurrentUserType === UserTypes.doctor? <DashboardDoc />:null}</ProtectedElement>}
           </Route>
           <Route path="/Device">
            {<Device />}
