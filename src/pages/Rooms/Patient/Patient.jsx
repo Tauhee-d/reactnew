@@ -2,16 +2,22 @@ import React from 'react'
 import './Patient.css'
 import profile from '../../../assets/img/profile.jpg'
 import { roomData1 } from './Room1Data';
+import SubTopbar  from '../../../components/SubTopbar/SubTopbar'
 import { Scrollbars } from 'react-custom-scrollbars';
-import { Link } from 'react-router-dom';
+import { Link,useHistory } from 'react-router-dom';
 
 
 
 const Patient = ({state}) => {
+    const history = useHistory()
 
     const handleClick = () => {
         state(3)
     }
+    const backButton = () => {
+        state(1)
+    }
+
     
     const roomProfile = roomData1.map((data,i)=> {
         return(
@@ -71,8 +77,12 @@ const Patient = ({state}) => {
            
             <div className="rightBox">
             <Scrollbars>
+             <SubTopbar/>   
 
-            
+            {/* <button onClick={() => history.goBack}>Go Back</button> */}
+            <button className='back-button' onClick={backButton}>Go Back</button>
+     
+
             <div className="profile-flex">
               {roomProfile}
             </div>

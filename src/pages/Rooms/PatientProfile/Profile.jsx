@@ -1,6 +1,8 @@
 import React,{useState} from 'react'
 import Scrollbars from 'react-custom-scrollbars'
 import './Profile.css'
+import SubTopbar  from '../../../components/SubTopbar/SubTopbar'
+
 import Avatar from '../../../assets/img/Avatar.jpeg'
 import { GrAlarm,GrDocumentPdf,GrMailOption } from 'react-icons/gr';
 import { FiEdit } from 'react-icons/fi';
@@ -8,7 +10,11 @@ import { FormControl, MenuItem, Select } from '@mui/material';
 import { LineChart,  ResponsiveContainer,  Legend,  Tooltip, Line, XAxis, YAxis } from "recharts";
 
 
-const Profile = () => {
+const Profile = ({state}) => {
+
+    const backButton = () => {
+        state(2)
+    }
     
     const [currentValue, setCurrentValue] = useState(1)
     const [curentValue, setCurentValue] = useState(11)
@@ -63,7 +69,8 @@ const Profile = () => {
        
         <div className="right-profile">
             <Scrollbars>
-
+                <SubTopbar/>
+                <button className='back-button' onClick={backButton}>Go Back</button>
                 <div className="Profile">
                     <div className="profile-left">
                         <div className='left-1block'>
