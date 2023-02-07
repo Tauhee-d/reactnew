@@ -78,9 +78,9 @@ function App() {
           <Route path="/patient">
             {<ProtectedElement>{Role === UserTypes.patient?<Patient1/>:Role === UserTypes.admin? <Patient1 />:null}</ProtectedElement>}
           </Route>
-          <Route path="*">
+          {/* <Route path="*">
             <div>Page Not Found!</div>
-          </Route>
+          </Route> */}
           
          
           {/* <Route path="/rooms">
