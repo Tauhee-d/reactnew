@@ -1,0 +1,9 @@
+.test1-container{
+    display: flex;
+}
+.test1-left{
+    flex: 1;
+}
+.test1-right{
+    flex: 4;
+}

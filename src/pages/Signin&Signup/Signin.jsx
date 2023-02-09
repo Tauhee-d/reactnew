@@ -2,14 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import './Signin.css'
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from 'axios'
 import App from "../../App";
 
 const Signin = (props) => {
     // const [show , setShow] =useState(false)
     const getUserData = localStorage.getItem("userDetails")
-    const navigation = useHistory();
+    const navigation = useNavigate();
     
     
     
@@ -37,8 +37,8 @@ const Signin = (props) => {
         setIsSubmit(true)
     
 
-        // await axios.post("https://dashboard-login.onrender.com/signin",
-        await axios.post("http://localhost:3055/signin",
+        await axios.post("https://dashboard-login.onrender.com/signin",
+        // await axios.post("http://localhost:3055/signin",
         // axios.post("https://yantram-backend.onrender.com/api/v1/auth/home/login",
         {email:formValues.email,password:formValues.password },
         
@@ -55,7 +55,7 @@ const Signin = (props) => {
             console.log("response2",res.data.user)
             console.log("response1",role)
             props.onSubmit(role)
-            navigation.push("/dashboard")
+            navigation("/dashboard")
             
         })
         .catch(err => {

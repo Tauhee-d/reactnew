@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import Scrollbars from 'react-custom-scrollbars'
-import './Profile.css'
+import './PatientProfile.css'
 import SubTopbar  from '../../../components/SubTopbar/SubTopbar'
 
 import Avatar from '../../../assets/img/Avatar.jpeg'
@@ -8,13 +8,28 @@ import { GrAlarm,GrDocumentPdf,GrMailOption } from 'react-icons/gr';
 import { FiEdit } from 'react-icons/fi';
 import { FormControl, MenuItem, Select } from '@mui/material';
 import { LineChart,  ResponsiveContainer,  Legend,  Tooltip, Line, XAxis, YAxis } from "recharts";
+import {studentDetails,patientProfile} from '../RoomData'
+import {useLocation} from 'react-router-dom'
+import Navbar from '../../../components/Navbar/Navbar'
+import { useNavigate } from 'react-router-dom'
 
 
-const Profile = ({state}) => {
+const PatientProfile = () => {
+    const history = useNavigate()
 
-    const backButton = () => {
-        state(2)
-    }
+    const location = useLocation()
+  const ID = location.state.id
+
+  const handleClick = () => {
+    window.history.back()
+  }
+
+
+
+  const patientList = patientProfile.filter(student => student.id === ID);
+//   const studentList = studentDetails.filter(student => student.id === ID);
+
+   
     
     const [currentValue, setCurrentValue] = useState(1)
     const [curentValue, setCurentValue] = useState(11)
@@ -66,11 +81,24 @@ const Profile = ({state}) => {
    
 
     <div className='Container'>
+        <div className="left-profile"><Navbar/></div>
        
         <div className="right-profile">
             <Scrollbars>
                 <SubTopbar/>
-                <button className='back-button' onClick={backButton}>Go Back</button>
+                <button className='back-button' onClick={handleClick}>Go Back</button>
+               
+
+{/*                 
+                {studentList.map(student => (
+        <li key={student.id} >
+          {student.details}
+        </li>
+      ))} */}
+
+                {patientList.map(patient => {
+                    return(
+<>
                 <div className="Profile">
                     <div className="profile-left">
                         <div className='left-1block'>
@@ -79,7 +107,7 @@ const Profile = ({state}) => {
                             <img className='img-1' src={Avatar} alt="" srcset="" />
                         </div>
                         <div >
-                            <span>Sarah jones</span>
+                            <span>{patient.name}</span>
                             <span>Patient Id - 17382392</span>
                             <span>Phone - 093858376346</span>
                             <span>Email - sarah@gmail.com</span>
@@ -210,14 +238,11 @@ const Profile = ({state}) => {
 
                         </div>
                     </div>
-                    {/* <div className="profile-3block">
-                        <div className="block3-left">
-                            Sleep Analysis Graph
-                        </div>
-                        <div className="block3-right">
-                            Some other vitals
-                        </div>
-                    </div> */}
+                    </>
+                    )
+                })}
+
+                   
             
 
             </Scrollbars>
@@ -227,4 +252,4 @@ const Profile = ({state}) => {
   )
 }
 
-export default Profile
+export default PatientProfile

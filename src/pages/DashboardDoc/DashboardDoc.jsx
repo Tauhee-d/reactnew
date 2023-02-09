@@ -1,19 +1,29 @@
-import React from 'react'
+import React,{useState} from 'react'
 import './DashboardDoc.css'
 import Navbar from '../../components/Navbar/Navbar'
 import SubTopbar from '../../components/SubTopbar/SubTopbar'
-import {RecentPatient,RecentNotifications,RecentAlerts,RecentMessages} from './DahboardDoc'
-
+import {RecentPatientData,RecentNotifications,RecentAlerts,RecentMessages} from './DahboardDoc'
+import {Link} from 'react-router-dom'
+import SingleRecPatient from './SingleRecPatient'
 const DashboardDoc = () => {
+  const [hide , setHide] = useState(true)
+ 
 
-  const t1 = RecentPatient.map((data,i)=>{
+  const t1 = RecentPatientData.map(data=>{
+    
+    
    
     return(
       <>
-           <tr key={i}>
-            <td>{data.id}</td>
+           <tr  >
+           <td><Link style={{ textDecoration: 'none' }}  exact to={`/recentpatient/${data.id}`} key={data.id} >{data.id}</Link></td>
+           <td><Link style={{ textDecoration: 'none' }} exact to={`/recentpatient/${data.id}`} key={data.id} >{data.name}</Link></td>
+           <td><Link style={{ textDecoration: 'none' }} exact to={`/recentpatient/${data.id}`} key={data.id} >{data.disease}</Link></td>
+           {/* <td><Link exact to="/dashboard">{data.message}</Link></td> */}
+
+            {/* <td>{data.id}</td>
             <td>{data.name}</td>
-            <td>{data.disease}</td>
+            <td>{data.disease}</td> */}
           </tr>
       </>
     )
@@ -59,10 +69,11 @@ const DashboardDoc = () => {
     <div className='DashboardDoc'>
         <div className="doc-left"><Navbar/></div>
         <div className="doc-right">
-          <SubTopbar/>
+           <SubTopbar />
           Doctor Dashboard
         <div className='container-1'>  
           <div className="recent-patient">
+         
               Recently added patient
               <table>
               <thead>

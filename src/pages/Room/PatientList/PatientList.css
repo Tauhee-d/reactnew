@@ -1,0 +1,101 @@
+.Maincontainer{
+    display: flex;
+}
+.leftBox{
+    flex: 1;
+}
+.rightBox{
+    flex: 4;
+}
+.img{
+  
+    
+border: 0px solid #000000;
+    width: 5rem;
+    display: flex;
+    position: relative;
+    left: 5.6rem;
+    top: -2rem;
+
+    border-radius: 195px 195px 195px 195px;
+    -moz-border-radius: 195px 195px 195px 195px;
+    -webkit-border-radius: 195px 195px 195px 195px;
+
+ 
+}
+.profile-flex{
+
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 4%;
+}
+.profile-container{
+    margin: 40px;
+
+}
+.profile{
+    -webkit-box-shadow: inset 0px 5px 5px 0px rgba(0,0,0,0.47);
+    -moz-box-shadow: inset 0px 5px 5px 0px rgba(0,0,0,0.47);
+    box-shadow: inset 0px 5px 5px 0px rgba(0,0,0,0.47);
+    width: 17rem;
+    height: 15rem;
+    padding: 10px;
+}
+.profile>:nth-child(2){
+   
+    display: flex;
+    flex-direction: column;
+    
+}
+.profile>:nth-child(2)>:nth-child(1){
+text-align: center;
+font-size: large;
+font-weight: bold;
+
+    
+}
+.profile>:nth-child(2)>:nth-child(2){
+    text-align: center;
+    margin-top: 3px;
+font-size: small;
+   
+
+}
+.profile>:nth-child(3){
+   
+    display: flex;
+    flex-direction: column;
+        background-color: #f8f9fa;
+        margin-top: 3px;
+
+}
+.profile>:nth-child(3)>:nth-child(1){
+    font-size: small;
+        background-color: #f8f9fa;
+        margin-top: 3px;
+
+    }
+.profile>:nth-child(3)>:nth-child(2){
+    font-size: small;
+        background-color: #f8f9fa;
+        margin-top: 3px;
+
+    }
+.profile>:nth-child(4){
+    font-size: small;
+    display: flex;
+    gap: 2rem;
+    background-color: #f8f9fa;
+    margin-top: 3px;
+
+    }
+.profile>:nth-child(5){
+    /* font-size: small; */
+    display: flex;
+    /* gap: 2rem; */
+    /* background-color: #f8f9fa; */
+    margin-top: 3px;
+    justify-content: center;
+
+    }
+

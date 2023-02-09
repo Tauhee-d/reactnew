@@ -1,6 +1,37 @@
+export const rooms = [
+    { id: 1, name: "Room 1" },
+    { id: 2, name: "Room 2" },
+    { id: 3, name: "Room 3" }
+  ];
+
+  export const students = [
+    { id: 1, roomId: 1, name: "Student 1" },
+    { id: 2, roomId: 1, name: "Student 2" },
+    { id: 3, roomId: 2, name: "Student 3" },
+    { id: 4, roomId: 2, name: "Student 4" },
+    { id: 5, roomId: 3, name: "Student 5" },
+    { id: 6, roomId: 3, name: "Student 6" }
+  ];
+  
+  export const studentDetails = [
+    { id: 1, details: "Details 1" },
+    { id: 2, details: "Details 2" },
+    { id: 3, details: "Details 3" },
+    { id: 4, details: "Details 4" },
+    { id: 5, details: "Details 5" },
+    { id: 6, details: "Details 6" }
+  ];
+
+
+
+
+
+
+
+
 export const RoomData = [
     {
-        id:"01",
+        id:1,
         room:"Room1",
         patient:"42",
         device:"NV core",
@@ -11,7 +42,7 @@ export const RoomData = [
        
     },
     {
-        id:"02",
+        id:2,
         room:"Room2",
         patient:"32",
         device:"NV core",
@@ -22,7 +53,7 @@ export const RoomData = [
         
     },
     {
-        id:"03",
+        id:3,
         room:"Room3",
         patient:"44",
         device:"NV core",
@@ -33,7 +64,7 @@ export const RoomData = [
         
     },
     {
-        id:"04",
+        id:4,
         room:"Room4",
         patient:"52",
         device:"NV core",
@@ -46,7 +77,8 @@ export const RoomData = [
 ]
 export const PatientList = [
     {  
-      roomId:'01',
+        id:1,
+      roomId:1,
        name:"sarah jones",
        patientId:"14556347",
        temp:"98.6f",
@@ -55,7 +87,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'01',
+        id:2,
+        roomId:1,
        name:"juliana maxwell",
        patientId:"14556347",
        temp:"68.6f",
@@ -64,7 +97,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'03',
+        id:3,
+        roomId:3,
        name:"andrew russell",
        patientId:"14556347",
        temp:"99.6f",
@@ -73,7 +107,8 @@ export const PatientList = [
 
     },
     {  
-      id:'04',
+        id:4,
+      roomId:2,
        name:"karan johar",
        patientId:"14556347",
        temp:"68.6f",
@@ -82,7 +117,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'02',
+        id:5,
+        roomId:2,
        name:"anees jones",
        patientId:"14556347",
        temp:"98.6f",
@@ -91,7 +127,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'01',
+        id:6,
+        roomId:1,
        name:"harshat mehta",
        patientId:"14556347",
        temp:"28.6f",
@@ -100,7 +137,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'02',
+        id:7,
+        roomId:2,
        name:"sarah jones",
        patientId:"14556347",
        temp:"98.6f",
@@ -109,7 +147,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'03',
+        id:8,
+        roomId:3,
        name:"juliana maxwell",
        patientId:"14556347",
        temp:"68.6f",
@@ -118,7 +157,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'03',
+        id:9,
+        roomId:3,
        name:"andrew russell",
        patientId:"14556347",
        temp:"99.6f",
@@ -127,7 +167,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'02',
+        id:10,
+        roomId:2,
        name:"karan johar",
        patientId:"14556347",
        temp:"68.6f",
@@ -136,7 +177,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'04',
+        id:11,
+        roomId:4,
        name:"anees jones",
        patientId:"14556347",
        temp:"98.6f",
@@ -145,7 +187,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'04',
+        id:12,
+        roomId:4,
        name:"harshat mehta",
        patientId:"14556347",
        temp:"28.6f",
@@ -154,7 +197,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'03',
+        id:13,
+        roomId:3,
        name:"sarah jones",
        patientId:"14556347",
        temp:"98.6f",
@@ -163,7 +207,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'02',
+        id:14,
+        roomId:2,
        name:"juliana maxwell",
        patientId:"14556347",
        temp:"68.6f",
@@ -172,7 +217,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'01',
+        id:15,
+        roomId:1,
        name:"andrew russell",
        patientId:"14556347",
        temp:"99.6f",
@@ -181,7 +227,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'04',
+        id:16,
+        roomId:4,
        name:"karan johar",
        patientId:"14556347",
        temp:"68.6f",
@@ -190,7 +237,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'03',
+        id:17,
+        roomId:3,
        name:"anees jones",
        patientId:"14556347",
        temp:"98.6f",
@@ -199,7 +247,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'02',
+        id:18,
+        roomId:2,
        name:"harshat mehta",
        patientId:"14556347",
        temp:"28.6f",
@@ -208,7 +257,8 @@ export const PatientList = [
 
     },
     {  
-        roomId:'01',
+        id:19,
+        roomId:1,
        name:"harshat mehta",
        patientId:"14556347",
        temp:"28.6f",
@@ -217,9 +267,9 @@ export const PatientList = [
 
     },
 ]
-export const PatientProfile = [
+export const patientProfile = [
     {  
-        id:'01',
+        id:1,
         patient:'11',
        name:"sarah jones",
        patientId:"14556347",
@@ -229,7 +279,7 @@ export const PatientProfile = [
 
     },
     {  
-        id:'02',
+        id:2,
         patient:'12',
        name:"juliana maxwell",
        patientId:"14556347",
@@ -239,7 +289,7 @@ export const PatientProfile = [
 
     },
     {  
-        id:'03',
+        id:3,
         patient:'13',
        name:"andrew russell",
        patientId:"14556347",
@@ -249,7 +299,7 @@ export const PatientProfile = [
 
     },
     {  
-        id:'04',
+        id:4,
         patient:'14',
        name:"karan johar",
        patientId:"14556347",
@@ -259,7 +309,7 @@ export const PatientProfile = [
 
     },
     {  
-        id:'05',
+        id:5,
         patient:'15',
        name:"anees jones",
        patientId:"14556347",
@@ -269,7 +319,7 @@ export const PatientProfile = [
 
     },
     {  
-        id:'06',
+        id:6,
         patient:'16',
        name:"harshat mehta",
        patientId:"14556347",
@@ -279,7 +329,7 @@ export const PatientProfile = [
 
     },
     {  
-        id:'07',
+        id:7,
         patient:'17',
        name:"sarah jones",
        patientId:"14556347",

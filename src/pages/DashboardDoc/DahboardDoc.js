@@ -1,4 +1,4 @@
-export const RecentPatient = [
+export const RecentPatientData = [
     {
         id:'01',
         name:'John',
@@ -13,6 +13,34 @@ export const RecentPatient = [
         id:'03',
         name:'Zab',
         disease:'Heart issues'
+    },
+]
+export const RecentSinglePatientData = [
+    {
+        id:'01',
+        name:'John',
+        disease:'diabetes',
+        email:'john@gamil',
+        age:'12',
+        gender:'male',
+
+    },
+    {
+        id:'02',
+        name:'Amar',
+        disease:'kidney stone',
+        email:'Amar@gamil',
+        age:'12',
+        gender:'male',
+    },
+    {
+        id:'03',
+        name:'Zab',
+        disease:'Heart issues',
+        name:'Zab',
+        email:'@gamil',
+        age:'32',
+        gender:'male',
     },
 ]
 

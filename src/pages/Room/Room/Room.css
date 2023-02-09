@@ -1,0 +1,163 @@
+.Rooms {
+    /* flex: 4; */
+    display: flex;
+  
+    /* background-color: #f8f9fa; */
+    background-color: white;
+    
+}
+.leftRoom{
+    flex: 1;
+}
+.rightRoom{
+    flex: 4;
+}
+.room-card{
+    /* display: flex; */
+
+    /* flex-direction: column; */
+
+    /* flex-direction: row; */
+}
+#Rooms-flex{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 5%;
+  
+
+}
+
+.card-style{
+    width: 18rem;
+    height: 15rem;
+    -webkit-box-shadow: inset 1px 10px 5px -7px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset 1px 10px 5px -7px rgba(0,0,0,0.75);
+    box-shadow: inset 1px 10px 5px -7px rgba(0,0,0,0.75)
+
+}
+
+
+.roomsContent {
+    margin: 26px;
+    padding: 10px;
+    background-color:  rgb(150, 218, 208);
+    height: 230px;
+    width: 250px;
+    justify-content: center;
+    
+
+    -webkit-box-shadow: inset 0px 5px 5px 0px rgba(0,0,0,0.47);
+    -moz-box-shadow: inset 0px 5px 5px 0px rgba(0,0,0,0.47);
+    box-shadow: inset 0px 5px 5px 0px rgba(0,0,0,0.47);
+
+}
+
+.titlep{
+    background-color:  rgb(71, 172, 157);
+    /* margin-top: 14px; */
+    text-align: center;
+}
+.totalPatients{
+    display: flex;
+}
+.tph{
+    padding: 8px;
+    width: 80px;
+   /* margin-left: 12px; */
+    background-color:  rgb(183, 238, 232);
+}
+.apd{
+    width: 140px;
+    padding: 8px;
+    margin-left: 10px;
+    background-color:  rgb(183, 238, 232);
+}
+.Devices {
+    padding: 8px;
+
+    background-color:  rgb(183, 238, 232);
+    /* margin: 10px; */
+    margin-top:12px ;
+}
+.dc{
+    display: flex;
+}
+.count{
+    margin-left: 30px;
+}
+.status{
+    margin-left: 30px;
+}
+
+/* Add book css  */
+.atag {
+    width: 230px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.patient-details>div{
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    width:17rem;
+    height: 18rem;
+    margin: 2rem;
+    -webkit-box-shadow: inset 0px 5px 5px 0px rgba(0,0,0,0.47);
+    -moz-box-shadow: inset 0px 5px 5px 0px rgba(0,0,0,0.47);
+    box-shadow: inset 0px 5px 5px 0px rgba(0,0,0,0.47);
+}
+.patient-details>div>:nth-child(1){
+    display: flex;
+    position: relative;
+    top: -2rem;
+    left: 5.5rem;
+    border-radius: 194px 194px 194px 194px;
+    -webkit-border-radius: 194px 194px 194px 194px;
+    -moz-border-radius: 194px 194px 194px 194px;
+    border: 0px solid #000000; 
+    margin-bottom: 0%;
+}
+.patient-details>div>:nth-child(2){
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+}
+.patient-details>div>:nth-child(3){
+    padding: 5px;
+    background-color: #edf2f6;
+    margin: 3px;
+    font-size: small;
+}
+.patient-details>div>:nth-child(4){
+    padding: 5px;
+    background-color: #edf2f6;
+    margin: 3px;
+    font-size: small;
+
+}
+.patient-details>div>:nth-child(5){
+    padding: 5px;
+    background-color: #edf2f6;
+    margin: 3px;
+    font-size: small;
+
+}
+.patient-details>div>:nth-child(6){
+    padding: 5px;
+    background-color: #edf2f6;
+    margin: 3px;
+    display: flex;
+    gap: 1rem;
+    font-size: small;
+
+}
+.profile-btn{
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+}
+.rightRoom{
+    height: 100vh;
+}

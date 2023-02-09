@@ -1,4 +1,4 @@
-export const RoomData = [
+export const SampleData1 = [
     {
         id:"01",
         room:"Room1",
@@ -44,8 +44,9 @@ export const RoomData = [
         
     }
 ]
-export const PatientList = [
+export const SampleData2 = [
     {  
+        id:'11',
       roomId:'01',
        name:"sarah jones",
        patientId:"14556347",
@@ -55,6 +56,7 @@ export const PatientList = [
 
     },
     {  
+        id:'12',
         roomId:'01',
        name:"juliana maxwell",
        patientId:"14556347",
@@ -64,6 +66,7 @@ export const PatientList = [
 
     },
     {  
+        id:'13',
         roomId:'03',
        name:"andrew russell",
        patientId:"14556347",
@@ -73,7 +76,8 @@ export const PatientList = [
 
     },
     {  
-      id:'04',
+        roomId:'04',
+      id:'14',
        name:"karan johar",
        patientId:"14556347",
        temp:"68.6f",
@@ -82,6 +86,7 @@ export const PatientList = [
 
     },
     {  
+        id:'15',
         roomId:'02',
        name:"anees jones",
        patientId:"14556347",
@@ -91,6 +96,7 @@ export const PatientList = [
 
     },
     {  
+        id:'16',
         roomId:'01',
        name:"harshat mehta",
        patientId:"14556347",
@@ -100,6 +106,7 @@ export const PatientList = [
 
     },
     {  
+        id:'17',
         roomId:'02',
        name:"sarah jones",
        patientId:"14556347",
@@ -107,117 +114,9 @@ export const PatientList = [
        device:"NV core",
        deviceId:"3245ewf45763"
 
-    },
-    {  
-        roomId:'03',
-       name:"juliana maxwell",
-       patientId:"14556347",
-       temp:"68.6f",
-       device:"NV core",
-       deviceId:"3445ewf45763"
-
-    },
-    {  
-        roomId:'03',
-       name:"andrew russell",
-       patientId:"14556347",
-       temp:"99.6f",
-       device:"NV core",
-       deviceId:"3245ewf45763"
-
-    },
-    {  
-        roomId:'02',
-       name:"karan johar",
-       patientId:"14556347",
-       temp:"68.6f",
-       device:"NV core",
-       deviceId:"3245ewf45763"
-
-    },
-    {  
-        roomId:'04',
-       name:"anees jones",
-       patientId:"14556347",
-       temp:"98.6f",
-       device:"NV core",
-       deviceId:"3245ewf45763"
-
-    },
-    {  
-        roomId:'04',
-       name:"harshat mehta",
-       patientId:"14556347",
-       temp:"28.6f",
-       device:"NV core",
-       deviceId:"3245ewf45763"
-
-    },
-    {  
-        roomId:'03',
-       name:"sarah jones",
-       patientId:"14556347",
-       temp:"98.6f",
-       device:"NV core",
-       deviceId:"3245ewf45763"
-
-    },
-    {  
-        roomId:'02',
-       name:"juliana maxwell",
-       patientId:"14556347",
-       temp:"68.6f",
-       device:"NV core",
-       deviceId:"3445ewf45763"
-
-    },
-    {  
-        roomId:'01',
-       name:"andrew russell",
-       patientId:"14556347",
-       temp:"99.6f",
-       device:"NV core",
-       deviceId:"3245ewf45763"
-
-    },
-    {  
-        roomId:'04',
-       name:"karan johar",
-       patientId:"14556347",
-       temp:"68.6f",
-       device:"NV core",
-       deviceId:"3245ewf45763"
-
-    },
-    {  
-        roomId:'03',
-       name:"anees jones",
-       patientId:"14556347",
-       temp:"98.6f",
-       device:"NV core",
-       deviceId:"3245ewf45763"
-
-    },
-    {  
-        roomId:'02',
-       name:"harshat mehta",
-       patientId:"14556347",
-       temp:"28.6f",
-       device:"NV core",
-       deviceId:"3245ewf45763"
-
-    },
-    {  
-        roomId:'01',
-       name:"harshat mehta",
-       patientId:"14556347",
-       temp:"28.6f",
-       device:"NV core",
-       deviceId:"3245ewf45763"
-
-    },
+    }
 ]
-export const PatientProfile = [
+export const SampleData3 = [
     {  
         id:'01',
         patient:'11',

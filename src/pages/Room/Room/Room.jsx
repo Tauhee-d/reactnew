@@ -1,42 +1,48 @@
-import "./room.css";
+import "./Room.css";
 import Navbar from "../../../components/Navbar/Navbar";
 import { Scrollbars } from "react-custom-scrollbars";
 import SubTopbar from "../../../components/SubTopbar/SubTopbar";
-import { RoomData } from "./RoomData";
+import { rooms,RoomData } from "../RoomData";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useState } from "react";
-import Patient from "../Patient/Patient";
-const Rooms = ({ state }) => {
-  const [selectedId, setSelectedId] = useState(null);
-  console.log("selectedId", setSelectedId);
-  const [hide, setHide] = useState(false);
-  const handleClick = () => {
-    state(2);
-  };
+import Patient from "../PatientList/PatientList";
+import { useNavigate } from "react-router-dom";
+
+const Rooms = () => {
+  const history = useNavigate();
+
   return (
     <>
-      <div className="rooms">
+      <div className="Rooms">
+        <div className="leftRoom"><Navbar/></div>
         <div className="rightRoom">
           <Scrollbars>
             <SubTopbar />
 
             <div id="Rooms-flex">
+            {/* {rooms.map(room => (
+        <li key={room.id} onClick={() => history('/PatientList',{state:{id:room.id}})}>
+            
+          {room.name}
+        </li>
+      ))} */}
               {RoomData.map((data) => {
                 return (
                   <div
                     key={data.id}
                     className="room-card"
                     style={{ cursor: "pointer" }}
-                    onClick={() => setSelectedId(data.id)}
+                    onClick={() =>
+                      history("/PatientList", { state: { id: data.id } })
+                    }
                   >
                     <Card
                       variant="outlined"
                       style={{ margin: "30px" }}
                       className="card-style"
-                      onClick={() => handleClick()}
                     >
                       <React.Fragment>
                         <CardContent>
@@ -91,7 +97,6 @@ const Rooms = ({ state }) => {
                         </CardContent>
                       </React.Fragment>
                     </Card>
-                    {selectedId && <Patient id={selectedId} />}
                   </div>
                 );
               })}
