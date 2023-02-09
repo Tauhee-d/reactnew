@@ -41,11 +41,11 @@ const Navbar = () => {
           </Link>
         </li>
        
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <Link className="nav-link" to="/parentrooms" id='acolor'>
             <AiFillPieChart size={20} className='icons' /> Roomss <AiOutlineRight className='icons1' />
           </Link>
-        </li>
+        </li> */}
         <li className="nav-item">
           <Link className="nav-link" to="/Room" id='acolor'>
             <AiFillPieChart size={20} className='icons' /> Rooms <AiOutlineRight className='icons1' />
