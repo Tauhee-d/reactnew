@@ -54,7 +54,7 @@ const Rooms = () => {
                             padding={"8px"}
                             gutterBottom
                           >
-                            {data.id}
+                            {data.room}
                           </Typography>
 
                           <Typography

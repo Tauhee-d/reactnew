@@ -87,7 +87,7 @@ const Patient = () => {
               <span>{data.deviceId}</span>
             </div>
             <div>
-              <button onClick={() => history('/PatientProfile',{state:{id:data.id}})}>Visit patient page </button>
+              <button style={{cursor:'pointer'}} onClick={() => history('/PatientProfile',{state:{id:data.id}})}>Visit patient page </button>
             </div>
           </div>
         </div>

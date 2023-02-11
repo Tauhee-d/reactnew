@@ -66,17 +66,29 @@ export const RecentAlerts = [
     {
         id:'01',
         patientName:'max',
-        temperature:'110F'
+        testName:'BCT',
+        temperature:'36',
+        alert:'High fever',
+        time:'sat 11 feb',
+        viewedStatus:'Viewed',
     },
     {
         id:'02',
         patientName:'mac',
-        temperature:'110F'
+        testName:'BCT',
+        temperature:'38',
+         alert:'High fever',
+        time:'sat 11 feb',
+        viewedStatus:'Viewed',
     },
     {
         id:'03',
         patientName:'shaaz',
-        temperature:'120F'
+        testName:'BCT',
+        temperature:'24',
+         alert:'Low fever',
+        time:'sat 11 feb',
+        viewedStatus:'Viewed',
     },
 ]
 

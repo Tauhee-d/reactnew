@@ -20,8 +20,11 @@ const PatientProfile = () => {
     const location = useLocation()
   const ID = location.state.id
 
-  const handleClick = () => {
+  const handleBack = () => {
     window.history.back()
+  }
+  const handleRoom = () => {
+    history('/Room')
   }
 
 
@@ -86,7 +89,8 @@ const PatientProfile = () => {
         <div className="right-profile">
             <Scrollbars>
                 <SubTopbar/>
-                <button className='back-button' onClick={handleClick}>Go Back</button>
+                <button className='back-button' onClick={handleBack}>Go Back</button>
+                <button className='back-room' onClick={handleRoom}>Rooms</button>
                
 
 {/*                 
