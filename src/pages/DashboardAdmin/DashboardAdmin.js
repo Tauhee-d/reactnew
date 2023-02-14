@@ -13,6 +13,7 @@ import {
 } from "react-bootstrap";
 import MainNavbar from "../../components/Navbar/Navbar";
 import Topbar from "../../components/Topbar/Topbar";
+import SubTopbar from '../../components/SubTopbar/SubTopbar'
 import { Scrollbars } from 'react-custom-scrollbars';
 
 function DashboardAdmin() {
@@ -25,7 +26,7 @@ function DashboardAdmin() {
     </div>
     <div className="rightBox">
     <Scrollbars>
-    <Topbar/>
+    <SubTopbar/>
       <Container fluid>
         <Row>
           <Col lg="3" sm="6">

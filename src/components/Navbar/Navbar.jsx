@@ -6,10 +6,23 @@ import Typography from '@mui/material/Typography';
 import yantram from '../../../src/assets/img/yantram.jpeg'
 import background from '../../../src/assets/img/sidebar2.jpg'
 import { Button } from '@mui/material';
+import { useState } from 'react';
 const Navbar = () => {
   
-
+  const [role ,setRole] = useState('')
   
+  const UserTypes = {
+    doctor:"doctor",
+    patient:'patient',
+    admin:"admin"
+  }
+  const Role = sessionStorage.getItem('user')
+
+  const roleData = (userrole) => {
+    console.log("first",sessionStorage)
+    setRole(userrole)
+  
+  }
 
 
   const myStyle={
@@ -56,13 +69,16 @@ const Navbar = () => {
           </Link>
           </Button>
         </li>
-        <li className="nav-item">
-        <Button className='nav-bttn'>
-          <Link className="nav-link" to="/Room" id='acolor'>
-            <AiFillPieChart size={20} style={{marginRight:'15px'}} />  <span style={{marginRight:'35px'}}>Rooms</span>
-          </Link>
-          </Button>
-        </li>
+          {Role === UserTypes.admin || Role === UserTypes.doctor?
+          <li className="nav-item">
+          <Button className='nav-bttn'>
+            <Link className="nav-link" to="/Room" id='acolor'>
+              <AiFillPieChart size={20} style={{marginRight:'15px'}} />  <span style={{marginRight:'35px'}}>Rooms</span>
+            </Link>
+            </Button>
+          </li>:null  
+        }
+      
        
        
         

@@ -71,7 +71,7 @@ function App() {
           </Route>
           <Route path="/recentpatient/:id" index element={<SingleRecPatient/>}/>
           <Route path="/parentrooms" index element={<ParentRoom/>}/>
-          <Route path="/Room" index element={<Room/>}/>
+          <Route path="/Room" index element={<ProtectedElement> {Role === UserTypes.admin? <Room/>: Role === UserTypes.doctor?<Room/>:null}</ProtectedElement>}/>
           <Route path="/PatientList" index element={<PatientList/>}/>
           <Route path="/PatientProfile" index element={<PatientProfile/>}/>
         

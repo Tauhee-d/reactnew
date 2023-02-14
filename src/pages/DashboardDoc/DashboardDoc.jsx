@@ -97,7 +97,7 @@ const DashboardDoc = () => {
    
     return(
       <>
-           <tr key={i} style={{cursor:'pointer'}}>
+           <tr key={i}>
             <td>{data.id}</td>
             <td>{data.messsage}</td>
             
