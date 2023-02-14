@@ -4,6 +4,9 @@ import Navbar from '../../components/Navbar/Navbar'
 import SubTopbar from '../../components/SubTopbar/SubTopbar'
 import {RecentPatientData,RecentNotifications,RecentAlerts,RecentMessages} from './DahboardDoc'
 import {Link} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+
+// import { useHistory } from 'react-router-dom';
 
 // material ui table 
 import {Box,Table,TableBody,TableCell,TableContainer,TableHead,TableRow} from '@mui/material';
@@ -18,26 +21,37 @@ const moderateTemperature = RecentAlerts.filter(item => item.temperature < 36);
 
 const DashboardDoc = () => {
   const [hide , setHide] = useState(true)
- 
-
+  
+  const navigate = useNavigate();
+  
+  
+  
+  
+  
+  
   const t1 = RecentPatientData.map(data=>{
     
+    const handleAddPatient = () => {
+      navigate(`/recentpatient/${data.id}`)
+    };
     
    
     return(
       <>
-           {/* <TableHead  > */}
-           <TableRow >
+         
+           <TableRow onClick={handleAddPatient} style={{cursor:'pointer'}} >
+           <TableCell>{data.id}</TableCell>
+           <TableCell>{data.name}</TableCell>
+           <TableCell>{data.disease}</TableCell>
+          </TableRow>
+          
+           {/* <TableRow >
            <TableCell><Link style={{ textDecoration: 'none' }}  exact to={`/recentpatient/${data.id}`} key={data.id} >{data.id}</Link></TableCell>
            <TableCell><Link style={{ textDecoration: 'none' }} exact to={`/recentpatient/${data.id}`} key={data.id} >{data.name}</Link></TableCell>
            <TableCell><Link style={{ textDecoration: 'none' }} exact to={`/recentpatient/${data.id}`} key={data.id} >{data.disease}</Link></TableCell>
-           {/* <td><Link exact to="/dashboard">{data.message}</Link></td> */}
-
-            {/* <td>{data.id}</td>
-            <td>{data.name}</td>
-            <td>{data.disease}</td> */}
-          </TableRow>
-          {/* </TableHead> */}
+          
+          </TableRow> */}
+         
       </>
     )
   })
@@ -45,7 +59,7 @@ const DashboardDoc = () => {
    
     return(
       <>
-           <tr key={i}>
+           <tr key={i} style={{cursor:'pointer'}}>
             <td>{data.id}</td>
             <td>{data.patient}</td>
             <td>{data.messsage}</td>
@@ -57,13 +71,11 @@ const DashboardDoc = () => {
    
     return(
       <>
-           <tr key={i}>
+           <tr key={i} style={{cursor:'pointer'}}>
             <td>{data.patientName}</td>
-            <td>{data.testName}</td>
-            <td>{data.temperature}</td>
+        
             <td style={{padding:'2px'}} > <div style={{backgroundColor:'#ff4d4d',color:'white',textAlign:'center',padding:'2px',borderRadius:'4px'}}>{data.alert}</div></td>
-            <td>{data.time}</td>
-            <td>{data.viewedStatus}</td>
+         
           </tr>
       </>
     )
@@ -72,13 +84,11 @@ const DashboardDoc = () => {
    
     return(
       <>
-           <tr key={i}>
+           <tr key={i} style={{cursor:'pointer'}}>
             <td>{data.patientName}</td>
-            <td>{data.testName}</td>
-            <td>{data.temperature}</td>
+           
             <td>{data.alert}</td>
-            <td>{data.time}</td>
-            <td>{data.viewedStatus}</td>
+      
           </tr>
       </>
     )
@@ -87,7 +97,7 @@ const DashboardDoc = () => {
    
     return(
       <>
-           <tr key={i}>
+           <tr key={i} style={{cursor:'pointer'}}>
             <td>{data.id}</td>
             <td>{data.messsage}</td>
             
@@ -103,7 +113,25 @@ const DashboardDoc = () => {
            <SubTopbar />
           <Scrollbars>
           Doctor Dashboard
-        <div className='container-1'>  
+        <div className='container-1'>
+          
+        <div className="recent-notification">
+              <p style={{color:'grey'}}>Recent notification</p>
+
+              <Table style={{backgroundColor:'white'}}>
+             
+                <TableRow>
+                    <TableCell>ID</TableCell>
+                    <TableCell>Patient</TableCell>
+                    <TableCell>Message</TableCell>
+                </TableRow>
+             
+              <TableBody>
+              {t2}
+              </TableBody>
+              </Table>
+          </div>
+
         <div className="recent-messages">
               <p style={{color:'grey'}}>Recent messages</p>
 
@@ -118,26 +146,11 @@ const DashboardDoc = () => {
               </TableBody>
               </Table>
           </div>
-          <div className="recent-notification">
-              <p style={{color:'grey'}}>Recent notification</p>
-
-              <Table>
-             
-                <TableRow>
-                    <TableCell>ID</TableCell>
-                    <TableCell>Patient</TableCell>
-                    <TableCell>Message</TableCell>
-                </TableRow>
-             
-              <TableBody>
-              {t2}
-              </TableBody>
-              </Table>
-          </div>
+         
         </div>  
       
      
-        <div className="container-3">
+        <div className="container-2">
         <div className="recent-patient">
          
          
@@ -162,11 +175,9 @@ const DashboardDoc = () => {
               <thead>
                 <TableRow>
                     <TableCell>PatientName</TableCell>
-                    <TableCell>TestName</TableCell>
-                    <TableCell>Temperature</TableCell>
+                  
                     <TableCell>Alert</TableCell>
-                    <TableCell>Time</TableCell>
-                    <TableCell>Viewed Status</TableCell>
+                  
                 </TableRow>
               </thead>
               <TableBody>
@@ -178,11 +189,11 @@ const DashboardDoc = () => {
               <thead>
                 <TableRow>
                     <TableCell>PatientName</TableCell>
-                    <TableCell>TestName</TableCell>
-                    <TableCell>Temperature</TableCell>
+                    {/* <TableCell>TestName</TableCell> */}
+                    {/* <TableCell>Temperature</TableCell> */}
                     <TableCell>Alert</TableCell>
-                    <TableCell>Time</TableCell>
-                    <TableCell>Viewed Status</TableCell>
+                    {/* <TableCell>Time</TableCell> */}
+                    {/* <TableCell>Viewed Status</TableCell> */}
                 </TableRow>
               </thead>
               <TableBody>

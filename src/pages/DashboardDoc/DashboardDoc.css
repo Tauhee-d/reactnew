@@ -1,5 +1,7 @@
 .DashboardDoc{
     display: flex;
+    
+    
 }
 .doc-left {
     flex:1
@@ -10,26 +12,29 @@
 }
 .container-1{
     display: flex;
-}
-.recent-patient{
-    flex: 1;
-    margin: 10px;
-    padding: 10px;
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    
 }
 .recent-notification{
-    flex: 1;
+    /* background-color:#FAF7F0 ; */
+
+    flex: 2;
     margin: 10px;
     padding: 10px;
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    
 }
 .container-2{
     display: flex;
+}
+.recent-patient{
+    flex: 2;
+    margin: 10px;
+    padding: 10px;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 .recent-alerts{
     flex: 1;

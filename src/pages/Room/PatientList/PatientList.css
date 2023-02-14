@@ -7,6 +7,12 @@
 .rightBox{
     flex: 4;
 }
+.search{
+    margin-left: 80%;
+    display: flex;
+    top: 20px;
+}
+
 .img{
   
     

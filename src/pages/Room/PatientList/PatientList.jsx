@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./PatientList.css";
 import profile from "../../../assets/img/profile.jpg";
 import SubTopbar from "../../../components/SubTopbar/SubTopbar";
@@ -7,13 +7,24 @@ import { useNavigate,useLocation } from "react-router-dom";
 import { students,PatientList } from "../RoomData";
 import Navbar from "../../../components/Navbar/Navbar";
 
-const Patient = () => {
 
+const Patient = () => {
+  
+ 
+
+  
   const history = useNavigate();
   const location = useLocation()
   const ID = location.state.id
     const patientList = PatientList.filter(student => student.roomId === ID);
     // const studentList = students.filter(student => student.roomId === ID);
+
+
+     // search 
+  const [query,setQuery] = useState('')
+  const filteredData = patientList.filter((item) =>
+  item.device.toLowerCase().includes(query.toLowerCase())
+);
   
 
     const handleClick = () => {
@@ -54,9 +65,13 @@ const Patient = () => {
       <div className="rightBox">
         <Scrollbars>
           <SubTopbar />
-
-         
+            
           <button className='back-button' onClick={handleClick}>Go Back</button>
+          <div className="search">
+            <input type="text" placeholder="search" value={query} onChange={e => setQuery(e.target.value)} />
+           
+          </div>
+         
 
 
           <div className="profile-flex">
@@ -66,8 +81,9 @@ const Patient = () => {
           {student.name}
         </li>
       ))} */}
+      
           
-              { patientList.map((data) => {
+              { filteredData.map((data) => {
     return (
       <>
         <div className="profile-container" key={data.id}>

@@ -22,6 +22,7 @@ const Rooms = () => {
           <Scrollbars>
             <SubTopbar />
 
+              <p>Rooms list</p>
             <div id="Rooms-flex">
             {/* {rooms.map(room => (
         <li key={room.id} onClick={() => history('/PatientList',{state:{id:room.id}})}>

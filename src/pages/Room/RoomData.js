@@ -82,7 +82,7 @@ export const PatientList = [
        name:"sarah jones",
        patientId:"14556347",
        temp:"98.6f",
-       device:"NV core",
+       device:"CPAP",
        deviceId:"3245ewf45763"
 
     },
@@ -92,7 +92,7 @@ export const PatientList = [
        name:"juliana maxwell",
        patientId:"14556347",
        temp:"68.6f",
-       device:"NV core",
+       device:"V-track",
        deviceId:"3445ewf45763"
 
     },
@@ -112,7 +112,7 @@ export const PatientList = [
        name:"karan johar",
        patientId:"14556347",
        temp:"68.6f",
-       device:"NV core",
+       device:"Vitals",
        deviceId:"3245ewf45763"
 
     },
@@ -132,7 +132,7 @@ export const PatientList = [
        name:"harshat mehta",
        patientId:"14556347",
        temp:"28.6f",
-       device:"NV core",
+       device:"CPAP",
        deviceId:"3245ewf45763"
 
     },
@@ -142,7 +142,7 @@ export const PatientList = [
        name:"sarah jones",
        patientId:"14556347",
        temp:"98.6f",
-       device:"NV core",
+       device:"Vitals",
        deviceId:"3245ewf45763"
 
     },
@@ -152,7 +152,7 @@ export const PatientList = [
        name:"juliana maxwell",
        patientId:"14556347",
        temp:"68.6f",
-       device:"NV core",
+       device:"V-track",
        deviceId:"3445ewf45763"
 
     },
@@ -182,7 +182,7 @@ export const PatientList = [
        name:"anees jones",
        patientId:"14556347",
        temp:"98.6f",
-       device:"NV core",
+       device:"V-track",
        deviceId:"3245ewf45763"
 
     },
@@ -202,7 +202,7 @@ export const PatientList = [
        name:"sarah jones",
        patientId:"14556347",
        temp:"98.6f",
-       device:"NV core",
+       device:"CPAP",
        deviceId:"3245ewf45763"
 
     },
@@ -252,7 +252,7 @@ export const PatientList = [
        name:"harshat mehta",
        patientId:"14556347",
        temp:"28.6f",
-       device:"NV core",
+       device:"CPAP",
        deviceId:"3245ewf45763"
 
     },
@@ -274,7 +274,7 @@ export const patientProfile = [
        name:"sarah jones",
        patientId:"14556347",
        temp:"98.6f",
-       device:"NV core",
+       device:"V-track",
        deviceId:"3245ewf45763"
 
     },
@@ -294,7 +294,7 @@ export const patientProfile = [
        name:"andrew russell",
        patientId:"14556347",
        temp:"99.6f",
-       device:"NV core",
+       device:"CPAP",
        deviceId:"3245ewf45763"
 
     },
@@ -304,7 +304,7 @@ export const patientProfile = [
        name:"karan johar",
        patientId:"14556347",
        temp:"68.6f",
-       device:"NV core",
+       device:"V-track",
        deviceId:"3245ewf45763"
 
     },
@@ -324,7 +324,7 @@ export const patientProfile = [
        name:"harshat mehta",
        patientId:"14556347",
        temp:"28.6f",
-       device:"NV core",
+       device:"CPAP",
        deviceId:"3245ewf45763"
 
     },
@@ -334,7 +334,7 @@ export const patientProfile = [
        name:"sarah jones",
        patientId:"14556347",
        temp:"98.6f",
-       device:"NV core",
+       device:"V-track",
        deviceId:"3245ewf45763"
 
     }

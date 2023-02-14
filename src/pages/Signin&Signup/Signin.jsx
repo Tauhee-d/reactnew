@@ -37,8 +37,8 @@ const Signin = (props) => {
         setIsSubmit(true)
     
 
-        await axios.post("https://dashboard-login.onrender.com/signin",
-        // await axios.post("http://localhost:3055/signin",
+        // await axios.post("https://dashboard-login.onrender.com/signin",
+        await axios.post("http://localhost:3055/signin",
         // axios.post("https://yantram-backend.onrender.com/api/v1/auth/home/login",
         {email:formValues.email,password:formValues.password },
         
@@ -49,10 +49,12 @@ const Signin = (props) => {
         .then(res => {
             // const response = res.data.user
             sessionStorage.setItem('user', res.data.user);
+            // sessionStorage.setItem('username',res.data)
             
             
             setRole(res.data.user);
             console.log("response2",res.data.user)
+            // console.log("userDetail",res.data)
             console.log("response1",role)
             props.onSubmit(role)
             navigation("/dashboard")
