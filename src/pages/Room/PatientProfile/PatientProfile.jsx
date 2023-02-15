@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import Scrollbars from 'react-custom-scrollbars'
 import './PatientProfile.css'
 import SubTopbar  from '../../../components/SubTopbar/SubTopbar'
+import Alert from "../../../components/Alert/Alert";
 
 import Avatar from '../../../assets/img/Avatar.jpeg'
 import { GrAlarm,GrDocumentPdf,GrMailOption } from 'react-icons/gr';
@@ -84,7 +85,7 @@ const PatientProfile = () => {
    
 
     <div className='Container'>
-        <div className="left-profile"><Navbar/></div>
+        <div className="left-profile"><Navbar Alert={<Alert/>}/></div>
        
         <div className="right-profile">
             <Scrollbars>

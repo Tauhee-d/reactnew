@@ -6,6 +6,8 @@ import { Scrollbars } from "react-custom-scrollbars";
 import { useNavigate,useLocation } from "react-router-dom";
 import { students,PatientList } from "../RoomData";
 import Navbar from "../../../components/Navbar/Navbar";
+import Alert from "../../../components/Alert/Alert";
+
 
 
 const Patient = () => {
@@ -61,7 +63,7 @@ const Patient = () => {
 
   return (
     <div className="Maincontainer">
-      <div className="leftBox"><Navbar/></div>
+      <div className="leftBox"><Navbar Alert={<Alert/>}/></div>
       <div className="rightBox">
         <Scrollbars>
           <SubTopbar />

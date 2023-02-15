@@ -7,6 +7,8 @@ import axios from 'axios'
 import App from "../../App";
 
 const Signin = (props) => {
+    const [isLoading, setIsLoading] = useState(false);
+
     // const [show , setShow] =useState(false)
     const getUserData = localStorage.getItem("userDetails")
     const navigation = useNavigate();
@@ -31,14 +33,16 @@ const Signin = (props) => {
     const submitData = async (e) => {
         e.preventDefault()
         sessionStorage.clear()
+        setIsLoading(true);
+
         
         
         setFormErrors(validate(formValues))
         setIsSubmit(true)
     
 
-        await axios.post("https://dashboard-login.onrender.com/signin",
-        // await axios.post("http://localhost:3055/signin",
+        // await axios.post("https://dashboard-login.onrender.com/signin",
+        await axios.post("http://localhost:3055/signin",
         // axios.post("https://yantram-backend.onrender.com/api/v1/auth/home/login",
         {email:formValues.email,password:formValues.password },
         
@@ -108,8 +112,11 @@ const Signin = (props) => {
     }
 
     return (
-        <>
+        <div style={{display:'flex', justifyContent:'center'}}>
         {/* {show === <App role={role}/>} */}
+        {isLoading ? (
+            <p style={{marginTop:'25%'}} >Loading..</p>
+        ):(
 
             <div className="signup">
                 {/* <pre>{JSON.stringify(formValues, undefined, 2)}</pre> */}
@@ -136,7 +143,9 @@ const Signin = (props) => {
 
                 </form>
             </div>
-        </>
+        )}
+
+        </div>
     )
 }
 export default Signin

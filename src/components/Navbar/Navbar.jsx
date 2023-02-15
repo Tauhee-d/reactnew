@@ -7,7 +7,7 @@ import yantram from '../../../src/assets/img/yantram.jpeg'
 import background from '../../../src/assets/img/sidebar2.jpg'
 import { Button } from '@mui/material';
 import { useState } from 'react';
-const Navbar = () => {
+const Navbar = ({Alert}) => {
   
   const [role ,setRole] = useState('')
   
@@ -85,6 +85,7 @@ const Navbar = () => {
        
       
       </ul>
+      {Alert}
 
 
     </div>

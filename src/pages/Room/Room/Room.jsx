@@ -14,22 +14,19 @@ import { useNavigate } from "react-router-dom";
 const Rooms = () => {
   const history = useNavigate();
 
+  
+
   return (
     <>
       <div className="Rooms">
-        <div className="leftRoom"><Navbar/></div>
+        <div className="leftRoom"><Navbar /></div>
         <div className="rightRoom">
           <Scrollbars>
             <SubTopbar />
 
               <p>Rooms list</p>
             <div id="Rooms-flex">
-            {/* {rooms.map(room => (
-        <li key={room.id} onClick={() => history('/PatientList',{state:{id:room.id}})}>
-            
-          {room.name}
-        </li>
-      ))} */}
+          
               {RoomData.map((data) => {
                 return (
                   <div
