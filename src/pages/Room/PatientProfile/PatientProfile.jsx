@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Scrollbars from 'react-custom-scrollbars'
 import './PatientProfile.css'
 import SubTopbar  from '../../../components/SubTopbar/SubTopbar'
@@ -13,9 +13,11 @@ import {studentDetails,patientProfile} from '../RoomData'
 import {useLocation} from 'react-router-dom'
 import Navbar from '../../../components/Navbar/Navbar'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 
 const PatientProfile = () => {
+    const [apiData ,setApiData] = useState([])
     const history = useNavigate()
 
     const location = useLocation()
@@ -27,9 +29,18 @@ const PatientProfile = () => {
   const handleRoom = () => {
     history('/Room')
   }
+useEffect(()=> {
 
+    axios.get('http://localhost:8008/api/patients')
+    .then((res)=> {
+        setApiData(res.data)
+    })
+    .catch((err)=> {
+        console.log(err)
+    })
+},[])
 
-
+//   const patientList = apiData.filter(student => student.id === ID);
   const patientList = patientProfile.filter(student => student.id === ID);
 //   const studentList = studentDetails.filter(student => student.id === ID);
 
@@ -113,8 +124,8 @@ const PatientProfile = () => {
                         </div>
                         <div >
                             <span>{patient.name}</span>
-                            <span>Patient Id - 17382392</span>
-                            <span>Phone - 093858376346</span>
+                            <span>PatientID:17382392</span>
+                            <span>Phone:093858376346</span>
                             <span>Email - sarah@gmail.com</span>
                         </div>
                         </div>
@@ -153,7 +164,7 @@ const PatientProfile = () => {
 
                         <div className='profile-rightspan'>
                             <span className='span1'>Age:-  32years</span>
-                            <span>Height:- 5.5ft</span>
+                            <span>Height:-  5.5ft</span>
                         </div>
                         <div className='profile-rightspan'>
                             <span className='span1'>Gender:- Female</span>
