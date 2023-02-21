@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./PatientList.css";
 import profile from "../../../assets/img/profile.jpg";
 import SubTopbar from "../../../components/SubTopbar/SubTopbar";
@@ -7,6 +7,8 @@ import { useNavigate,useLocation } from "react-router-dom";
 import { students,PatientList } from "../RoomData";
 import Navbar from "../../../components/Navbar/Navbar";
 import Alert from "../../../components/Alert/Alert";
+import {db} from '../../../firebase'
+
 
 
 
@@ -18,14 +20,42 @@ const Patient = () => {
   const history = useNavigate();
   const location = useLocation()
   const ID = location.state.id
-    const patientList = PatientList.filter(student => student.roomId === ID);
-    // const studentList = students.filter(student => student.roomId === ID);
+  const firebaseData = db.collection('patients').get()
+  .then(querySnapshot => {
+    querySnapshot.forEach(doc => {
+      const r = doc.data()
+      
+      console.log(doc.id, ' => ', doc.data());
+    });
+  })
+  .catch(error => {
+    console.log('Error getting documents: ', error);
+  });
+
+
+  
+  
+    const [documents, setDocuments] = useState([]);
+  
+    useEffect(() => {
+      db.collection('patients').onSnapshot((snapshot) => {
+        const data = [];
+        snapshot.forEach((doc) => {
+          data.push({ id: doc.id, ...doc.data() });
+        });
+        setDocuments(data);
+        // console.log("object",documents);
+      });
+    }, []);
+
+    const patientList = documents.filter(patient => patient.roomID === ID);
+    // const patientList = PatientList.filter(student => student.roomId === ID);
 
 
      // search 
   const [query,setQuery] = useState('')
   const filteredData = patientList.filter((item) =>
-  item.device.toLowerCase().includes(query.toLowerCase())
+  item.deviceName.toLowerCase().includes(query.toLowerCase())
 );
   
 
@@ -33,33 +63,18 @@ const Patient = () => {
       window.history.back()
     }
 
-  const roomProfile = students.map((data, i) => {
-    return (
-      <>
-        <div className="profile-container" key={i}>
-          <div className="profile">
-            <img className="img" id="imgid" src={profile} alt="" />
+  
 
-            <div>
-              <span>{data.name}</span>
-              <span>Patient Id:{data.deviceId}</span>
-            </div>
-            <div>
-              <span>Temp:{data.temp}</span>
-              <span>Devices</span>
-            </div>
-            <div>
-              <span>{data.device}</span>
-              <span>{data.deviceId}</span>
-            </div>
-            <div>
-              {/* <button onClick={handleClick}>Visit patient page </button> */}
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  });
+
+  
+
+
+
+
+
+
+
+
 
   return (
     <div className="Maincontainer">
@@ -77,15 +92,11 @@ const Patient = () => {
 
 
           <div className="profile-flex">
-            {/* {roomProfile} */}
-            {/* {studentList.map(student => (  
-        <li key={student.id} onClick={() => history('/PatientProfile',{state:{id:student.id}})}>
-          {student.name}
-        </li>
-      ))} */}
+           
       
           
-              { filteredData.map((data) => {
+              {/* { patientList.map((data) => { */}
+               { filteredData.map((data) => {
     return (
       <>
         <div className="profile-container" key={data.id}>
@@ -93,16 +104,16 @@ const Patient = () => {
             <img className="img" id="imgid" src={profile} alt="" />
 
             <div>
-              <span>{data.name}</span>
-              <span>Patient Id:{data.deviceId}</span>
+              <span>{data.fName} {data.lName}</span>
+              <span>Patient Id:{data.pID}</span>
             </div>
             <div>
               <span>Temp:{data.temp}</span>
               <span>Devices</span>
             </div>
             <div>
-              <span>{data.device}</span>
-              <span>{data.deviceId}</span>
+              <span>{data.deviceName}</span>
+              <span>{data.deviceID}</span>
             </div>
             <div>
               <button style={{cursor:'pointer'}} onClick={() => history('/PatientProfile',{state:{id:data.id}})}>Visit patient page </button>
@@ -116,61 +127,7 @@ const Patient = () => {
 
 
           
-            {/* <div className="profile-container" >
-
-        
-      
-              
- <div className="profile-container" >
-
-        
-      
- <div className="profile" >
- <img className='img' id='imgid' src={profile} alt="" />
- 
- <div>
- <span>
-    {currentItem.name}
- </span>
- <span>
-     Patient Id:{currentItem.deviceId}
- </span>
- </div>
- <div>
-     <span>
-         Temp:{currentItem.temp}
-     </span>
-     <span>
-         Devices
-     </span>
-     
- </div>
- <div>
- <span>
-         {currentItem.device} 
-     </span>
-     <span>
-           {currentItem.deviceId}
-     </span>
- </div>
- <div>
-    
-  <button onClick={handleClick}>Visit patient page </button>
- </div>
-</div>
-
-
-
-      
-     
-</div>
-
-
-
-
-     
-    
-</div> */}
+         
           </div>
         </Scrollbars>
       </div>

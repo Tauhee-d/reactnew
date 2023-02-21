@@ -14,6 +14,8 @@ import {useLocation} from 'react-router-dom'
 import Navbar from '../../../components/Navbar/Navbar'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import {db} from '../../../firebase'
+
 
 
 const PatientProfile = () => {
@@ -29,6 +31,37 @@ const PatientProfile = () => {
   const handleRoom = () => {
     history('/Room')
   }
+
+
+  const firebaseData = db.collection('patients').get()
+  .then(querySnapshot => {
+    querySnapshot.forEach(doc => {
+      const r = doc.data()
+      
+      console.log(doc.id, ' => ', doc.data());
+    });
+  })
+  .catch(error => {
+    console.log('Error getting documents: ', error);
+  });
+
+
+  
+  
+    const [documents, setDocuments] = useState([]);
+  
+    useEffect(() => {
+      db.collection('patients').onSnapshot((snapshot) => {
+        const data = [];
+        snapshot.forEach((doc) => {
+          data.push({ id: doc.id, ...doc.data() });
+        });
+        setDocuments(data);
+        // console.log("object",documents);
+      });
+    }, []);
+
+
 useEffect(()=> {
 
     axios.get('http://localhost:8008/api/patients')
@@ -41,7 +74,8 @@ useEffect(()=> {
 },[])
 
 //   const patientList = apiData.filter(student => student.id === ID);
-  const patientList = patientProfile.filter(student => student.id === ID);
+  const patientList = documents.filter(student => student.id === ID);
+//   const patientList = patientProfile.filter(student => student.id === ID);
 //   const studentList = studentDetails.filter(student => student.id === ID);
 
    
@@ -123,10 +157,10 @@ useEffect(()=> {
                             <img className='img-1' src={Avatar} alt="" srcset="" />
                         </div>
                         <div >
-                            <span>{patient.name}</span>
-                            <span>PatientID:17382392</span>
-                            <span>Phone:093858376346</span>
-                            <span>Email - sarah@gmail.com</span>
+                            <span>{patient.fName} {patient.lName}</span>
+                            <span>PatientID:{patient.pID}</span>
+                            <span>Phone:{patient.phone}</span>
+                            <span>Email - {patient.email}</span>
                         </div>
                         </div>
 
@@ -163,12 +197,12 @@ useEffect(()=> {
                         <div className='right-1block'>
 
                         <div className='profile-rightspan'>
-                            <span className='span1'>Age:-  32years</span>
+                            <span className='span1'>Age:-  {patient.age}</span>
                             <span>Height:-  5.5ft</span>
                         </div>
                         <div className='profile-rightspan'>
-                            <span className='span1'>Gender:- Female</span>
-                            <span>Weight:- 68kg</span>
+                            <span className='span1'>Gender:- {patient.gender}</span>
+                            <span>Weight:- {patient.weight}</span>
                         </div>
 
                         </div>
@@ -187,7 +221,8 @@ useEffect(()=> {
                             <div>
                                 <span>Attending Physician:-</span>
                                 <span>
-                                <FormControl>
+                                {patient.docName}
+                                {/* <FormControl>
                                  <Select labelId="demo-simple-select-label" value={currentValue} style={{width: 300,height:35}}
                                      onChange={(e) => {console.log("Current Value", e.target.value)
                                      setCurrentValue(e.target.value)}}>
@@ -195,13 +230,14 @@ useEffect(()=> {
                                      <MenuItem value={2}>Dr.Zab</MenuItem>
                                      <MenuItem value={3}>Dr.Max</MenuItem>
                                  </Select>
-                                </FormControl>
+                                </FormControl> */}
                                 </span>
                             </div>
                             <div>
                                 <span>Department:-</span>
                                 <span>
-                                <FormControl>
+                                {patient.department}
+                                {/* <FormControl>
                                  <Select labelId="demo-simple-select-label" value={curentValue} style={{width: 300,height:35}}
                                      onChange={(e) => {console.log("Current Value", e.target.value)
                                      setCurentValue(e.target.value)}}>
@@ -209,7 +245,7 @@ useEffect(()=> {
                                      <MenuItem value={12}>Pediatrist</MenuItem>
                                      <MenuItem value={13}>Dermologist</MenuItem>
                                  </Select>
-                                </FormControl>
+                                </FormControl> */}
                                 </span>
                                 <span style={{ height: "200px" }} ><  GrMailOption size={'1.2rem'} /></span>
                             </div>

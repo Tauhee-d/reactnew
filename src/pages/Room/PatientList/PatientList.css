@@ -90,16 +90,16 @@ font-size: small;
 .profile>:nth-child(4){
     font-size: small;
     display: flex;
-    gap: 2rem;
+    gap: 0.5rem;
     background-color: #f8f9fa;
     margin-top: 3px;
+    /* background-color: blueviolet; */
 
     }
 .profile>:nth-child(5){
     /* font-size: small; */
     display: flex;
     /* gap: 2rem; */
-    /* background-color: #f8f9fa; */
     margin-top: 3px;
     justify-content: center;
 

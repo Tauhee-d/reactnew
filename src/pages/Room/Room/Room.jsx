@@ -6,15 +6,56 @@ import { rooms,RoomData } from "../RoomData";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from 'react';
 import Patient from "../PatientList/PatientList";
 import { useNavigate } from "react-router-dom";
+import {db} from '../../../firebase'
 
 const Rooms = () => {
   const history = useNavigate();
+  const [data, setData] = useState([]);
+  const [myDocuments, setMyDocuments] = useState([]);
+
+
+
+
+
+
+
+ const firebaseData = db.collection('rooms').get()
+  .then(querySnapshot => {
+    querySnapshot.forEach(doc => {
+      const r = doc.data()
+      
+      console.log(doc.id, ' => ', doc.data());
+    });
+  })
+  .catch(error => {
+    console.log('Error getting documents: ', error);
+  });
+
 
   
+  
+
+
+
+
+
+
+  
+    const [documents, setDocuments] = useState([]);
+  
+    useEffect(() => {
+      db.collection('rooms').onSnapshot((snapshot) => {
+        const data = [];
+        snapshot.forEach((doc) => {
+          data.push({ id: doc.id, ...doc.data() });
+        });
+        setDocuments(data);
+        // console.log("object",documents);
+      });
+    }, []);
 
   return (
     <>
@@ -26,8 +67,24 @@ const Rooms = () => {
 
               <p>Rooms list</p>
             <div id="Rooms-flex">
+
+
+
+
+
+            
           
-              {RoomData.map((data) => {
+              {/* {documents.map((doc) => (
+          <div key={doc.id}>
+            <p>dvjhds</p>
+            {doc.name}
+            {doc.id}
+            {doc.patient}
+            
+            
+            </div>
+        ))} */}
+              {documents.map((data) => {
                 return (
                   <div
                     key={data.id}
@@ -52,7 +109,7 @@ const Rooms = () => {
                             padding={"8px"}
                             gutterBottom
                           >
-                            {data.room}
+                            {data.name}
                           </Typography>
 
                           <Typography
@@ -62,7 +119,7 @@ const Rooms = () => {
                           >
                             Patients{" "}
                             <span style={{ marginLeft: "130px" }}>
-                              {data.patient}
+                              {data.pCount}
                             </span>
                           </Typography>
                           <Typography sx={{ mt: 1.5 }} color="text.secondary">

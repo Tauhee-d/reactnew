@@ -1,12 +1,14 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/database';
-import config from './config.js'
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
+firebase.initializeApp({
+    apiKey: "AIzaSyABzZcsbR9R5PbjotEJNqIVW7ZcpLxXbAw",
+    authDomain: "hosdashboard.firebaseapp.com",
+    databaseURL: "https://hosdashboard-default-rtdb.firebaseio.com",
+    projectId: "hosdashboard",
+    storageBucket: "hosdashboard.appspot.com",
+    messagingSenderId: "905424640685",
+    appId: "1:905424640685:web:5447e52c441f1b11178424",
+    measurementId: "G-VKT8L80P4Q"});
 
-firebase.initializeApp(config)
-
-const auth = firebase.auth()
-const db = firebase.database()
-
-export {auth,db}
+export const db = firebase.firestore();
