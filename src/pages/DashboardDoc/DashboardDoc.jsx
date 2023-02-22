@@ -1,10 +1,11 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import './DashboardDoc.css'
 import Navbar from '../../components/Navbar/Navbar'
 import SubTopbar from '../../components/SubTopbar/SubTopbar'
 import {RecentPatientData,RecentNotifications,RecentAlerts,RecentMessages} from './DahboardDoc'
 import {Link} from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
+import getPatients from '../../Firebase/firebaseControllers/hosPatientList'
 
 // import { useHistory } from 'react-router-dom';
 
@@ -20,29 +21,40 @@ const moderateTemperature = RecentAlerts.filter(item => item.temperature < 36);
 
 
 const DashboardDoc = () => {
-  const [hide , setHide] = useState(true)
   
   const navigate = useNavigate();
+
+  const [roomsDataroom, setRoomsData] = useState([]);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getPatients();
+      setRoomsData(data);
+    };
+    fetchData();
+  }, []);
   
   
   
   
   
   
-  const t1 = RecentPatientData.map(data=>{
+  const t1 = roomsDataroom.map((data,i)=>{
     
     const handleAddPatient = () => {
-      navigate(`/recentpatient/${data.id}`)
+      navigate('/PatientProfile',{state:{id:data.id}})
+      // navigate(`/recentpatient/${data.id}`)
     };
     
    
     return(
       <>
          
-           <TableRow onClick={handleAddPatient} style={{cursor:'pointer'}} >
+           <TableRow key={i} onClick={handleAddPatient} style={{cursor:'pointer'}} >
            <TableCell>{data.id}</TableCell>
-           <TableCell>{data.name}</TableCell>
-           <TableCell>{data.disease}</TableCell>
+           <TableCell>{data.fName}</TableCell>
+           <TableCell>{data.department}</TableCell>
           </TableRow>
           
            {/* <TableRow >
@@ -59,11 +71,11 @@ const DashboardDoc = () => {
    
     return(
       <>
-           <tr key={i} style={{cursor:'pointer'}}>
-            <td>{data.id}</td>
-            <td>{data.patient}</td>
-            <td>{data.messsage}</td>
-          </tr>
+           <TableRow key={i} style={{cursor:'pointer'}}>
+            <TableCell>{data.id}</TableCell>
+            <TableCell>{data.patient}</TableCell>
+            <TableCell>{data.messsage}</TableCell>
+          </TableRow>
       </>
     )
   })
@@ -71,12 +83,12 @@ const DashboardDoc = () => {
    
     return(
       <>
-           <tr key={i} style={{cursor:'pointer'}}>
-            <td>{data.patientName}</td>
+           <TableRow key={i} style={{cursor:'pointer'}}>
+            <TableCell>{data.patientName}</TableCell>
         
-            <td style={{padding:'2px'}} > <div style={{backgroundColor:'#ff4d4d',color:'white',textAlign:'center',padding:'2px',borderRadius:'4px'}}>{data.alert}</div></td>
+            <TableCell style={{padding:'2px'}} > <div style={{backgroundColor:'#ff4d4d',color:'white',textAlign:'center',padding:'2px',borderRadius:'4px'}}>{data.alert}</div></TableCell>
          
-          </tr>
+          </TableRow>
       </>
     )
   })
@@ -84,12 +96,12 @@ const DashboardDoc = () => {
    
     return(
       <>
-           <tr key={i} style={{cursor:'pointer'}}>
-            <td>{data.patientName}</td>
+           <TableRow key={i} style={{cursor:'pointer'}}>
+            <TableCell>{data.patientName}</TableCell>
            
-            <td>{data.alert}</td>
+            <TableCell>{data.alert}</TableCell>
       
-          </tr>
+          </TableRow>
       </>
     )
   })
@@ -97,11 +109,11 @@ const DashboardDoc = () => {
    
     return(
       <>
-           <tr key={i}>
-            <td>{data.id}</td>
-            <td>{data.messsage}</td>
+           <TableRow key={i}>
+            <TableCell>{data.id}</TableCell>
+            <TableCell>{data.messsage}</TableCell>
             
-          </tr>
+          </TableRow>
       </>
     )
   })
@@ -161,7 +173,7 @@ const DashboardDoc = () => {
            <TableRow>
                <TableCell>ID</TableCell>
                <TableCell>Name</TableCell>
-               <TableCell>Disease</TableCell>
+               <TableCell>Department</TableCell>
            </TableRow>
        
          <TableBody>

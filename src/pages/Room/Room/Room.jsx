@@ -2,46 +2,25 @@ import "./Room.css";
 import Navbar from "../../../components/Navbar/Navbar";
 import { Scrollbars } from "react-custom-scrollbars";
 import SubTopbar from "../../../components/SubTopbar/SubTopbar";
-import { rooms,RoomData } from "../RoomData";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from 'react';
-import Patient from "../PatientList/PatientList";
 import { useNavigate } from "react-router-dom";
-import {db} from '../../../firebase'
+import getRooms from "../../../Firebase/firebaseControllers/hosRoom";
+import {db} from '../../../Firebase/firebase'
 
 const Rooms = () => {
   const history = useNavigate();
-  const [data, setData] = useState([]);
-  const [myDocuments, setMyDocuments] = useState([]);
+  const [roomsDataroom, setRoomsData] = useState([]);
 
-
-
-
-
-
-
- const firebaseData = db.collection('rooms').get()
-  .then(querySnapshot => {
-    querySnapshot.forEach(doc => {
-      const r = doc.data()
-      
-      console.log(doc.id, ' => ', doc.data());
-    });
-  })
-  .catch(error => {
-    console.log('Error getting documents: ', error);
-  });
-
-
-  
-  
-
-
-
-
-
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getRooms();
+      setRoomsData(data);
+    };
+    fetchData();
+  }, []);
 
   
     const [documents, setDocuments] = useState([]);
@@ -53,6 +32,9 @@ const Rooms = () => {
           data.push({ id: doc.id, ...doc.data() });
         });
         setDocuments(data);
+        {documents.map((doc)=> {
+          // console.log("first",`{doc.id}`)
+        })}
         // console.log("object",documents);
       });
     }, []);
@@ -84,7 +66,7 @@ const Rooms = () => {
             
             </div>
         ))} */}
-              {documents.map((data) => {
+              {roomsDataroom.map((data) => {
                 return (
                   <div
                     key={data.id}

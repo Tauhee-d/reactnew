@@ -1,17 +1,17 @@
 export const RecentPatientData = [
     {
         id:'01',
-        name:'John',
+        fName:'John',
         disease:'diabetes'
     },
     {
         id:'02',
-        name:'Amar',
+        fName:'Amar',
         disease:'kidney stone'
     },
     {
         id:'03',
-        name:'Zab',
+        fName:'Zab',
         disease:'Heart issues'
     },
 ]

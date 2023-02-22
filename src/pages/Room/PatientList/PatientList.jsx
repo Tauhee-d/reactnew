@@ -7,7 +7,8 @@ import { useNavigate,useLocation } from "react-router-dom";
 import { students,PatientList } from "../RoomData";
 import Navbar from "../../../components/Navbar/Navbar";
 import Alert from "../../../components/Alert/Alert";
-import {db} from '../../../firebase'
+import {db} from '../../../Firebase/firebase'
+import getPatients from '../../../Firebase/firebaseControllers/hosPatientList'
 
 
 
@@ -20,35 +21,24 @@ const Patient = () => {
   const history = useNavigate();
   const location = useLocation()
   const ID = location.state.id
-  const firebaseData = db.collection('patients').get()
-  .then(querySnapshot => {
-    querySnapshot.forEach(doc => {
-      const r = doc.data()
-      
-      console.log(doc.id, ' => ', doc.data());
-    });
-  })
-  .catch(error => {
-    console.log('Error getting documents: ', error);
-  });
 
+
+  const [roomsDataroom, setRoomsData] = useState([]);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getPatients();
+      setRoomsData(data);
+    };
+    fetchData();
+  }, []);
 
   
   
-    const [documents, setDocuments] = useState([]);
-  
-    useEffect(() => {
-      db.collection('patients').onSnapshot((snapshot) => {
-        const data = [];
-        snapshot.forEach((doc) => {
-          data.push({ id: doc.id, ...doc.data() });
-        });
-        setDocuments(data);
-        // console.log("object",documents);
-      });
-    }, []);
+   
 
-    const patientList = documents.filter(patient => patient.roomID === ID);
+    const patientList = roomsDataroom.filter(patient => patient.roomID === ID);
     // const patientList = PatientList.filter(student => student.roomId === ID);
 
 

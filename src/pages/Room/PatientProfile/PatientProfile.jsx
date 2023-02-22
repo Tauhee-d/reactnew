@@ -9,17 +9,20 @@ import { GrAlarm,GrDocumentPdf,GrMailOption } from 'react-icons/gr';
 import { FiEdit } from 'react-icons/fi';
 import { FormControl, MenuItem, Select } from '@mui/material';
 import { LineChart,  ResponsiveContainer,  Legend,  Tooltip, Line, XAxis, YAxis } from "recharts";
-import {studentDetails,patientProfile} from '../RoomData'
+
 import {useLocation} from 'react-router-dom'
 import Navbar from '../../../components/Navbar/Navbar'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios';
-import {db} from '../../../firebase'
 
+import getPatients from '../../../Firebase/firebaseControllers/hosPatientList'
+import {Box,Table,TableBody,TableCell,TableContainer,TableHead,TableRow} from '@mui/material';
+
+
+import { RecentPatientData } from '../../DashboardDoc/DahboardDoc';
 
 
 const PatientProfile = () => {
-    const [apiData ,setApiData] = useState([])
+    
     const history = useNavigate()
 
     const location = useLocation()
@@ -33,48 +36,32 @@ const PatientProfile = () => {
   }
 
 
-  const firebaseData = db.collection('patients').get()
-  .then(querySnapshot => {
-    querySnapshot.forEach(doc => {
-      const r = doc.data()
-      
-      console.log(doc.id, ' => ', doc.data());
-    });
-  })
-  .catch(error => {
-    console.log('Error getting documents: ', error);
-  });
+  
 
 
+
+
+  const [roomsDataroom, setRoomsData] = useState([]);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getPatients();
+      setRoomsData(data);
+    };
+    fetchData();
+  }, []);
+  console.log("object",roomsDataroom);
   
   
-    const [documents, setDocuments] = useState([]);
   
-    useEffect(() => {
-      db.collection('patients').onSnapshot((snapshot) => {
-        const data = [];
-        snapshot.forEach((doc) => {
-          data.push({ id: doc.id, ...doc.data() });
-        });
-        setDocuments(data);
-        // console.log("object",documents);
-      });
-    }, []);
 
 
-useEffect(()=> {
 
-    axios.get('http://localhost:8008/api/patients')
-    .then((res)=> {
-        setApiData(res.data)
-    })
-    .catch((err)=> {
-        console.log(err)
-    })
-},[])
 
 //   const patientList = apiData.filter(student => student.id === ID);
-  const patientList = documents.filter(student => student.id === ID);
+  const patientList = roomsDataroom.filter(patient => patient.id === ID ) 
+//   const Display = { patientList === null ?  (singlePatient): null }
 //   const patientList = patientProfile.filter(student => student.id === ID);
 //   const studentList = studentDetails.filter(student => student.id === ID);
 
@@ -93,24 +80,57 @@ useEffect(()=> {
     
     
     ]
+
+
+    const NormalTable = () => {
+        return (
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Time</TableCell>
+                <TableCell>Temp</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {Data.map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell>{row.time}</TableCell>
+                  <TableCell>{row.temp}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        );
+      };
+      
+      
+      
+      
+      
+      
+      
     const Header = () => {
         return (
-            <thead>
-           
-            </thead>
+            <TableHead>
+
+            <TableRow>
+           <TableCell style={{width:'450px'}}>Time</TableCell>
+           <TableCell style={{width:'50px'}}>Temp</TableCell>
+            </TableRow>
+            </TableHead>
         )
     }
     const Row = (props) => {
         const { time, temp } = props
         return (
             <tr>
-                <td>{time}</td>
-                <td>{temp}</td>
+                <TableCell style={{width:'400px'}}>{time}</TableCell>
+                <TableCell >{temp}</TableCell>
     
             </tr>
         )
     }
-    const Table = (props) => {
+    const Tablew = (props) => {
         const { data } = props
       
         return (
@@ -125,6 +145,12 @@ useEffect(()=> {
             </table>
         )
     }
+    function formatTime(epochTime) {
+        const date = new Date(epochTime * 1000); // convert epoch time to milliseconds
+const timeString = date.toLocaleTimeString();
+return timeString
+       
+      }
     
   return (
    
@@ -147,6 +173,7 @@ useEffect(()=> {
       ))} */}
 
                 {patientList.map(patient => {
+                    const time = formatTime(patient.latestTime)
                     return(
 <>
                 <div className="Profile">
@@ -169,8 +196,8 @@ useEffect(()=> {
                                 <span>Current Temperature:-</span>
                             </div>
                             <div>
-                                <span>101 F</span>
-                                <span>-last  at 13.20</span>
+                                <span>{patient.latestTemp} C</span>
+                                <span>-last  at {time}</span>
                             </div>
                         </div>
                         <div className="left-3block">
@@ -286,7 +313,14 @@ useEffect(()=> {
                         </div>
                         <div style={{width:'50%'}} >
                         Table
-                        <Table  data={Data} />
+                        <TableContainer >
+                        <Table>
+
+                        <Tablew  data={Data} />
+                        </Table>
+
+                        </TableContainer>
+                        {/* <NormalTable/> */}
 
                         </div>
                     </div>
