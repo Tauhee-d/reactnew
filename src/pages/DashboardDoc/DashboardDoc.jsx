@@ -15,17 +15,17 @@ import Paper from '@mui/material/Paper';
 // import { TableVirtuoso, TableComponents } from 'react-virtuoso';
 import SingleRecPatient from './SingleRecPatient'
 import Scrollbars from 'react-custom-scrollbars'
-const highTemperature = RecentAlerts.filter(item => item.temperature >= 36);
-const moderateTemperature = RecentAlerts.filter(item => item.temperature < 36);
 
 
 
 const DashboardDoc = () => {
   
   const navigate = useNavigate();
-
+  
   const [roomsDataroom, setRoomsData] = useState([]);
-
+  
+  const highTemperature = roomsDataroom.filter(item => item.latestTemp >= 95);
+  const moderateTemperature = roomsDataroom.filter(item => item.latestTemp < 95);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,7 +53,7 @@ const DashboardDoc = () => {
          
            <TableRow key={i} onClick={handleAddPatient} style={{cursor:'pointer'}} >
            <TableCell>{data.id}</TableCell>
-           <TableCell>{data.fName}</TableCell>
+           <TableCell>{data.fName} {data.lName}</TableCell>
            <TableCell>{data.department}</TableCell>
           </TableRow>
           
@@ -84,9 +84,9 @@ const DashboardDoc = () => {
     return(
       <>
            <TableRow key={i} style={{cursor:'pointer'}}>
-            <TableCell>{data.patientName}</TableCell>
+            <TableCell>{data.fName} {data.lName}</TableCell>
         
-            <TableCell style={{padding:'2px'}} > <div style={{backgroundColor:'#ff4d4d',color:'white',textAlign:'center',padding:'2px',borderRadius:'4px'}}>{data.alert}</div></TableCell>
+            <TableCell style={{padding:'2px'}} > <div style={{backgroundColor:'#ff4d4d',color:'white',textAlign:'center',padding:'2px',borderRadius:'4px'}}>{data.latestTemp}</div></TableCell>
          
           </TableRow>
       </>
@@ -97,9 +97,9 @@ const DashboardDoc = () => {
     return(
       <>
            <TableRow key={i} style={{cursor:'pointer'}}>
-            <TableCell>{data.patientName}</TableCell>
+            <TableCell>{data.fName} {data.lName}</TableCell>
            
-            <TableCell>{data.alert}</TableCell>
+            <TableCell>{data.latestTemp}</TableCell>
       
           </TableRow>
       </>
