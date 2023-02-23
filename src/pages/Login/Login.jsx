@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { db } from "../../Firebase/firebase";
 import { auth } from "../../Firebase/firebase";
 import {  useNavigate } from "react-router-dom";
+import './Login.css'
 
 
 function SignIn() {
@@ -49,23 +50,28 @@ navigation("/dashboard")
    };
 
    return (
-    <div>
+    <div >
         {isLoading ? (
             <p style={{marginTop:'25%'}} >Loading..</p>
             ):(
+               <div className='sigin'>
+               <div className='sigin-container'>
                 <form onSubmit={handleSubmit}>
-                <label>
+                  <h2 style={{marginBottom:'50px'}}>SignIn</h2>
+                <label style={{margin:'10px'}}>
                    Email:
                    <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
                 </label>
                 <br />
-                <label>
+                <label style={{margin:'10px'}}>
                    Password:
                    <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
                 </label>
                 <br />
-                <button type="submit">Sign In</button>
+                <button style={{margin:'10px'}} type="submit">Sign In</button>
              </form>
+             </div>
+             </div>
             )
 
         }
