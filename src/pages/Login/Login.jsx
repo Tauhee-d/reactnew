@@ -19,9 +19,27 @@ function SignIn() {
       event.preventDefault();
       sessionStorage.clear()
 
+      // const collectionRef = db.collection('users');
+
+      // // Get all documents in the collection
+      // collectionRef.get().then((querySnapshot) => {
+      //   querySnapshot.forEach((doc) => {
+      //     console.log(doc.id, ' => ', doc.data());
+      //   });
+      // }).catch((error) => {
+      //   console.error('Error getting documents: ', error);
+      // });
+
+
+
+
+
+
+
+
       auth.signInWithEmailAndPassword(email, password)
          .then((userCredential) => {
-            
+            console.log("first",userCredential)
             const uId = userCredential.user.uid
             setUserId(uId)
             console.log("two",userId);
