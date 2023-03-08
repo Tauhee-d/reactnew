@@ -10,17 +10,38 @@ import SingleRecPatient from "./pages/DashboardDoc/SingleRecPatient";
 import Room from "./pages/Room/Room/Room";
 import PatientList from "./pages/Room/PatientList/PatientList";
 import PatientProfile from "./pages/Room/PatientProfile/PatientProfile";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 const App = () => {
+  const [Role, setRole] = useState(null);
   const UserTypes = {
     doctor: "doctor",
     patient: "patient",
     admin: "admin",
   };
 
-  const Role = sessionStorage.getItem("user");
+  // const Role = sessionStorage.getItem("user");
 
+  const storedRole = sessionStorage.getItem("user");
+
+
+  useEffect(()=>{
+    
+    setRole(storedRole)
+    console.log('login1',Role)
+    
+  },[storedRole,Role])
+  // console.log('login',Role)
+
+  // useEffect(() => {
+  //   // Refresh the app every 5 seconds
+  //   const intervalId = setInterval(() => {
+  //     window.location.reload();
+  //   },[]);
+
+  //   // Clear the interval on unmount
+  //   return () => clearInterval(intervalId);
+  // }, []);
   return (
     <Routes>
       <Route path="/">
@@ -43,6 +64,20 @@ const App = () => {
           }
         />
       </Route>
+
+
+
+      {/* {Role === UserTypes.admin ? (
+          <Route path="/dashboard" element={<DashboardAdmin />} />
+        ) :Role === UserTypes.doctor ? (
+          <Route path="/dashboard" element={<DashboardDoc />} />
+        ):Role === UserTypes.doctor ? (
+          <Route path="/dashboard" element={<DashboardDoc />} />
+        ):null} */}
+
+
+
+
       <Route path="/recentpatient/:id" index element={<SingleRecPatient />} />
       <Route path="/parentrooms" index element={<ParentRoom />} />
       <Route
@@ -62,6 +97,14 @@ const App = () => {
       <Route path="/PatientList" index element={<PatientList />} />
       <Route path="/PatientProfile" index element={<PatientProfile />} />
     </Routes>
+
+
+
+
+
+
+
+
   );
 };
 

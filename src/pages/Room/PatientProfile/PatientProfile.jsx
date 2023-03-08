@@ -121,14 +121,20 @@ const PatientProfile = () => {
         )
     }
     const Row = (props) => {
-        const { time, temp } = props
-        return (
-            <tr>
-                <TableCell style={{width:'400px'}}>{time}</TableCell>
-                <TableCell >{temp}</TableCell>
-    
-            </tr>
-        )
+            {patientList.map(tempReadings => {
+
+                const { time, temp } = props
+                return (
+                    <tr>
+                        {/* <TableCell style={{width:'400px'}}>{time}</TableCell>
+                        <TableCell >{temp}</TableCell> */}
+                        <TableCell style={{width:'400px'}}>{tempReadings.time}</TableCell>
+                        <TableCell >{tempReadings.temp}</TableCell>
+            
+                    </tr>
+                )
+            })}
+
     }
     const Tablew = (props) => {
         const { data } = props
@@ -301,7 +307,7 @@ return timeString
                         <div style={{width:'50%'}}>
                         Graph
             <ResponsiveContainer width={"100%"}  aspect={3} className="graph">
-            <LineChart data={Data}>
+            <LineChart data={patientList}>
               <Line dataKey="temp" stroke="red" />
               <Legend />
               <XAxis dataKey="time" interval={"preserveStartEnd"} />

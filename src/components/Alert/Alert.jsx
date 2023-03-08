@@ -8,7 +8,10 @@ import './Alert.css'
 const Alert = () => {
 
     const [roomsDataroom, setRoomsData] = useState([]);
-    const highTemperature = roomsDataroom.filter(item => item.latestTemp >= 95);
+    // const highTemperature = roomsDataroom.filter(item => item.latestTemp >= 95);
+    
+    const slicedData = roomsDataroom.filter(item => item.latestTemp >= 95);
+    const highTemperature = slicedData.slice(0, 5);
 
 
 
