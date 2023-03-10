@@ -1,56 +1,81 @@
-.DashboardDoc{
-    display: flex;
-    /* flex: 4; */
-    
-    
-}
-.doc-left {
-    flex:1
-}
-.doc-right {
-    flex:4;
+.MedDashboard {
+  display: flex;
+  /* flex: 4; */
 
+  /* flex-direction: row; */
+  /* height: 100%; */
 }
-.container-1{
-    display: flex;
-    
+.Med-left {
+  flex: 1;
 }
-.recent-notification{
-    /* background-color:#FAF7F0 ; */
+.Med-right {
+  flex: 4;
+}
+.Container {
+  display: flex;
+}
+.Container-left {
+  flex: 4;
+}
+.Container-right {
+  flex: 1.3;
+  /* background-color: aquamarine; */
+}
+.con-one {
+  display: flex;
+  padding: 5px;
+}
+.notification {
+  flex: 1;
+  margin: 5px;
+  padding: 25px;
+  height: 300px;
+  /* padding-bottom: 10px; */
+  border: 2px solid rgba(235, 230, 230, 0.592);
+  border-radius: 10px;
+}
 
-    flex: 2;
-    margin: 10px;
-    padding: 10px;
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    
-}
-.container-2{
-    display: flex;
-}
-.recent-patient{
-    flex: 2;
-    margin: 10px;
-    padding: 10px;
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-}
-.recent-alerts{
-    flex: 1;
-    margin: 10px;
-    padding: 10px;
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-}
-.recent-messages{
-    flex: 1;
-    margin: 10px;
-    padding: 10px;
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+.statistics {
+  flex: 1;
+  margin: 5px;
+  border: 2px solid rgba(235, 230, 230, 0.592);
 
+  border-radius: 10px;
+}
+.rec-patient {
+  margin: 5px;
+  border: 2px solid rgba(235, 230, 230, 0.592);
+
+  border-radius: 10px;
+  height: 350px;
+  padding: 25px;
+}
+.Container-right {
+  /* background-color: rgb(202, 223, 118); */
+  padding: 5px;
+}
+.alerts {
+  /* background-color: rgb(96, 77, 187); */
+  border: 2px solid rgba(235, 230, 230, 0.592);
+
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.high-temparature {
+  height: 300px;
+  /* flex: 1; */
+  padding-bottom: 25px;
+  /* flex:1 */
+}
+.low-temparature {
+  /* flex:1 */
+  padding-bottom: 55px;
+  height: 320px;
+  /* flex: 1; */
+  margin-top: 40px;
+}
+.con-two {
+  padding: 5px;
 }

@@ -321,3 +321,21 @@ margin-right: 156px ;
 
 
 
+.pro-container{
+    display: flex;
+}
+.pro-img{
+    border-radius: 191px 191px 191px 191px;
+-moz-border-radius: 191px 191px 191px 191px;
+-webkit-border-radius: 191px 191px 191px 191px;
+border: 0px solid #000000;
+width: 50px;
+height: 50px;
+margin-bottom: 10px;
+}
+.vertical-line {
+    border: 0.1px solid rgba(159, 149, 149, 0.35); /* Set the border properties to create the line */
+    height: auto; /* Set the height to fill the parent container */
+    width: 0px; /* Set the width to 0 to create a vertical line */
+  }
+

@@ -34,7 +34,6 @@ function SignIn() {
         const uId = userCredential.user.uid;
         setUserId(uId);
         console.log("uId",uId)
-        console.log("two", userId);
       })
       .catch((error) => {
         console.log(error);
@@ -49,14 +48,21 @@ if(userId){
     const docRef = db.collection("users").doc(userId);
     console.log("userId",userId)
 
+
     docRef
       .get()
       .then((doc) => {
         if (doc.exists) {
           const userRole = doc.data();
           sessionStorage.setItem("user", userRole.role);
+        const w =  sessionStorage.setItem('name',userRole.firstName);
+          console.log("object",w);
+          
+
 
           console.log("Document data:", doc.data());
+          console.log("userRole",userRole)
+
           console.log("Document data:", userRole.role);
         } else {
           console.log("No such document!");

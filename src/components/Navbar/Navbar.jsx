@@ -16,6 +16,7 @@ const Navbar = ({ Alert }) => {
     admin: "admin",
   };
   const Role = sessionStorage.getItem("user");
+  const r = UserTypes.doctor
 
   const roleData = (userrole) => {
     console.log("first", sessionStorage);
@@ -83,7 +84,10 @@ const Navbar = ({ Alert }) => {
               </Link>
             </Button>
           </li>
+        
         ) : null}
+       
+       
       </ul>
       {Alert}
     </div>
