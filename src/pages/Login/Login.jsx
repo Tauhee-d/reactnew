@@ -6,7 +6,6 @@ import "./Login.css";
 
 function SignIn() {
   const navigation = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -79,9 +78,7 @@ if(userId){
 
   return (
     <div>
-      {isLoading ? (
-        <p style={{ marginTop: "25%" }}>Loading..</p>
-      ) : (
+     
         <div className="sigin">
           <div className="sigin-container">
             <form onSubmit={handleSubmit}>
@@ -110,7 +107,7 @@ if(userId){
             </form>
           </div>
         </div>
-      )}
+      
     </div>
   );
 }

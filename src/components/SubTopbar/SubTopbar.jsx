@@ -1,6 +1,6 @@
 
 import React from "react";
-import { useLocation ,useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { Navbar, NavDropdown, Nav } from "react-bootstrap";
 import Typography from '@mui/material/Typography';
 

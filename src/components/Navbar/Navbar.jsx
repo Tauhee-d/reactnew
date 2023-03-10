@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import "./navbar.css";
 import yantram from "../../../src/assets/img/yantram.jpeg";
 import { Button } from "@mui/material";
-import { useState } from "react";
 const Navbar = ({ Alert }) => {
 
   const UserTypes = {

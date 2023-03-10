@@ -4,10 +4,8 @@ import profile from "../../../assets/img/profile.jpg";
 import SubTopbar from "../../../components/SubTopbar/SubTopbar";
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { useNavigate,useLocation } from "react-router-dom";
-import { students,PatientList } from "../RoomData";
 import Navbar from "../../../components/Navbar/Navbar";
 import Alert from "../../../components/Alert/Alert";
-import {db} from '../../../Firebase/firebase'
 import getPatients from '../../../Firebase/firebaseControllers/hosPatientList'
 
 

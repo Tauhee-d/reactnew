@@ -5,35 +5,15 @@ import SubTopbar from "../../../components/SubTopbar/SubTopbar";
 import Alert from "../../../components/Alert/Alert";
 
 import Avatar from "../../../assets/img/Avatar.jpeg";
-import { GrAlarm, GrDocumentPdf, GrMailOption } from "react-icons/gr";
-import { FiEdit } from "react-icons/fi";
-import { FormControl, MenuItem, Select } from "@mui/material";
-import {
-  LineChart,
-  ResponsiveContainer,
-  Legend,
-  Tooltip,
-  Line,
-  XAxis,
-  YAxis,
-} from "recharts";
+
 
 import { useLocation } from "react-router-dom";
 import Navbar from "../../../components/Navbar/Navbar";
 import { useNavigate } from "react-router-dom";
 
 import getPatients from "../../../Firebase/firebaseControllers/hosPatientList";
-import {
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
 
-import { RecentPatientData } from "../../DashboardDoc/DahboardDoc";
+
 
 const PatientProfile = () => {
   const history = useNavigate();
@@ -61,80 +41,14 @@ const PatientProfile = () => {
 
   const patientList = roomsDataroom.filter((patient) => patient.id === ID);
 
-  const [currentValue, setCurrentValue] = useState(1);
-  const [curentValue, setCurentValue] = useState(11);
-  const Data = [
-    { time: "12:00", temp: "120" },
-    { time: "01:00", temp: "130" },
-    { time: "02:00", temp: "120" },
-    { time: "03:00", temp: "150" },
-    { time: "04:00", temp: "120" },
-    { time: "05:00", temp: "170" },
-    { time: "06:00", temp: "140" },
-  ];
+ 
+ 
 
-  const NormalTable = () => {
-    return (
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Time</TableCell>
-            <TableCell>Temp</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {Data.map((row, index) => (
-            <TableRow key={index}>
-              <TableCell>{row.time}</TableCell>
-              <TableCell>{row.temp}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    );
-  };
+  
 
-  const Header = () => {
-    return (
-      <TableHead>
-        <TableRow>
-          <TableCell style={{ width: "450px" }}>Time</TableCell>
-          <TableCell style={{ width: "50px" }}>Temp</TableCell>
-        </TableRow>
-      </TableHead>
-    );
-  };
-  const Row = (props) => {
-    {
-      patientList.map((tempReadings) => {
-        const { time, temp } = props;
-        return (
-          <tr>
-            {/* <TableCell style={{width:'400px'}}>{time}</TableCell>
-                        <TableCell >{temp}</TableCell> */}
-            <TableCell style={{ width: "400px" }}>
-              {tempReadings.time}
-            </TableCell>
-            <TableCell>{tempReadings.temp}</TableCell>
-          </tr>
-        );
-      });
-    }
-  };
-  const Tablew = (props) => {
-    const { data } = props;
-
-    return (
-      <table className="centered" id="Table">
-        <tbody>
-          <Header />
-          {data.map((row) => (
-            <Row time={row.time} temp={row.temp} />
-          ))}
-        </tbody>
-      </table>
-    );
-  };
+  
+ 
+  
   function formatTime(epochTime) {
     const date = new Date(epochTime * 1000); // convert epoch time to milliseconds
     const timeString = date.toLocaleTimeString();

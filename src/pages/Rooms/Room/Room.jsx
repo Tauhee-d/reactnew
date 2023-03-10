@@ -1,5 +1,4 @@
 import "./room.css";
-import Navbar from "../../../components/Navbar/Navbar";
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import SubTopbar from "../../../components/SubTopbar/SubTopbar";
 import { RoomData } from "./RoomData";
@@ -12,7 +11,6 @@ import Patient from "../Patient/Patient";
 const Rooms = ({ state }) => {
   const [selectedId, setSelectedId] = useState(null);
   console.log("selectedId", setSelectedId);
-  const [hide, setHide] = useState(false);
   const handleClick = () => {
     state(2);
   };

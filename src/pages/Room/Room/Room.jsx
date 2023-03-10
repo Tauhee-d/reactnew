@@ -32,10 +32,10 @@ const Rooms = () => {
           data.push({ id: doc.id, ...doc.data() });
         });
         setDocuments(data);
-        {documents.map((doc)=> {
-          // console.log("first",`{doc.id}`)
-        })}
-        // console.log("object",documents);
+        // {documents.map((doc)=> {
+        //   // console.log("first",`{doc.id}`)
+        // })}
+        // // console.log("object",documents);
       });
     }, []);
 
