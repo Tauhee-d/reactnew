@@ -3,10 +3,15 @@ import React from "react";
 import { useNavigate} from "react-router-dom";
 import { Navbar, NavDropdown, Nav } from "react-bootstrap";
 import Typography from '@mui/material/Typography';
+import { useContext } from "react";
+import UserRoleContext from "../ContextApi/UserRoleContext";
 
 
 function Header() {
   const User = sessionStorage.getItem('user')
+
+  const {userRole} = useContext(UserRoleContext)
+
 
   const Navigation = useNavigate()
   const handleLogout = () =>{
@@ -28,7 +33,7 @@ function Header() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
 
-      <NavDropdown title={User} >
+      <NavDropdown title={userRole} >
         <NavDropdown.Item  onClick={handleLogout} >Logout</NavDropdown.Item>
       </NavDropdown>
       </Typography>

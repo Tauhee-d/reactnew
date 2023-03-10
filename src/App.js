@@ -11,9 +11,15 @@ import Room from "./pages/Room/Room/Room";
 import PatientList from "./pages/Room/PatientList/PatientList";
 import PatientProfile from "./pages/Room/PatientProfile/PatientProfile";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import UserRoleContext from './components/ContextApi/UserRoleContext'
+import DashboardNav from "./components/AppNavigator/DashboardNav";
+
 
 const App = () => {
-  const [Role, setRole] = useState(null);
+  const [userRole, setUserRole] = useState(null);
+
+
   const UserTypes = {
     doctor: "doctor",
     patient: "patient",
@@ -22,12 +28,19 @@ const App = () => {
 
   // const Role = sessionStorage.getItem("user");
 
-  const storedRole = sessionStorage.getItem("user");
+  // const storedRole = sessionStorage.getItem("user");
+  // useEffect(()=> {
+  //   sessionStorage.setItem('userRole',storedRole)
+  //   setRole(storedRole);
 
-  useEffect(() => {
-    setRole(storedRole);
-    console.log("login1", storedRole);
-  }, [storedRole, Role]);
+  //   navigation("/dashboard");
+  // },[Role])
+
+
+  // useEffect(() => {
+  //   setRole(storedRole);
+  //   console.log("login1", storedRole);
+  // }, [storedRole, Role]);
   // console.log('login',Role)
 
   // useEffect(() => {
@@ -40,6 +53,9 @@ const App = () => {
   //   return () => clearInterval(intervalId);
   // }, []);
   return (
+   
+    <UserRoleContext.Provider value={{ userRole, setUserRole }}>
+
     <Routes>
       <Route path="/">
         <Route index element={<Login />} />
@@ -50,16 +66,17 @@ const App = () => {
           index
           element={
             <ProtectedElement>
-              {Role === UserTypes.admin ? (
+              {userRole === UserTypes.admin ? (
                 <DashboardAdmin />
-              ) : Role === UserTypes.doctor ? (
+              ) : userRole === UserTypes.doctor ? (
                 <DashboardDoc />
-              ) : Role === UserTypes.patient ? (
+              ) : userRole === UserTypes.patient ? (
                 <Patient1 />
               ) : null}
             </ProtectedElement>
           }
         />
+       
       </Route>
 
       <Route path="/recentpatient/:id" index element={<SingleRecPatient />} />
@@ -70,9 +87,9 @@ const App = () => {
         element={
           <ProtectedElement>
             {" "}
-            {Role === UserTypes.admin ? (
+            {userRole === UserTypes.admin ? (
               <Room />
-            ) : Role === UserTypes.doctor ? (
+            ) : userRole === UserTypes.doctor ? (
               <Room />
             ) : null}
           </ProtectedElement>
@@ -81,6 +98,9 @@ const App = () => {
       <Route path="/PatientList" index element={<PatientList />} />
       <Route path="/PatientProfile" index element={<PatientProfile />} />
     </Routes>
+    </UserRoleContext.Provider>
+
+
   );
 };
 

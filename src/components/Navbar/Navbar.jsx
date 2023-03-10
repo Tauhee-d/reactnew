@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import "./navbar.css";
 import yantram from "../../../src/assets/img/yantram.jpeg";
 import { Button } from "@mui/material";
+import UserRoleContext from "../ContextApi/UserRoleContext";
+import { useContext } from "react";
 const Navbar = ({ Alert }) => {
-
+const {userRole} = useContext(UserRoleContext)
   const UserTypes = {
     doctor: "doctor",
     patient: "patient",
@@ -59,7 +61,7 @@ const Navbar = ({ Alert }) => {
             </Link>
           </Button>
         </li>
-        {Role === UserTypes.admin || Role === UserTypes.doctor ? (
+        {userRole === UserTypes.admin || userRole === UserTypes.doctor ? (
           <li className="nav-item">
             <Button className="nav-bttn">
               <Link className="nav-link" to="/Room" id="acolor">

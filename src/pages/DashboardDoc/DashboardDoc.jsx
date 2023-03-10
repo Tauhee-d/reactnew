@@ -1,5 +1,5 @@
 
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import { LineChart, Tooltip, XAxis, YAxis, CartesianGrid, Legend, Line } from 'recharts';
 import Navbar from '../../components/Navbar/Navbar'
 import SubTopbar from '../../components/SubTopbar/SubTopbar'
@@ -7,7 +7,7 @@ import "./DashboardDoc.css";
 import {Table,TableBody,TableCell,TableRow} from '@mui/material';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { useNavigate } from "react-router-dom";
-
+import UserRoleContext from '../../components/ContextApi/UserRoleContext';
 import getPatients from '../../Firebase/firebaseControllers/hosPatientList'
 
 
@@ -47,7 +47,7 @@ const DashboardDoc = () => {
 
     const Name = sessionStorage.getItem("name");
     // sessionStorage.setItem('name',userRole.lastName);
-
+    
 
 
   const [roomsDataroom, setRoomsData] = useState([]);
