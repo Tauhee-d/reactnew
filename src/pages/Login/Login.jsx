@@ -25,9 +25,8 @@ function SignIn() {
       .then((userCredential) => {
         console.log("first", userCredential);
         const uId = userCredential.user.uid;
-        setUserId(uId);
         console.log("uId",uId)
-        const docRef = db.collection('users').doc(userId)
+        const docRef = db.collection('users').doc(uId)
         docRef.get().then((doc) => {
           if(doc.exists){
             const user = doc.data()
