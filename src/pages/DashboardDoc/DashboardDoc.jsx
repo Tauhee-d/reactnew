@@ -238,11 +238,9 @@ import { LineChart, Tooltip, XAxis, YAxis, CartesianGrid, Legend, Line } from 'r
 import Navbar from '../../components/Navbar/Navbar'
 import SubTopbar from '../../components/SubTopbar/SubTopbar'
 import "./DashboardDoc.css";
-import {Box,Table,TableBody,TableCell,TableContainer,TableHead,TableRow} from '@mui/material';
+import {Table,TableBody,TableCell,TableRow} from '@mui/material';
 import { Scrollbars } from 'react-custom-scrollbars-2';
-import {Link} from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
-import {RecentPatientData,RecentNotifications,RecentAlerts,RecentMessages} from './DahboardDoc'
 
 import getPatients from '../../Firebase/firebaseControllers/hosPatientList'
 
@@ -392,18 +390,7 @@ const DashboardDoc = () => {
       </>
     )
   })
-  const t4 = RecentMessages.map((data,i)=>{
-   
-    return(
-      <>
-           <TableRow key={i}>
-            <TableCell style={{fontSize:'12px'}}>{data.id}</TableCell>
-            <TableCell style={{fontSize:'12px'}}>{data.messsage}</TableCell>
-            
-          </TableRow>
-      </>
-    )
-  })
+ 
 
   return (
     <div className="MedDashboard">

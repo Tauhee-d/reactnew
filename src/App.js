@@ -23,7 +23,6 @@ const App = () => {
   // const Role = sessionStorage.getItem("user");
 
   const storedRole = sessionStorage.getItem("user");
-  const role = UserTypes.doctor;
 
   useEffect(() => {
     setRole(storedRole);

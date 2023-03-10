@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlinePlus, AiFillDelete } from "react-icons/ai";
-import { data } from "../Alert/data";
 import getPatients from "../../Firebase/firebaseControllers/hosPatientList";
 
 import "./Alert.css";

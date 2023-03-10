@@ -1,7 +1,7 @@
 
-import React, { Component } from "react";
+import React from "react";
 import { useLocation ,useNavigate} from "react-router-dom";
-import { Navbar, NavDropdown, Nav, Dropdown, Button } from "react-bootstrap";
+import { Navbar, NavDropdown, Nav } from "react-bootstrap";
 import Typography from '@mui/material/Typography';
 
 
@@ -17,18 +17,7 @@ function Header() {
 
 
 
-  const location = useLocation();
-  const mobileSidebarToggle = (e) => {
-    e.preventDefault();
-    document.documentElement.classList.toggle("nav-open");
-    var node = document.createElement("div");
-    node.id = "bodyClick";
-    node.onclick = function () {
-      this.parentElement.removeChild(this);
-      document.documentElement.classList.toggle("nav-open");
-    };
-    document.body.appendChild(node);
-  };
+ 
 
   
   return (

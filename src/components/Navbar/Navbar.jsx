@@ -1,14 +1,11 @@
-import { AiFillPieChart, AiOutlineRight } from "react-icons/ai";
+import { AiFillPieChart } from "react-icons/ai";
 import { MdDashboard } from "react-icons/md";
 import { Link } from "react-router-dom";
 import "./navbar.css";
-import Typography from "@mui/material/Typography";
 import yantram from "../../../src/assets/img/yantram.jpeg";
-import background from "../../../src/assets/img/sidebar2.jpg";
 import { Button } from "@mui/material";
 import { useState } from "react";
 const Navbar = ({ Alert }) => {
-  const [role, setRole] = useState("");
 
   const UserTypes = {
     doctor: "doctor",
@@ -16,22 +13,10 @@ const Navbar = ({ Alert }) => {
     admin: "admin",
   };
   const Role = sessionStorage.getItem("user");
-  const r = UserTypes.doctor
 
-  const roleData = (userrole) => {
-    console.log("first", sessionStorage);
-    setRole(userrole);
-  };
+  
 
-  const myStyle = {
-    // backgroundImage: `url(${background})`,
-
-    height: "100vh",
-    flex: 1,
-
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-  };
+  
   return (
     <div className="Navbar">
       {/* <div style={myStyle}>  */}
