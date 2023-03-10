@@ -239,7 +239,7 @@ import Navbar from '../../components/Navbar/Navbar'
 import SubTopbar from '../../components/SubTopbar/SubTopbar'
 import "./DashboardDoc.css";
 import {Box,Table,TableBody,TableCell,TableContainer,TableHead,TableRow} from '@mui/material';
-import Scrollbars from "react-custom-scrollbars";
+import { Scrollbars } from 'react-custom-scrollbars-2';
 import {Link} from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 import {RecentPatientData,RecentNotifications,RecentAlerts,RecentMessages} from './DahboardDoc'

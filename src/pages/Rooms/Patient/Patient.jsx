@@ -2,7 +2,7 @@ import React from "react";
 import "./Patient.css";
 import profile from "../../../assets/img/profile.jpg";
 import SubTopbar from "../../../components/SubTopbar/SubTopbar";
-import { Scrollbars } from "react-custom-scrollbars";
+import { Scrollbars } from 'react-custom-scrollbars-2';
 // import { useParams } from "react-router-dom";
 import { PatientList } from "../Room/RoomData";
 

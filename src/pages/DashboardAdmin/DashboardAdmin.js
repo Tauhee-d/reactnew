@@ -14,7 +14,7 @@ import {
 import MainNavbar from "../../components/Navbar/Navbar";
 import Topbar from "../../components/Topbar/Topbar";
 import SubTopbar from '../../components/SubTopbar/SubTopbar'
-import { Scrollbars } from 'react-custom-scrollbars';
+import { Scrollbars } from 'react-custom-scrollbars-2';
 
 function DashboardAdmin() {
   return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Scrollbars from "react-custom-scrollbars";
+import { Scrollbars } from 'react-custom-scrollbars-2';
 import "./PatientProfile.css";
 import SubTopbar from "../../../components/SubTopbar/SubTopbar";
 import Alert from "../../../components/Alert/Alert";

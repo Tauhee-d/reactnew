@@ -1,6 +1,6 @@
 import "./room.css";
 import Navbar from "../../../components/Navbar/Navbar";
-import { Scrollbars } from "react-custom-scrollbars";
+import { Scrollbars } from 'react-custom-scrollbars-2';
 import SubTopbar from "../../../components/SubTopbar/SubTopbar";
 import { RoomData } from "./RoomData";
 import Card from "@mui/material/Card";

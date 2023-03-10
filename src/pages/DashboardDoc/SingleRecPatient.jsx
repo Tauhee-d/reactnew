@@ -2,7 +2,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import { useParams } from 'react-router-dom';
 import { RecentSinglePatientData } from "./DahboardDoc";
 import React,{useState} from 'react'
-import Scrollbars from 'react-custom-scrollbars'
+import { Scrollbars } from 'react-custom-scrollbars-2';
 import SubTopbar  from '../../components/SubTopbar/SubTopbar'
 
 import Avatar from '../../assets/img/Avatar.jpeg'

@@ -2,7 +2,7 @@ import React, { useState,useEffect } from "react";
 import "./PatientList.css";
 import profile from "../../../assets/img/profile.jpg";
 import SubTopbar from "../../../components/SubTopbar/SubTopbar";
-import { Scrollbars } from "react-custom-scrollbars";
+import { Scrollbars } from 'react-custom-scrollbars-2';
 import { useNavigate,useLocation } from "react-router-dom";
 import { students,PatientList } from "../RoomData";
 import Navbar from "../../../components/Navbar/Navbar";
