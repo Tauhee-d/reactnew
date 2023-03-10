@@ -10,10 +10,8 @@ import SingleRecPatient from "./pages/DashboardDoc/SingleRecPatient";
 import Room from "./pages/Room/Room/Room";
 import PatientList from "./pages/Room/PatientList/PatientList";
 import PatientProfile from "./pages/Room/PatientProfile/PatientProfile";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import UserRoleContext from './components/ContextApi/UserRoleContext'
-import DashboardNav from "./components/AppNavigator/DashboardNav";
 
 
 const App = () => {
@@ -26,32 +24,7 @@ const App = () => {
     admin: "admin",
   };
 
-  // const Role = sessionStorage.getItem("user");
-
-  // const storedRole = sessionStorage.getItem("user");
-  // useEffect(()=> {
-  //   sessionStorage.setItem('userRole',storedRole)
-  //   setRole(storedRole);
-
-  //   navigation("/dashboard");
-  // },[Role])
-
-
-  // useEffect(() => {
-  //   setRole(storedRole);
-  //   console.log("login1", storedRole);
-  // }, [storedRole, Role]);
-  // console.log('login',Role)
-
-  // useEffect(() => {
-  //   // Refresh the app every 5 seconds
-  //   const intervalId = setInterval(() => {
-  //     window.location.reload();
-  //   },[]);
-
-  //   // Clear the interval on unmount
-  //   return () => clearInterval(intervalId);
-  // }, []);
+  
   return (
    
     <UserRoleContext.Provider value={{ userRole, setUserRole }}>

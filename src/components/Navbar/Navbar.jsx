@@ -20,7 +20,6 @@ const {userRole} = useContext(UserRoleContext)
   
   return (
     <div className="Navbar">
-      {/* <div style={myStyle}>  */}
 
       <div style={{ display: "flex" }}>
         <img
