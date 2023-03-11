@@ -15,7 +15,8 @@ import {db} from '../firebase'
 // });
 
 const getPatients =  async() => {
-  const snapshot = await db.collection('patients').get();
+  const snapshot = await db.collection('patient').get();
+  // const snapshot = await db.collection('patients').get();
   // const snapshot = await db.collection('patients').orderBy('createdAt', 'desc').limit(5).get();
 
 //   console.log(doc.id, ' => ', "output:",doc.data());

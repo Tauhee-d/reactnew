@@ -36,13 +36,14 @@ const DashboardDoc = () => {
   }, []);
 
   const [currentTime, setCurrentTime] = useState(new Date());
+  
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentTime(new Date());
+  //   }, 1000);
+  //   return () => clearInterval(interval);
+  // }, []);
   const currentDate = new Date();
 
   const Name = sessionStorage.getItem("name");
@@ -53,7 +54,8 @@ const DashboardDoc = () => {
   const moderateTemperature = roomsDataroom.filter(
     (item) => item.latestTemp < 95
   );
-
+console.log("first",highTemperature)
+console.log("secound",highTemperature)
   const sortedData = roomsDataroom.sort(
     (a, b) => new Date(b.addedon * 1000) - new Date(a.addedon * 1000)
   );
@@ -123,9 +125,18 @@ const DashboardDoc = () => {
     );
   });
   const t2 = recentData.map((data, i) => {
+    const handleNotification = () => {
+      navigate("/PatientProfile", { state: { id: data.id } });
+     
+    };
     return (
       <>
-        <TableRow key={i} className='table' style={{ cursor: "pointer" }}>
+         <TableRow
+          key={i}
+          onClick={handleNotification}
+          style={{ cursor: "pointer" }}
+          className='table'
+        >
           <TableCell style={{ fontSize: "12px" }}>{data.id}</TableCell>
           <TableCell style={{ fontSize: "12px" }}>
             {data.fName} {data.lName}
@@ -136,9 +147,18 @@ const DashboardDoc = () => {
     );
   });
   const HigherTemperature = highTemperature.map((data, i) => {
+    const handleNotification = () => {
+      navigate("/PatientProfile", { state: { id: data.id } });
+     
+    };
     return (
       <>
-        <TableRow key={i} className='table' style={{ cursor: "pointer" }}>
+        <TableRow
+          key={i}
+          onClick={handleNotification}
+          style={{ cursor: "pointer" }}
+          className='table'
+        >
           <TableCell style={{ fontSize: "12px" }}>
             {data.fName} {data.lName}
           </TableCell>
@@ -163,9 +183,18 @@ const DashboardDoc = () => {
     );
   });
   const ModerateTemperature = moderateTemperature.map((data, i) => {
+    const handleNotification = () => {
+      navigate("/PatientProfile", { state: { id: data.id } });
+     
+    };
     return (
       <>
-        <TableRow key={i} className='table' style={{ cursor: "pointer" }}>
+        <TableRow
+          key={i}
+          onClick={handleNotification}
+          style={{ cursor: "pointer" }}
+          className='table'
+        >
           <TableCell style={{ fontSize: "12px" }}>
             {data.fName} {data.lName}
           </TableCell>

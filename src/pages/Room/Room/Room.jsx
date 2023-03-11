@@ -9,6 +9,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import getRooms from "../../../Firebase/firebaseControllers/hosRoom";
 import {db} from '../../../Firebase/firebase'
+import { TiGroupOutline } from "react-icons/ti";
+
 
 const Rooms = () => {
   const history = useNavigate();
@@ -35,7 +37,7 @@ const Rooms = () => {
         // {documents.map((doc)=> {
         //   // console.log("first",`{doc.id}`)
         // })}
-        // // console.log("object",documents);
+        console.log("object",roomsDataroom);
       });
     }, []);
 
@@ -47,7 +49,7 @@ const Rooms = () => {
           <Scrollbars>
             <SubTopbar />
 
-              <p>Rooms list</p>
+              {/* <p>Rooms list</p> */}
             <div id="Rooms-flex">
 
 
@@ -66,47 +68,55 @@ const Rooms = () => {
             
             </div>
         ))} */}
-              {roomsDataroom.map((data) => {
+              {roomsDataroom.map((data,i) => {
                 return (
                   <div
                     key={data.id}
-                    className="room-card"
+                    id="room-card-1"
                     style={{ cursor: "pointer" }}
                     onClick={() =>
                       history("/PatientList", { state: { id: data.id } })
                     }
                   >
+                            {/* <div className={`card ${index % 2 === 0 ? 'even' : 'odd'}`}> */}
+
                     <Card
                       variant="outlined"
                       style={{ margin: "30px" }}
-                      className="card-style"
+                     className={`card ${i % 2 === 0 ? 'even' : 'odd'}`}
+
+                      // className="card-style"
                     >
                       <React.Fragment>
                         <CardContent>
                           <Typography
-                            fontSize={"20px"}
-                            textAlign={"center"}
+                            fontSize={"12px"}
+                            fontWeight={"bold"}
                             color="text.secondary"
-                            backgroundColor={" #007bff"}
+                            // backgroundColor={" red"}
+                            // backgroundColor={" #5A96BB"}
                             padding={"8px"}
                             gutterBottom
                           >
                             {data.name}
                           </Typography>
 
+
+                          <span style={{display:'flex',alignItems:'center', justifyContent:'center'}}>  <TiGroupOutline size={60} /> </span>
+
                           <Typography
                             variant="p"
                             sx={{ mt: 2 }}
                             component="div"
                           >
-                            Patients{" "}
-                            <span style={{ marginLeft: "130px" }}>
+                            <span style={{ marginLeft: "130px",fontSize:'35px' }}>
                               {data.pCount}
+                          <span style={{display:'flex', top:'3',marginBottom:'10px', fontSize:'12px'}}> Total Patients{" "}</span> 
                             </span>
                           </Typography>
-                          <Typography sx={{ mt: 1.5 }} color="text.secondary">
+                          {/* <Typography sx={{ mt: 1.5 }} color="text.secondary">
                             Devices
-                          </Typography>
+                          </Typography> */}
                           <Typography variant="body2">
                             <span style={{ marginLeft: "10px" }}>
                               {data.device}

@@ -80,13 +80,14 @@ const {userRole} = useContext(UserRoleContext)
         
         ) : null}
         <li>
-        <Button className="nav-bttn">
+        <Button className="nav-bttn" >
 
-        <AiOutlineLogout size={20} style={{ marginLeft: "15px" }} />
-        <NavDropdown className="log-btn" title='logout' >
+        <AiOutlineLogout size={20} style={{ marginLeft: "18px" }} />
+        <span style={{marginLeft:'17px'}} onClick={handleLogout}>logout</span>
+        {/* <NavDropdown className="log-btn" title='logout' > */}
 
-        <NavDropdown.Item  onClick={handleLogout} >{userRole}</NavDropdown.Item>
-      </NavDropdown>
+        {/* <NavDropdown.Item  onClick={handleLogout} >{userRole}</NavDropdown.Item> */}
+      {/* </NavDropdown> */}
       </Button>
 
         </li>

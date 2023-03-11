@@ -12,12 +12,15 @@
 .rightRoom{
     flex: 7;
 }
-.room-card{
-    /* display: flex; */
-
+#room-card-1{
+    display: flex;
+    justify-content: space-around;
+width: 300px;
+margin-left: 50px;
     /* flex-direction: column; */
 
     /* flex-direction: row; */
+    /* background-color: aqua; */
 }
 #Rooms-flex{
     display: flex;
@@ -28,9 +31,36 @@
 }
 
 .card-style{
-    width: 18rem;
+    width: 15rem;
     height: 15rem;
  
+
+}
+.card.even{
+    width: 15rem;
+    height: 15rem;
+    background-color: #ECF2FF;
+    border-radius: 10px;
+ 
+
+}
+.card.even:hover{
+    background-color: #5771a898;
+    color: #0c0c01;
+    
+}
+.card.odd{
+    width: 15rem;
+    height: 15rem;
+    /* background-color: rgb(215, 135, 31); */
+    background-color: #ECE8DD;
+    border-radius: 10px;
+    
+    
+}
+.card.odd:hover{
+    color: #0c0c01;
+    background-color: #d7c699;
 
 }
 
@@ -109,7 +139,7 @@
     position: relative;
     top: -2rem;
     left: 5.5rem;
-    border-radius: 194px 194px 194px 194px;
+    border-radius: 15px;
     -webkit-border-radius: 194px 194px 194px 194px;
     -moz-border-radius: 194px 194px 194px 194px;
     border: 0px solid #000000; 

@@ -23,6 +23,7 @@ function SignIn() {
         const uId = userCredential.user.uid;
         console.log("uId", uId);
         const docRef = db.collection("users").doc(uId);
+        console.log("f",docRef)
         docRef.get().then((doc) => {
           if (doc.exists) {
             const user = doc.data();

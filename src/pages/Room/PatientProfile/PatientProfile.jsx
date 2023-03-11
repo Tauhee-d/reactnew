@@ -18,6 +18,7 @@ import { Table, TableBody, TableCell, TableRow } from "@mui/material";
 
 import getPatients from "../../../Firebase/firebaseControllers/hosPatientList";
 import getReadings from "../../../Firebase/firebaseControllers/Readings";
+import getTimeline from "../../../Firebase/firebaseControllers/Timeline";
 
 const PatientProfile = () => {
 
@@ -37,21 +38,33 @@ const PatientProfile = () => {
 
   const [roomsDataroom, setRoomsData] = useState([]);
   const [readingsData, setReadingsData] = useState([]);
+  const [timelineData, setTimelineData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getPatients();
       const reading = await getReadings();
+      const timeline = await getTimeline();
       setRoomsData(data);
       setReadingsData(reading);
+      setTimelineData(timeline);
     };
     fetchData();
   }, []);
   // console.log("object", roomsDataroom);
   
   const patientList = roomsDataroom.filter((patient) => patient.id === ID);
-  const patientReadings = readingsData.filter((patient) => patient.id === ID);
-  console.log("timeline", readingsData);
+  const patientTimeline = timelineData.filter((patient) => patient.patientID === ID);//device id
+  const deviceID = patientTimeline.map((timeline => timeline.deviceID))
+  
+  const patientReadings = readingsData.filter((patient) => patient.id === deviceID);//id
+  const deviceID1 = readingsData.map((timeline => timeline.id))
+  console.log("timeline", patientReadings);
+  console.log("readings", readingsData);
+  console.log("object",deviceID);
+  console.log("patientList",deviceID1);
+  // console.log("patientList1",patientList);
+
   
   function formatTime(epochTime) {
     const date = new Date(epochTime * 1000); // convert epoch time to milliseconds

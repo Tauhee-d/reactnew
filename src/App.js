@@ -3,10 +3,8 @@ import { Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login/Login";
 import DashboardAdmin from "./pages/DashboardAdmin/DashboardAdmin";
-import ParentRoom from "./pages/Rooms/Room/ParentRoom";
 import DashboardDoc from "./pages/DashboardDoc/DashboardDoc";
 import Patient1 from "./pages/Patient/Patient";
-import SingleRecPatient from "./pages/DashboardDoc/SingleRecPatient";
 import Room from "./pages/Room/Room/Room";
 import PatientList from "./pages/Room/PatientList/PatientList";
 import PatientProfile from "./pages/Room/PatientProfile/PatientProfile";
@@ -32,7 +30,6 @@ const App = () => {
     <Routes>
       <Route path="/">
         <Route index element={<Login />} />
-        {/* <Route index element={<Signin onSubmit={roleData} /> }/> */}
       </Route>
       <Route path="/dashboard">
         <Route
@@ -52,8 +49,7 @@ const App = () => {
        
       </Route>
 
-      <Route path="/recentpatient/:id" index element={<SingleRecPatient />} />
-      {/* <Route path="/parentrooms" index element={<ParentRoom />} /> */}
+  
       <Route
         path="/Room"
         index

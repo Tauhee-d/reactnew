@@ -36,18 +36,21 @@ const Patient = () => {
   
   const [showRooms, setShowRooms] = useState(true); // state to track which rooms to show
 
-   
+     
 
     const patientList = roomsDataroom.filter(patient => patient.roomID === ID);
+    // const patientList = roomsDataroom.filter(patient => patient.roomID === ID);
     console.log("patientList".filteredData)
     // const patientList = PatientList.filter(student => student.roomId === ID);
     const deviceRooms = patientList.filter(Device => Device.device !== null )
     const noDeviceRooms = patientList.filter(Device => Device.device === null )
-     // search 
-  const [query,setQuery] = useState('')
-  const filteredData = deviceRooms.filter((item) =>
-  item.deviceName.toLowerCase().includes(query.toLowerCase())
-);
+    console.log("vhdsbhbbszhbhs",deviceRooms)
+    console.log("noDeviceRooms",noDeviceRooms)
+    // search 
+//   const [query,setQuery] = useState('')
+//   const filteredData = deviceRooms.filter((item) =>
+//   item.deviceName.toLowerCase().includes(query.toLowerCase())
+// );
   
 
     const handleClick = () => {
@@ -67,10 +70,10 @@ const Patient = () => {
 
           <button className="room-btn" onClick={() => setShowRooms(!showRooms)}> {showRooms ? ' without Devices' : 'with Devices'}</button>
           </div>
-          <div className="search">
+          {/* <div className="search">
             <input type="text" placeholder="search" value={query} onChange={e => setQuery(e.target.value)} />
            
-          </div>
+          </div> */}
          
 
 
@@ -84,27 +87,37 @@ const Patient = () => {
       {showRooms ? (
         <>
 
-     { filteredData.map((data) => {
+     { deviceRooms.map((data,i) => {
+    //  { filteredData.map((data) => {
        return (
          <>
           <div className="profile-container" key={data.id}>
-            <div className="profile">
+            <div className={`cards ${i % 2 === 0 ? 'even' : 'odd'}`}>
               <img className="img" id="imgid" src={profile} alt="" />
   
               <div>
                 <span>{data.fName} {data.lName}</span>
-                <span>Patient Id:{data.pID}</span>
+                <div style={{display:'flex',marginTop:'10px', justifyContent:'space-between',fontSize:"12px"}}>
+                <span>Patient Id: </span>
+                <span> {data.pID}</span>
+
+                </div>
               </div>
               <div>
-                <span>Temp:{data.temp}</span>
-                <span>Devices</span>
+              <div style={{display:'flex',marginTop:'10px', justifyContent:'space-between',fontSize:"12px"}}>
+
+                <span>Department: </span>
+                <span>{data.department}</span>
+                </div>
+                <div style={{display:'flex',marginTop:'10px', justifyContent:'space-between',fontSize:"12px"}}>
+
+                <span>Devices:   </span>
+                <span>{data.device}</span>
+                </div>
               </div>
+            
               <div>
-                <span>{data.deviceName}</span>
-                <span>{data.deviceID}</span>
-              </div>
-              <div>
-                <button style={{cursor:'pointer'}} onClick={() => history('/PatientProfile',{state:{id:data.id}})}>Visit patient page </button>
+                <button id="pat-btn" style={{cursor:'pointer',border:'none'}} onClick={() => history('/PatientProfile',{state:{id:data.id}})}>See More </button>
               </div>
             </div>
           </div>
@@ -116,29 +129,39 @@ const Patient = () => {
       ):(
         <>
 
-        { noDeviceRooms.map((data) => {
+        { noDeviceRooms.map((data,i) => {
           return (
             <>
               <div className="profile-container" key={data.id}>
-                <div className="profile">
+                <div className={`cards ${i % 2 === 0 ? 'even' : 'odd'}`}
+>
+                  
                   <img className="img" id="imgid" src={profile} alt="" />
       
                   <div>
-                    <span>{data.fName} {data.lName}</span>
-                    <span>Patient Id:{data.pID}</span>
-                  </div>
-                  <div>
-                    <span>Temp:{data.latestTemp}</span>
-                    <span>Devices</span>
-                  </div>
-                  <div>
-                    <span>{data.deviceName}</span>
-                    <span>{data.deviceID}</span>
-                  </div>
-                  <div>
-                    <button  style={{cursor:'pointer'}} onClick={() => history('/PatientProfile',{state:{id:data.id}})}>Visit patient page </button>
-                    <button  style={{cursor:'pointer'}} onClick={() => history('/PatientProfile',{state:{id:data.id}})}>Visit patient page </button>
-                  </div>
+                <span>{data.fName} {data.lName}</span>
+                <div style={{display:'flex',marginTop:'10px', justifyContent:'space-between',fontSize:"12px"}}>
+                <span>Patient Id: </span>
+                <span> {data.pID}</span>
+
+                </div>
+              </div>
+              <div>
+              <div style={{display:'flex',marginTop:'10px', justifyContent:'space-between',fontSize:"12px"}}>
+
+                <span>Department: </span>
+                <span>{data.department}</span>
+                </div>
+                <div style={{display:'flex',marginTop:'10px', justifyContent:'space-between',fontSize:"12px"}}>
+
+                <span>Devices:   </span>
+                <span>{data.device}</span>
+                </div>
+              </div>
+            
+              <div>
+                <button id="pat-btn" style={{cursor:'pointer',border:'none'}} onClick={() => history('/PatientProfile',{state:{id:data.id}})}>See More </button>
+              </div>
                 </div>
               </div>
             </>
