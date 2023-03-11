@@ -8,6 +8,8 @@ import {
   Legend,
   Line,
 } from "recharts";
+import { TiGroupOutline } from "react-icons/ti";
+
 import Navbar from "../../components/Navbar/Navbar";
 import SubTopbar from "../../components/SubTopbar/SubTopbar";
 import "./DashboardDoc.css";
@@ -48,7 +50,6 @@ const DashboardDoc = () => {
   const [roomsDataroom, setRoomsData] = useState([]);
 
   const highTemperature = roomsDataroom.filter((item) => item.latestTemp >= 95);
-  console.log("roomsDataroom", highTemperature);
   const moderateTemperature = roomsDataroom.filter(
     (item) => item.latestTemp < 95
   );
@@ -58,13 +59,12 @@ const DashboardDoc = () => {
   );
   const recentData = sortedData.slice(0, 6);
 
-  console.log("recentData", recentData);
+  
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getPatients();
       setRoomsData(data);
-      console.log("first", data);
     };
     fetchData();
   }, []);
@@ -87,6 +87,10 @@ const DashboardDoc = () => {
     },
   ]);
 
+
+ 
+
+
   const [graphData, setGraphData] = useState([]);
 
   useEffect(() => {
@@ -105,6 +109,7 @@ const DashboardDoc = () => {
           key={i}
           onClick={handleAddPatient}
           style={{ cursor: "pointer" }}
+          className='table'
         >
           <TableCell style={{ fontSize: "12px" }}>{data.id}</TableCell>
           <TableCell style={{ fontSize: "12px" }}>
@@ -120,7 +125,7 @@ const DashboardDoc = () => {
   const t2 = recentData.map((data, i) => {
     return (
       <>
-        <TableRow key={i} style={{ cursor: "pointer" }}>
+        <TableRow key={i} className='table' style={{ cursor: "pointer" }}>
           <TableCell style={{ fontSize: "12px" }}>{data.id}</TableCell>
           <TableCell style={{ fontSize: "12px" }}>
             {data.fName} {data.lName}
@@ -133,7 +138,7 @@ const DashboardDoc = () => {
   const HigherTemperature = highTemperature.map((data, i) => {
     return (
       <>
-        <TableRow key={i} style={{ cursor: "pointer" }}>
+        <TableRow key={i} className='table' style={{ cursor: "pointer" }}>
           <TableCell style={{ fontSize: "12px" }}>
             {data.fName} {data.lName}
           </TableCell>
@@ -142,7 +147,7 @@ const DashboardDoc = () => {
             {" "}
             <div
               style={{
-                backgroundColor: "#ff4d4d",
+                backgroundColor: "rgb(231, 106, 129)",
                 color: "white",
                 textAlign: "center",
                 padding: "2px",
@@ -160,7 +165,7 @@ const DashboardDoc = () => {
   const ModerateTemperature = moderateTemperature.map((data, i) => {
     return (
       <>
-        <TableRow key={i} style={{ cursor: "pointer" }}>
+        <TableRow key={i} className='table' style={{ cursor: "pointer" }}>
           <TableCell style={{ fontSize: "12px" }}>
             {data.fName} {data.lName}
           </TableCell>
@@ -170,6 +175,31 @@ const DashboardDoc = () => {
       </>
     );
   });
+
+
+  const currentMonth = new Date().getMonth();
+  const currentYear = new Date().getFullYear(); // Get the current year
+  const firstDayOfMonth = new Date(currentYear, currentMonth, 1); // Create a Date object for the first day of the current month
+  const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0); // Create a Date object for the last day of the current month
+  
+  const patientsAddedThisMonth = roomsDataroom.filter(patient => {
+    const date = new Date(patient.addedOn * 1000); // Convert epoch time to Date object
+    return date >= firstDayOfMonth && date <= lastDayOfMonth; // Filter by date range
+  });
+
+const count = patientsAddedThisMonth.length;
+
+const totalPatientCount = roomsDataroom.length;
+
+// Patient filter according to their gender 
+const filterGender = "male";
+const filteredPatients = roomsDataroom.filter(patient => patient.gender === filterGender);
+const malecount = filteredPatients.length;
+
+const filterFemale = "female";
+const filtered = roomsDataroom.filter(patient => patient.gender === filterFemale);
+const femalecount = filtered.length;
+
 
   return (
     <div className="MedDashboard">
@@ -195,11 +225,57 @@ const DashboardDoc = () => {
         <div className="Container">
           <div className="Container-left">
             <div className="con-one">
+             
+              <div className="statistics">
+                    <div style={{display:'flex',justifyContent:'space-between',marginTop:'20px'}}>
+                      <span style={{fontWeight:'bold'}}>Patients</span>
+                      <span>This month</span>
+                    </div>
+                    <div>
+                      <div style={{display:'flex',justifyContent:'space-around',alignItems:'center'}}>
+                          <span style={{fontSize:"40px"}}>{count}</span>
+                          <span>New Patients</span>
+                      </div>
+                      <div style={{display:'flex',justifyContent:'space-around',alignItems:'center'}}>
+                      <span style={{fontSize:"40px"}}>{totalPatientCount}</span>
+                          <span>Old Patients</span>
+                      </div>
+                    </div>
+               
+              </div>
+              <div className="statistics1">
+                <div style={{marginTop:'20px'}}>
+                <span style={{fontWeight:'bold'}}>Gender</span>
+                  </div>
+                  <div className="gender"  style={{display:'flex',height:'200px',flexDirection:'column'}}>
+                    <div>
+
+                  <span style={{marginLeft:'15px'}}>  <TiGroupOutline size={60} /> </span>
+                  <div>
+
+                  <span>Total Patient</span>
+                    <span style={{marginLeft:'10px'}} >{totalPatientCount}</span>
+                  </div>
+                    </div>
+                  <div>
+                    
+                    <div style={{display:'flex',justifyContent:'space-between',width:'150px'}}>
+                      <div>Women:{femalecount}</div>
+                      <div>Men:{malecount}</div>
+                    </div>
+                  </div>
+
+                  </div>
+              
+
+               
+              </div>
               <div className="notification">
-                notification
+              <span style={{fontWeight:'bold'}}>Notification</span>
+
                 <Scrollbars>
                   <Table>
-                    <TableRow>
+                    <TableRow >
                       <TableCell>ID</TableCell>
                       <TableCell>Name</TableCell>
                       <TableCell>Phone</TableCell>
@@ -214,38 +290,10 @@ const DashboardDoc = () => {
                   </Table>
                 </Scrollbars>
               </div>
-              <div className="statistics">
-                <span style={{ margin: "15px" }}>statistics</span>
-
-                <LineChart
-                  width={350}
-                  height={250}
-                  data={graphData}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <Tooltip />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="male"
-                    stroke="#8884d8"
-                    activeDot={{ r: 8 }}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="female"
-                    stroke="#82ca9d"
-                    activeDot={{ r: 8 }}
-                  />
-                </LineChart>
-              </div>
             </div>
             <div className="con-two">
               <div className="rec-patient">
-                recent patient
+              <span style={{fontWeight:'bold'}}>Recent Patient</span>
                 <Scrollbars>
                   <Table>
                     <TableRow>
@@ -270,7 +318,8 @@ const DashboardDoc = () => {
           <div className="Container-right">
             <div className="alerts">
               <div className="high-temparature">
-                <p style={{ color: "grey" }}>High Temperature Alerts</p>
+                <span style={{fontWeight:'bold',fontSize:'14px'}}>High Temperature Alerts</span>
+
                 <Scrollbars>
                   <Table>
                     <thead>
@@ -285,7 +334,8 @@ const DashboardDoc = () => {
                 </Scrollbars>
               </div>
               <div className="low-temparature">
-                <p style={{ color: "grey" }}> Moderate and low fever Alerts</p>
+                <span style={{fontWeight:'bold',fontSize:'14px'}}>Moderate and low fever Alerts</span>
+
                 <Scrollbars>
                   <Table>
                     <thead>

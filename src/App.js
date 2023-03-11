@@ -53,7 +53,7 @@ const App = () => {
       </Route>
 
       <Route path="/recentpatient/:id" index element={<SingleRecPatient />} />
-      <Route path="/parentrooms" index element={<ParentRoom />} />
+      {/* <Route path="/parentrooms" index element={<ParentRoom />} /> */}
       <Route
         path="/Room"
         index

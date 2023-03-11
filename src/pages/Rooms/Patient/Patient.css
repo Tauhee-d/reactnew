@@ -26,12 +26,11 @@ border: 0px solid #000000;
 
 }
 .profile{
-    -webkit-box-shadow: inset 0px 5px 5px 0px rgba(0,0,0,0.47);
-    -moz-box-shadow: inset 0px 5px 5px 0px rgba(0,0,0,0.47);
-    box-shadow: inset 0px 5px 5px 0px rgba(0,0,0,0.47);
+   border-radius: 5px;
     width: 17rem;
     height: 15rem;
     padding: 10px;
+    border-color: gainsboro;
 }
 .profile>:nth-child(2){
    
@@ -82,12 +81,10 @@ font-size: small;
 
     }
 .profile>:nth-child(5){
-    /* font-size: small; */
     display: flex;
-    /* gap: 2rem; */
-    /* background-color: #f8f9fa; */
     margin-top: 3px;
     justify-content: center;
 
     }
+   
 

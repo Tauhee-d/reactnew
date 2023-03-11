@@ -7,6 +7,7 @@ import { useNavigate,useLocation } from "react-router-dom";
 import Navbar from "../../../components/Navbar/Navbar";
 import Alert from "../../../components/Alert/Alert";
 import getPatients from '../../../Firebase/firebaseControllers/hosPatientList'
+import { TiArrowLeft } from "react-icons/ti";
 
 
 
@@ -53,27 +54,15 @@ const Patient = () => {
       window.history.back()
     }
 
-  
-
-
-  
-
-
-
-
-
-
-
-
 
   return (
     <div className="Maincontainer">
-      <div className="leftBox"><Navbar Alert={<Alert/>}/></div>
+      <div className="leftBox"><Navbar /></div>
       <div className="rightBox">
         <Scrollbars>
           <SubTopbar />
             
-          <button className='back-button' onClick={handleClick}>Go Back</button>
+          <button className='back-button1' onClick={handleClick}> <span> <TiArrowLeft size={25}/> </span> Back</button>
           <div>
 
           <button className="room-btn" onClick={() => setShowRooms(!showRooms)}> {showRooms ? ' without Devices' : 'with Devices'}</button>
@@ -85,29 +74,11 @@ const Patient = () => {
          
 
 
-          <div className="profile-flex">
+          <div className="profile-flex" style={{marginTop:'50px'}}>
 
 
 
-          {/* {showRooms ? (
-        <div>
-          <h3>Rooms with Devices</h3>
-          <ul>
-            {deviceRooms.map(room => (
-              <li key={room.id}>{room.name}</li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <div>
-          <h3>Rooms without Devices</h3>
-          <ul>
-            {noDeviceRooms.map(room => (
-              <li key={room.id}>{room.name}</li>
-            ))}
-          </ul>
-        </div>
-      )} */}
+
 
            
       {showRooms ? (
@@ -165,7 +136,8 @@ const Patient = () => {
                     <span>{data.deviceID}</span>
                   </div>
                   <div>
-                    <button style={{cursor:'pointer'}} onClick={() => history('/PatientProfile',{state:{id:data.id}})}>Visit patient page </button>
+                    <button  style={{cursor:'pointer'}} onClick={() => history('/PatientProfile',{state:{id:data.id}})}>Visit patient page </button>
+                    <button  style={{cursor:'pointer'}} onClick={() => history('/PatientProfile',{state:{id:data.id}})}>Visit patient page </button>
                   </div>
                 </div>
               </div>

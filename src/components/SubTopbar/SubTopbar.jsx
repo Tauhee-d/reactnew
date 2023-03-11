@@ -28,7 +28,7 @@ function Header() {
   return (
     <Navbar bg="light" expand="lg" style={{display:'flex', justifyContent:"space-between"}} >
      <span style={{    fontSize:'1.3rem', color:'#c2c2d6', marginLeft:'50px',letterSpacing:"1px" }}>Yantram Medtech Dashboard</span>
-     <Nav>
+     {/* <Nav>
       <Typography  variant="h6"
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
@@ -37,7 +37,7 @@ function Header() {
         <NavDropdown.Item  onClick={handleLogout} >Logout</NavDropdown.Item>
       </NavDropdown>
       </Typography>
-    </Nav>
+    </Nav> */}
     </Navbar>
   );
 }
