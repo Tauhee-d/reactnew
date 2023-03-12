@@ -3,7 +3,7 @@ import { MdDashboard } from "react-icons/md";
 import { HiBellAlert } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import "./navbar.css";
-import yantram from "../../../src/assets/img/yantram.jpeg";
+import yantram from "../../../src/assets/img/yantram.png";
 import { Button } from "@mui/material";
 import { useNavigate} from "react-router-dom";
 import UserRoleContext from "../ContextApi/UserRoleContext";
@@ -31,19 +31,23 @@ const {userRole} = useContext(UserRoleContext)
     <div className="Navbar">
 
       <div style={{ display: "flex" }}>
+        {/* <button style={{border:'none'}}> */}
+
         <img
           src={yantram}
           alt=""
           srcset=""
           style={{
-            height: "40px",
-            marginLeft: "20px",
-            width: "60px",
+            height: "42px",
+            marginLeft: "70px",
+            width: "75px",
             borderRadius: "2px",
             marginTop: "15px",
+            cursor:'pointer'
           }}
         />
-        <p
+        {/* </button> */}
+        {/* <p
           style={{
             color: "#c2c2d6",
             marginTop: "20px",
@@ -52,7 +56,7 @@ const {userRole} = useContext(UserRoleContext)
           }}
         >
           YANTRAM
-        </p>
+        </p> */}
       </div>
 
       <hr style={{ color: "white" }} />
