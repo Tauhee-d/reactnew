@@ -1,5 +1,6 @@
 import { AiFillPieChart,AiOutlineLogout } from "react-icons/ai";
 import { MdDashboard } from "react-icons/md";
+import { HiBellAlert } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 import yantram from "../../../src/assets/img/yantram.jpeg";
@@ -79,6 +80,14 @@ const {userRole} = useContext(UserRoleContext)
           </li>
         
         ) : null}
+         <li className="nav-item">
+            <Button className="nav-bttn">
+              <Link className="nav-link" to="/Alert" id="acolor">
+                <HiBellAlert size={20} style={{ marginRight: "15px" }} />{" "}
+                <span style={{ marginRight: "35px" }}>Alert</span>
+              </Link>
+            </Button>
+          </li>
         <li>
         <Button className="nav-bttn" >
 

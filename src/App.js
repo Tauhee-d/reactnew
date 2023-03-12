@@ -10,6 +10,7 @@ import PatientList from "./pages/Room/PatientList/PatientList";
 import PatientProfile from "./pages/Room/PatientProfile/PatientProfile";
 import { useState } from "react";
 import UserRoleContext from './components/ContextApi/UserRoleContext'
+import Alert from "./pages/Alert/Alert";
 
 
 const App = () => {
@@ -64,6 +65,7 @@ const App = () => {
           </ProtectedElement>
         }
       />
+      <Route path="/Alert" index element={<Alert />} />
       <Route path="/PatientList" index element={<PatientList />} />
       <Route path="/PatientProfile" index element={<PatientProfile />} />
     </Routes>

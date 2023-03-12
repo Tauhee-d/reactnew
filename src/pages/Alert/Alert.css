@@ -1,0 +1,9 @@
+.Alert-container{
+    display: flex;
+}
+.Alert-left{
+    flex: 1;
+}
+.Alert-right{
+    flex: 7;
+}

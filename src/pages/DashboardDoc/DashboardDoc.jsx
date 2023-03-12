@@ -267,7 +267,7 @@ const femalecount = filtered.length;
                       </div>
                       <div style={{display:'flex',justifyContent:'space-around',alignItems:'center'}}>
                       <span style={{fontSize:"40px"}}>{totalPatientCount}</span>
-                          <span>Old Patients</span>
+                          <span>Total Patients</span>
                       </div>
                     </div>
                
