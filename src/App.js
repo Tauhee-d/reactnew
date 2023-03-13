@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "./pages/Login/Login";
 import DashboardAdmin from "./pages/DashboardAdmin/DashboardAdmin";
@@ -11,6 +11,7 @@ import PatientProfile from "./pages/Room/PatientProfile/PatientProfile";
 import { useState } from "react";
 import UserRoleContext from './components/ContextApi/UserRoleContext'
 import Alert from "./pages/Alert/Alert";
+import Protected from "./components/ProtectedRoutes/Protected";
 
 
 const App = () => {
@@ -32,6 +33,8 @@ const App = () => {
       <Route path="/">
         <Route index element={<Login />} />
       </Route>
+    <Route path='/' element={<Protected/>} >
+
       <Route path="/dashboard">
         <Route
           index
@@ -47,11 +50,12 @@ const App = () => {
             </ProtectedElement>
           }
         />
+        
        
       </Route>
-
-  
-      <Route
+    </Route>
+    <Route path='/' element={<Protected/>} >
+ <Route
         path="/Room"
         index
         element={
@@ -65,9 +69,34 @@ const App = () => {
           </ProtectedElement>
         }
       />
+
+    </Route>
+
+
+    <Route path="/*" element={<Navigate to="/" />} />
+
+
+
+  
+      {/* <Route
+        path="/Room"
+        index
+        element={
+          <ProtectedElement>
+            {" "}
+            {userRole === UserTypes.admin ? (
+              <Room />
+            ) : userRole === UserTypes.doctor ? (
+              <Room />
+            ) : null}
+          </ProtectedElement>
+        }
+      /> */}
       <Route path="/Alert" index element={<Alert />} />
       <Route path="/PatientList" index element={<PatientList />} />
       <Route path="/PatientProfile" index element={<PatientProfile />} />
+
+     
     </Routes>
     </UserRoleContext.Provider>
 
@@ -75,7 +104,12 @@ const App = () => {
   );
 };
 
-function ProtectedElement({ children }) {
+const useAuth = () => {
+  return true
+}
+function ProtectedElement({ children })
+{
+
   return <>{children}</>;
 }
 

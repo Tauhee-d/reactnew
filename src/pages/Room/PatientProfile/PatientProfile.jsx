@@ -54,15 +54,18 @@ const PatientProfile = () => {
   // console.log("object", roomsDataroom);
   
   const patientList = roomsDataroom.filter((patient) => patient.id === ID);
-  const patientTimeline = timelineData.filter((patient) => patient.patientID === ID);//device id
+  const pID = patientList.map((patient)=> patient.id)
+  const patientTimeline = timelineData.filter((patient) => patient.patientID === pID);//device id
   const deviceID = patientTimeline.map((timeline => timeline.deviceID))
   
   const patientReadings = readingsData.filter((patient) => patient.id === deviceID);//id
   const deviceID1 = readingsData.map((timeline => timeline.id))
-  console.log("timeline", patientReadings);
-  console.log("readings", readingsData);
-  console.log("object",deviceID);
-  console.log("patientList",deviceID1);
+  console.log("id1",pID);
+  console.log("id2",timelineData);
+  console.log("timeline", patientTimeline);
+  // console.log("readings", readingsData);
+  // console.log("object",deviceID);
+  // console.log("patientList",deviceID1);
   // console.log("patientList1",patientList);
 
   
@@ -99,38 +102,7 @@ const ModerateTemperature = Data.map((data, i) => {
     </>
   );
 });
-const Header = () => {
-  return (
-      <thead>
-     
-      </thead>
-  )
-}
-const Row = (props) => {
-  const { time, temp } = props
-  return (
-      <tr>
-          <td>{time}</td>
-          <td>{temp}</td>
 
-      </tr>
-  )
-}
-const Table = (props) => {
-  const { data } = props
-
-  return (
-      <table className="centered"  id='Table'>
-          <tbody>
-              <Header />
-              {data.map(row =>
-                  <Row time={row.time} temp={row.temp} />
-                  
-              )}
-          </tbody>
-      </table>
-  )
-}
 
   return (
     <>

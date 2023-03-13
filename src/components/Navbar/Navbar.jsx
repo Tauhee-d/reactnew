@@ -1,7 +1,7 @@
 import { AiFillPieChart,AiOutlineLogout } from "react-icons/ai";
 import { MdDashboard } from "react-icons/md";
 import { HiBellAlert } from "react-icons/hi2";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "./navbar.css";
 import yantram from "../../../src/assets/img/yantram.png";
 import { Button } from "@mui/material";
@@ -9,6 +9,7 @@ import { useNavigate} from "react-router-dom";
 import UserRoleContext from "../ContextApi/UserRoleContext";
 import { useContext } from "react";
 import {  NavDropdown, Nav } from "react-bootstrap";
+import Protected from "../ProtectedRoutes/Protected";
 
 const Navbar = ({ Alert }) => {
 const {userRole} = useContext(UserRoleContext)
@@ -73,6 +74,7 @@ const {userRole} = useContext(UserRoleContext)
             </Link>
           </Button>
         </li>
+        {/* <Protected>
         {userRole === UserTypes.admin || userRole === UserTypes.doctor ? (
           <li className="nav-item">
             <Button className="nav-bttn">
@@ -83,7 +85,21 @@ const {userRole} = useContext(UserRoleContext)
             </Button>
           </li>
         
-        ) : null}
+        ) : <Navigate to="/"/>}
+        </Protected> */}
+            
+
+        <li className="nav-item">
+            <Button className="nav-bttn">
+              <Link className="nav-link" to="/Room" id="acolor">
+                <AiFillPieChart size={20} style={{ marginRight: "15px" }} />{" "}
+                <span style={{ marginRight: "35px" }}>Rooms</span>
+              </Link>
+            </Button>
+          </li>
+
+
+
          <li className="nav-item">
             <Button className="nav-bttn">
               <Link className="nav-link" to="/Alert" id="acolor">

@@ -65,10 +65,10 @@ const Patient = () => {
         <Scrollbars>
           <SubTopbar />
             
-          <button className='back-button1' onClick={handleClick}> <span> <TiArrowLeft size={25}/> </span> Back</button>
+          <button className='back-button1' onClick={handleClick}> <span> <TiArrowLeft size={22}/> </span> Back</button>
           <div>
 
-          <button className="room-btn" onClick={() => setShowRooms(!showRooms)}> {showRooms ? ' without Devices' : 'with Devices'}</button>
+          <button className="room-btn" onClick={() => setShowRooms(!showRooms)}> {showRooms ? ' Without Devices' : 'With Devices'}</button>
           </div>
           {/* <div className="search">
             <input type="text" placeholder="search" value={query} onChange={e => setQuery(e.target.value)} />
@@ -111,7 +111,7 @@ const Patient = () => {
                 </div>
                 <div style={{display:'flex',marginTop:'10px', justifyContent:'space-between',fontSize:"12px"}}>
 
-                <span>Devices:   </span>
+                <span>Device:   </span>
                 <span>{data.device}</span>
                 </div>
               </div>
@@ -154,7 +154,7 @@ const Patient = () => {
                 </div>
                 <div style={{display:'flex',marginTop:'10px', justifyContent:'space-between',fontSize:"12px"}}>
 
-                <span>Devices:   </span>
+                <span>Device:   </span>
                 <span>{data.device}</span>
                 </div>
               </div>

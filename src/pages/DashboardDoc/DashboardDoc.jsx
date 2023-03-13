@@ -206,14 +206,16 @@ console.log("secound",highTemperature)
   });
 
 
+  // Patient Added this month
+
   const currentMonth = new Date().getMonth();
-  const currentYear = new Date().getFullYear(); // Get the current year
-  const firstDayOfMonth = new Date(currentYear, currentMonth, 1); // Create a Date object for the first day of the current month
-  const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0); // Create a Date object for the last day of the current month
+  const currentYear = new Date().getFullYear(); 
+  const firstDayOfMonth = new Date(currentYear, currentMonth, 1); 
+  const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0); 
   
   const patientsAddedThisMonth = roomsDataroom.filter(patient => {
-    const date = new Date(patient.addedOn * 1000); // Convert epoch time to Date object
-    return date >= firstDayOfMonth && date <= lastDayOfMonth; // Filter by date range
+    const date = new Date(patient.addedOn * 1000); 
+    return date >= firstDayOfMonth && date <= lastDayOfMonth; 
   });
 
 const count = patientsAddedThisMonth.length;
@@ -353,7 +355,7 @@ const femalecount = filtered.length;
                   <Table>
                     <thead>
                       <TableRow>
-                        <TableCell>PatientName</TableCell>
+                        <TableCell>Name</TableCell>
 
                         <TableCell>Alert</TableCell>
                       </TableRow>
@@ -369,7 +371,7 @@ const femalecount = filtered.length;
                   <Table>
                     <thead>
                       <TableRow>
-                        <TableCell>PatientName</TableCell>
+                        <TableCell>Name</TableCell>
 
                         <TableCell>Alert</TableCell>
                       </TableRow>
