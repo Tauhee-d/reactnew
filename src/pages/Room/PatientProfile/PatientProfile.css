@@ -50,6 +50,70 @@
     color: white;
     background-color: #2C74B3;
 }
+.msg-btn{
+    border-color: #2C74B3;
+}
+.msg-form{
+   
+   
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* left: 5rem; */
+
+}
+.msg-container{
+    height: 400px;
+    width: 600px;
+    position: fixed;
+    background-color:white;
+    left: 34rem;
+    padding: 20px;
+    border: 2px solid skyblue;
+    /* border: 2px solid rgba(235, 230, 230, 0.592); */
+    border-radius: 14px;
+}
+.msg-container1{
+    height: 200px;
+    width: 600px;
+    position: fixed;
+    background-color:white;
+    left: 34rem;
+    padding: 20px;
+    border: 2px solid skyblue;
+    /* border: 2px solid rgba(235, 230, 230, 0.592); */
+    border-radius: 14px;
+}
+.form-input{
+    border:1.5px solid black;
+    border-radius: 6px;
+}
+.form-input:hover{
+    border:1.5px solid skyblue;
+    border-radius: 6px;
+}
+.label{
+    font-weight: bold;
+    font-size: 12px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+.form-btn{
+    margin-top: 22px;
+    width: 200px;
+    margin-left: 190px;
+    font-weight: bold;
+    font-size: 12px;
+    color: white;
+    border:none;
+    border-radius: 5px;
+    background-color: #458bc1;
+    padding: 3px;
+}
+.form-btn:hover{
+    
+    background-color: #0D63A5;
+}
 .Profile{
     display: flex;
     gap: 1rem;

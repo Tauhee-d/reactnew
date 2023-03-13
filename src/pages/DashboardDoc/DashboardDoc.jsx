@@ -17,6 +17,7 @@ import { Table, TableBody, TableCell, TableRow } from "@mui/material";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { useNavigate } from "react-router-dom";
 import getPatients from "../../Firebase/firebaseControllers/hosPatientList";
+import getMessage from "../../Firebase/firebaseControllers/Message";
 
 const DashboardDoc = () => {
   const navigate = useNavigate();
@@ -38,17 +39,13 @@ const DashboardDoc = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setCurrentTime(new Date());
-  //   }, 1000);
-  //   return () => clearInterval(interval);
-  // }, []);
   const currentDate = new Date();
 
   const Name = sessionStorage.getItem("name");
 
   const [roomsDataroom, setRoomsData] = useState([]);
+  const [message, setMessage] = useState([]);
+
 
   const highTemperature = roomsDataroom.filter((item) => item.latestTemp >= 95);
   const moderateTemperature = roomsDataroom.filter(
@@ -67,6 +64,9 @@ console.log("secound",highTemperature)
     const fetchData = async () => {
       const data = await getPatients();
       setRoomsData(data);
+      const data1 = await getMessage();
+      setMessage(data1);
+
     };
     fetchData();
   }, []);
@@ -124,11 +124,26 @@ console.log("secound",highTemperature)
       </>
     );
   });
-  const t2 = recentData.map((data, i) => {
+
+
+
+
+  const mappedData = message.map(({ formData: { title, patientID, attenderID } }) => ({
+    title,
+    patientID,
+    attenderID,
+    
+  }));
+  
+  
+  // console.log("mappedData",mappedData);
+  const t2 = message.map((data, i) => {
     const handleNotification = () => {
-      navigate("/PatientProfile", { state: { id: data.id } });
+      navigate("/PatientProfile", { state: { id: data.formData.patientID } });
      
     };
+    // console.log("recentData",recentData);
+    console.log("message",message)
     return (
       <>
          <TableRow
@@ -137,12 +152,16 @@ console.log("secound",highTemperature)
           style={{ cursor: "pointer" }}
           className='table'
         >
-          <TableCell style={{ fontSize: "12px" }}>{data.id}</TableCell>
-          <TableCell style={{ fontSize: "12px" }}>
+          <TableCell style={{ fontSize: "12px" }}>{data.formData.patientID}</TableCell>
+          {/* <TableCell style={{ fontSize: "12px" }}>
             {data.fName} {data.lName}
-          </TableCell>
-          <TableCell style={{ fontSize: "12px" }}>{data.phone}</TableCell>
+          </TableCell> */}
+          <TableCell style={{ fontSize: "12px" }}>{data.formData.title}</TableCell>
         </TableRow>
+
+
+
+       
       </>
     );
   });
@@ -308,8 +327,8 @@ const femalecount = filtered.length;
                   <Table>
                     <TableRow >
                       <TableCell>ID</TableCell>
-                      <TableCell>Name</TableCell>
-                      <TableCell>Phone</TableCell>
+                      {/* <TableCell>Name</TableCell> */}
+                      <TableCell>Message</TableCell>
                     </TableRow>
 
                     <TableBody>
