@@ -127,11 +127,14 @@ const PatientProfile = () => {
   //Message form
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isFormOpen1, setIsFormOpen1] = useState(false);
+  const [error, setError] = useState(false);
   const [formData, setFormData] = useState({
     title: "",attender: "",attenderID: "",patientID:'',description:''
   });
   const toggleForm = () => {
-    setIsFormOpen(!isFormOpen);
+
+      setIsFormOpen(!isFormOpen);
+    
   };
   const toggleForm1 = () => {
     setIsFormOpen1(!isFormOpen1);
@@ -146,18 +149,25 @@ const PatientProfile = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsFormOpen(false);
-    db.collection('messages').add({
-      // title,attender,attenderID,patientI,description,
-      formData,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    })
-    .then(() => {
-      console.log('Message successfully sent to Firestore!');
-    })
-    .catch((error) => {
-      console.error('Error sending message to Firestore: ', error);
-    });
-    setFormData('')
+
+    if (formData === null) {
+      setError("Please fill in all fields");
+    }else {
+
+      db.collection('messages').add({
+        // title,attender,attenderID,patientI,description,
+        formData,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        console.log('Message successfully sent to Firestore!');
+      })
+      .catch((error) => {
+        console.error('Error sending message to Firestore: ', error);
+      });
+      setFormData('')
+    }
+  
   
   };
 
@@ -218,7 +228,7 @@ const PatientProfile = () => {
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
-                          width: "300px",
+                          width: "450px",
                         }}
                       >
                         <div className="msg-btn">
@@ -309,6 +319,7 @@ const PatientProfile = () => {
                                         onChange={handleChange}
                                         className='form-input'
                                       />
+                                      <p>{error}</p>
                                     <button className="form-btn" type="submit">Submit</button>
                                   </form>
                                 </div>
