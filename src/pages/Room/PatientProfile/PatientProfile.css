@@ -50,6 +50,17 @@
     color: white;
     background-color: #2C74B3;
 }
+.attach-btn:hover{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:30px;
+    width: 30px;
+    border-radius: 200px 200px 200px 200px;
+-moz-border-radius: 200px 200px 200px 200px;
+-webkit-border-radius: 200px 200px 200px 200px;
+border:1px solid #2C74B3;
+}
 .msg-btn{
     /* border: 2px solid black; */
     /* margin-bottom: 20px; */
@@ -79,7 +90,7 @@
 
 }
 .msg-container{
-    height: 400px;
+    height: 450px;
     width: 600px;
     position: fixed;
     background-color:white;

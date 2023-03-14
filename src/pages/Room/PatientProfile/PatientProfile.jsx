@@ -7,12 +7,11 @@ import Avatar from "../../../assets/img/Avatar.jpeg";
 import { useLocation } from "react-router-dom";
 import Navbar from "../../../components/Navbar/Navbar";
 import { useNavigate } from "react-router-dom";
-import { AiFillMessage,AiOutlineMessage } from 'react-icons/ai';
-import {db} from '../../../Firebase/firebase'
-import firebase from 'firebase/app';
-
-
-
+import { AiFillMessage, AiOutlineMessage } from "react-icons/ai";
+import { MdOutlineCancel } from "react-icons/md";
+import { GrAttachment } from "react-icons/gr";
+import { db } from "../../../Firebase/firebase";
+import firebase from "firebase/app";
 import {
   LineChart,
   ResponsiveContainer,
@@ -22,8 +21,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Table, TableBody, TableCell, TableRow } from "@mui/material";
-
+import { TableBody, TableCell, TableRow } from "@mui/material";
 import getPatients from "../../../Firebase/firebaseControllers/hosPatientList";
 import getReadings from "../../../Firebase/firebaseControllers/Readings";
 import getTimeline from "../../../Firebase/firebaseControllers/Timeline";
@@ -63,7 +61,9 @@ const PatientProfile = () => {
   }, []);
   // console.log("object", roomsDataroom);
 
-  const Message = message.filter((patient) => patient.formData.patientID === ID);
+  const Message = message.filter(
+    (patient) => patient.formData.patientID === ID
+  );
   const patientList = roomsDataroom.filter((patient) => patient.id === ID);
   const pID = patientList.map((patient) => patient.id);
   const patientTimeline = timelineData.filter(
@@ -77,11 +77,6 @@ const PatientProfile = () => {
   const deviceID1 = readingsData.map((timeline) => timeline.id);
   // console.log("id1", message);
   // console.log("id2", Message);
-  // console.log("timeline",patientList);
-  // console.log("readings", readingsData);
-  // console.log("object",deviceID);
-  // console.log("patientList",deviceID1);
-  // console.log("patientList1",patientList);
 
   function formatTime(epochTime) {
     const date = new Date(epochTime * 1000); // convert epoch time to milliseconds
@@ -110,66 +105,91 @@ const PatientProfile = () => {
     );
   });
 
-
   //Message view
 
-  const msgView = Message.map((data)=> {
+  const msgView = Message.map((data) => {
     return (
       <>
-      <p>{data.formData.description}</p>
+        <p>{data.formData.description}</p>
       </>
-    )
-  })
-
-
-
+    );
+  });
 
   //Message form
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isFormOpen1, setIsFormOpen1] = useState(false);
-  const [error, setError] = useState(false);
+  const [isFormOpen2, setIsFormOpen2] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
-    title: "",attender: "",attenderID: "",patientID:'',description:''
+    title: "",
+    attender: "",
+    attenderID: "",
+    patientID: "",
+    description: "",
   });
   const toggleForm = () => {
-
-      setIsFormOpen(!isFormOpen);
-    
+    setIsFormOpen(!isFormOpen);
+    setIsFormOpen1(false);
+    setIsFormOpen2(false);
   };
   const toggleForm1 = () => {
     setIsFormOpen1(!isFormOpen1);
+    setIsFormOpen(false);
+    setIsFormOpen2(false);
+  };
+  const toggleForm2 = () => {
+    setIsFormOpen2(!isFormOpen2);
+    setIsFormOpen(false);
+    setIsFormOpen1(false);
   };
   const handleChange = (event) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value
-    });
-  }
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+  const handleCancel = () => {
+    setIsFormOpen(false);
+    setError("");
+    setFormData("");
+  };
+  const handleCancel1 = () => {
+    setIsFormOpen1(false);
+  };
+  const handleCancel2 = () => {
+    setIsFormOpen2(false);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setIsFormOpen(false);
 
-    if (formData === null) {
-      setError("Please fill in all fields");
-    }else {
-
-      db.collection('messages').add({
-        // title,attender,attenderID,patientI,description,
+    if (
+      !formData.title ||
+      !formData.attender ||
+      !formData.attenderID ||
+      !formData.description ||
+      !formData.patientID
+    ) {
+      setError("Please fill in all fields.");
+      return;
+    }
+    db.collection("messages")
+      .add({
         formData,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .then(() => {
-        console.log('Message successfully sent to Firestore!');
+        setError("");
+        setFormData("");
+        setIsFormOpen(false);
+        console.log("Message successfully sent to Firestore!");
       })
       .catch((error) => {
-        console.error('Error sending message to Firestore: ', error);
+        console.error("Error sending message to Firestore: ", error);
       });
-      setFormData('')
-    }
-  
-  
   };
+  
 
   return (
     <>
@@ -194,13 +214,6 @@ const PatientProfile = () => {
             <button className="back-room" onClick={handleRoom}>
               Rooms
             </button>
-
-            {/*                 
-                {studentList.map(student => (
-        <li key={student.id} >
-          {student.details}
-        </li>
-      ))} */}
 
             {patientList.map((patient) => {
               const time = formatTime(patient.latestTime);
@@ -233,20 +246,71 @@ const PatientProfile = () => {
                       >
                         <div className="msg-btn">
                           <div>
-                            <p onClick={toggleForm1}>View message <AiOutlineMessage/></p>
+                            <span onClick={toggleForm1}>View message </span>
+
                             {isFormOpen1 && (
                               <div className="msg-container1">
                                 <div>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "space-between",
+                                    }}
+                                  >
+                                    <span style={{ fontWeight: "bold" }}>
+                                      Description <AiOutlineMessage />
+                                    </span>
+                                    <span
+                                      style={{ fontWeight: "bold" }}
+                                      onClick={handleCancel1}
+                                    >
+                                      {" "}
+                                      <MdOutlineCancel />{" "}
+                                    </span>
+                                  </div>
                                   {msgView}
                                 </div>
                               </div>
                             )}
                           </div>
-                          
+                        </div>
+                        <div>
+                          <div>
+                            <span className="attach-btn" onClick={toggleForm2}>
+                              <GrAttachment />
+                            </span>
+
+                            {isFormOpen2 && (
+                              <div className="msg-container1">
+                                <div>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "space-between",
+                                    }}
+                                  >
+                                    <span style={{ fontWeight: "bold" }}>
+                                      Attachments{" "}
+                                    </span>
+                                    <span
+                                      style={{ fontWeight: "bold" }}
+                                      onClick={handleCancel2}
+                                    >
+                                      {" "}
+                                      <MdOutlineCancel />{" "}
+                                    </span>
+                                  </div>
+                               
+                                </div>
+                              </div>
+                            )}
+                          </div>
                         </div>
                         <div className="msg-btn">
                           <div>
-                            <p onClick={toggleForm}>message <AiOutlineMessage/></p>
+                            <p onClick={toggleForm}>
+                              message <AiOutlineMessage />
+                            </p>
                             {isFormOpen && (
                               <div className="msg-container">
                                 <div>
@@ -254,80 +318,109 @@ const PatientProfile = () => {
                                     onSubmit={handleSubmit}
                                     className="msg-form"
                                   >
-                                    <span style={{fontWeight:'bold'}}>Message <AiFillMessage/> </span>
-                                    <label className="label">
-                                      Title*
-                                    </label>
-                                      <input
-                                        type="text"
-                                        name="title"
-                                        value={formData.title}
-                                        onChange={handleChange}
-                                       className='form-input'
-                                      
-                                      />
-                                      <div style={{ display:'flex', justifyContent:"space-between"}}>
-                                      <div style={{display:'flex',flexDirection:'column'}}>
-
-                                    <label className="label">
-                                      Attender*
-                                    </label>
-                                      <input
-                                        type="text"
-                                        name="attender"
-                                        value={formData.attender}
-                                        onChange={handleChange}
-                                        className='form-input'
-                                        style={{width:'270px'}}
-                                      />
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                      }}
+                                    >
+                                      <span style={{ fontWeight: "bold" }}>
+                                        Message <AiFillMessage />{" "}
+                                      </span>
+                                      <span
+                                        style={{ fontWeight: "bold" }}
+                                        onClick={handleCancel}
+                                      >
+                                        {" "}
+                                        <MdOutlineCancel />{" "}
+                                      </span>
+                                    </div>
+                                    <div>
+                                      {error && (
+                                        <p style={{ color: "red" }}>{error}</p>
+                                      )}
+                                    </div>
+                                    <label className="label">Title*</label>
+                                    <input
+                                      type="text"
+                                      name="title"
+                                      value={formData.title}
+                                      onChange={handleChange}
+                                      className="form-input"
+                                    />
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                      }}
+                                    >
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          flexDirection: "column",
+                                        }}
+                                      >
+                                        <label className="label">
+                                          Attender*
+                                        </label>
+                                        <input
+                                          type="text"
+                                          name="attender"
+                                          value={formData.attender}
+                                          onChange={handleChange}
+                                          className="form-input"
+                                          style={{ width: "270px" }}
+                                        />
                                       </div>
-                                      <div style={{display:'flex',flexDirection:'column'}}>
-
-                                    <label className="label">
-                                      AttenderID*
-                                    </label>
-                                      <input
-                                        type="text"
-                                        name="attenderID"
-                                        value={formData.attenderID}
-                                        onChange={handleChange}
-                                        className='form-input'
-                                        style={{width:'270px'}}
-
-                                      />
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          flexDirection: "column",
+                                        }}
+                                      >
+                                        <label className="label">
+                                          AttenderID*
+                                        </label>
+                                        <input
+                                          type="text"
+                                          name="attenderID"
+                                          value={formData.attenderID}
+                                          onChange={handleChange}
+                                          className="form-input"
+                                          style={{ width: "270px" }}
+                                        />
                                       </div>
-                                      </div>
-                                      <label className="label">
-                                      PatientID*
-                                    </label>
-                                      <input
-                                        type="text"
-                                        name="patientID"
-                                        value={formData.patientID}
-                                        onChange={handleChange}
-                                        className='form-input'
-                                        // style={{width:'270px'}}
-
-                                      />
+                                    </div>
+                                    <label className="label">PatientID*</label>
+                                    <input
+                                      type="text"
+                                      name="patientID"
+                                      value={formData.patientID}
+                                      onChange={handleChange}
+                                      className="form-input"
+                                      // style={{width:'270px'}}
+                                    />
                                     <label className="label">
                                       Description*
                                     </label>
-                                      <textarea
-                                        name="description"
-                                        rows='4'
-                                        value={formData.description}
-                                        onChange={handleChange}
-                                        className='form-input'
-                                      />
-                                      <p>{error}</p>
-                                    <button className="form-btn" type="submit">Submit</button>
+                                    <textarea
+                                      name="description"
+                                      rows="4"
+                                      value={formData.description}
+                                      onChange={handleChange}
+                                      className="form-input"
+                                    />
+
+                                    <button className="form-btn" type="submit">
+                                      Submit
+                                    </button>
                                   </form>
                                 </div>
                               </div>
                             )}
                           </div>
-
                         </div>
+
                         <div>
                           <span>
                             Latset Temperature {patient.latestTemp} C{" "}
@@ -342,7 +435,13 @@ const PatientProfile = () => {
                         </div>
                       </div>
                     </div>
-                    <div style={{border:'0.1px solid rgba(235, 230, 230, 0.592)',marginTop:'10px',marginBottom:'10px'}}></div>
+                    <div
+                      style={{
+                        border: "0.1px solid rgba(235, 230, 230, 0.592)",
+                        marginTop: "10px",
+                        marginBottom: "10px",
+                      }}
+                    ></div>
                     <div className="pro-container">
                       <div style={{ flex: "2", padding: "15px" }}>
                         <h5 style={{ marginTop: "20px", marginBottom: "20px" }}>
@@ -358,7 +457,13 @@ const PatientProfile = () => {
                           <span>Patient ID</span>
                           <span>{patient.id}</span>{" "}
                         </p>
-                        <div style={{border:'0.1px solid rgba(235, 230, 230, 0.592)',marginTop:'10px',marginBottom:'10px'}}></div>
+                        <div
+                          style={{
+                            border: "0.1px solid rgba(235, 230, 230, 0.592)",
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                          }}
+                        ></div>
                         <p
                           style={{
                             fontSize: "12px",
@@ -369,8 +474,14 @@ const PatientProfile = () => {
                           <span>Date of birth</span>
                           <span>{patient.age}</span>{" "}
                         </p>
-                        <div style={{border:'0.1px solid rgba(235, 230, 230, 0.592)',marginTop:'10px',marginBottom:'10px'}}></div>
-                        
+                        <div
+                          style={{
+                            border: "0.1px solid rgba(235, 230, 230, 0.592)",
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                          }}
+                        ></div>
+
                         <p
                           style={{
                             fontSize: "12px",
@@ -381,7 +492,13 @@ const PatientProfile = () => {
                           <span>Sex</span>
                           <span>{patient.gender}</span>{" "}
                         </p>
-                        <div style={{border:'0.1px solid rgba(235, 230, 230, 0.592)',marginTop:'10px',marginBottom:'10px'}}></div>
+                        <div
+                          style={{
+                            border: "0.1px solid rgba(235, 230, 230, 0.592)",
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                          }}
+                        ></div>
                         <p
                           style={{
                             fontSize: "12px",
@@ -392,7 +509,13 @@ const PatientProfile = () => {
                           <span>Status</span>
                           <span>{patient.status}</span>{" "}
                         </p>
-                        <div style={{border:'0.1px solid rgba(235, 230, 230, 0.592)',marginTop:'10px',marginBottom:'10px'}}></div>
+                        <div
+                          style={{
+                            border: "0.1px solid rgba(235, 230, 230, 0.592)",
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                          }}
+                        ></div>
                         <p
                           style={{
                             fontSize: "12px",
@@ -416,7 +539,13 @@ const PatientProfile = () => {
                           <span>Phone</span>
                           <span>{patient.phone}</span>{" "}
                         </p>
-                        <div style={{border:'0.1px solid rgba(235, 230, 230, 0.592)',marginTop:'10px',marginBottom:'10px'}}></div>
+                        <div
+                          style={{
+                            border: "0.1px solid rgba(235, 230, 230, 0.592)",
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                          }}
+                        ></div>
                         <p
                           style={{
                             fontSize: "12px",
@@ -427,7 +556,13 @@ const PatientProfile = () => {
                           <span>Email</span>
                           <span>{patient.email}</span>{" "}
                         </p>
-                        <div style={{border:'0.1px solid rgba(235, 230, 230, 0.592)',marginTop:'10px',marginBottom:'10px'}}></div>
+                        <div
+                          style={{
+                            border: "0.1px solid rgba(235, 230, 230, 0.592)",
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                          }}
+                        ></div>
                       </div>
                       <div className="vertical-line"></div>
 
@@ -459,7 +594,13 @@ const PatientProfile = () => {
                           <span>Doctor Id</span>
                           <span>{patient.docID}</span>{" "}
                         </p>
-                        <div style={{border:'0.1px solid rgba(235, 230, 230, 0.592)',marginTop:'10px',marginBottom:'10px'}}></div>
+                        <div
+                          style={{
+                            border: "0.1px solid rgba(235, 230, 230, 0.592)",
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                          }}
+                        ></div>
                         <p
                           style={{
                             fontSize: "12px",
@@ -470,7 +611,13 @@ const PatientProfile = () => {
                           <span>Doctor</span>
                           <span>{patient.docName}</span>{" "}
                         </p>
-                        <div style={{border:'0.1px solid rgba(235, 230, 230, 0.592)',marginTop:'10px',marginBottom:'10px'}}></div>
+                        <div
+                          style={{
+                            border: "0.1px solid rgba(235, 230, 230, 0.592)",
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                          }}
+                        ></div>
                         <p
                           style={{
                             fontSize: "12px",
@@ -481,7 +628,13 @@ const PatientProfile = () => {
                           <span>Department</span>
                           <span>{patient.department}</span>{" "}
                         </p>
-                        <div style={{border:'0.1px solid rgba(235, 230, 230, 0.592)',marginTop:'10px',marginBottom:'10px'}}></div>
+                        <div
+                          style={{
+                            border: "0.1px solid rgba(235, 230, 230, 0.592)",
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                          }}
+                        ></div>
                       </div>
                     </div>
                   </div>
