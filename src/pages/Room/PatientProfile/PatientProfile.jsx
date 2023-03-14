@@ -11,6 +11,7 @@ import { AiFillMessage, AiOutlineMessage } from "react-icons/ai";
 import { MdOutlineCancel } from "react-icons/md";
 import { GrAttachment } from "react-icons/gr";
 import { db } from "../../../Firebase/firebase";
+import { storage } from "../../../Firebase/firebase";
 import firebase from "firebase/app";
 import {
   LineChart,
@@ -191,6 +192,77 @@ const PatientProfile = () => {
   };
   
 
+
+
+
+
+
+
+
+
+
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    
+    const fileInput = event.target.querySelector('input[type="file"]');
+    const file = fileInput.files[0];
+    
+    const fileReader = new FileReader();
+    
+    fileReader.onload = function(event) {
+      const imageData = event.target.result;
+      
+      db.collection('images').add({ data: imageData })
+        .then(() => {
+          console.log('Image uploaded successfully!');
+        })
+        .catch(error => {
+          console.error('Error uploading image:', error);
+        });
+    };
+    
+    fileReader.readAsDataURL(file);
+  }
+  
+  db
+  .collection('images')
+  .get()
+  .then(querySnapshot => {
+    const images = [];
+    querySnapshot.forEach(doc => {
+      const data = doc.data();
+      images.push({
+        id: doc.id,
+        url: data.url, // assuming you stored the image URL in a 'url' field
+        // other image metadata, if any
+      });
+    });
+    // do something with the images array
+  })
+  .catch(error => {
+    console.log('Error getting images: ', error);
+  });
+
+  const Image=  images.map(image => (
+    <img key={image.id} src={image.url} alt="Image" />
+  ))
+                               
+                                 
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <>
       <div className="Container">
@@ -269,6 +341,7 @@ const PatientProfile = () => {
                                     </span>
                                   </div>
                                   {msgView}
+
                                 </div>
                               </div>
                             )}
@@ -301,6 +374,52 @@ const PatientProfile = () => {
                                     </span>
                                   </div>
                                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  <form onSubmit={handleFormSubmit}>
+                                   <input type="file" accept="image/*" />
+                                   {/* <label className="label"> PatientID*</label>
+                                        <input type="text"
+                                          name="patientID"value={patientID}
+                                          onChange={handleChange}
+                                        /> */}
+                                   <button type="submit">Upload</button>
+                                   </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                 </div>
                               </div>
                             )}
