@@ -344,6 +344,47 @@ const PatientProfile = () => {
   };
   
   
+  // const handleImageFileChange = (event) => {
+  //   const files = event.target.files;
+  //   const newFiles = [];
+  //   for (let i = 0; i < files.length; i++) {
+  //     const file = files[i];
+  //     if (file.type.includes("image") || file.type.includes("pdf")) {
+  //       newFiles.push(file);
+  //     }
+  //   }
+  //   setImageFiles([...imageFiles, ...newFiles]); // add the new files to the existing files array
+  // };
+  // const handleUpload = async (event) => {
+  //   event.preventDefault();
+  //   for (let i = 0; i < imageFiles.length; i++) {
+  //     const file = imageFiles[i];
+  //     await handleFileUpload(patientId, file); // upload each file
+  //   }
+  // };
+  // const handleFileUpload = async (patientId, file) => {
+  //   const storageRef = firebase.storage().ref();
+  //   const fileId = Date.now(); // generate a unique ID for the uploaded file
+  //   const fileRef = storageRef.child(`files/${patientId}/${fileId}`);
+  //   await fileRef.put(file);
+    
+  //   const downloadURL = await fileRef.getDownloadURL();
+  //     //   const firestoreRef = firebase.firestore().collection("patients");
+
+  //   const firestoreRef = firebase.firestore().collection("patients");
+  //   const patientRef = firestoreRef.doc(patientId);
+  //   const patientData = await patientRef.get();
+  //   let files = [];
+  //   if (patientData.exists) {
+  //     files = patientData.data().files || []; // get the existing files for the patient, if any
+  //   }
+  //   files.push({ id: fileId, url: downloadURL }); // add the new file to the patient's files
+  //   await patientRef.set({ files }, { merge: true });
+  //     console.log("object",files);    
+
+  // };
+      
+  
   
   
 
