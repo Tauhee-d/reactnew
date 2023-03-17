@@ -74,7 +74,7 @@ const {userRole} = useContext(UserRoleContext)
             </Link>
           </Button>
         </li>
-        {/* <Protected>
+        <Protected>
         {userRole === UserTypes.admin || userRole === UserTypes.doctor ? (
           <li className="nav-item">
             <Button className="nav-bttn">
@@ -86,17 +86,31 @@ const {userRole} = useContext(UserRoleContext)
           </li>
         
         ) : <Navigate to="/"/>}
-        </Protected> */}
+        </Protected>
+        {/* <Protected> */}
+        {userRole === UserTypes.admin ? (
+           <li className="nav-item">
+           <Button className="nav-bttn">
+             <Link className="nav-link" to="/Doctor" id="acolor">
+               <AiFillPieChart size={20} style={{ marginRight: "15px" }} />{" "}
+               <span style={{ marginRight: "35px" }}>Doctor</span>
+             </Link>
+           </Button>
+         </li>
+        
+        ) : null}
+        {/* </Protected> */}
             
 
-        <li className="nav-item">
+        {/* <li className="nav-item">
             <Button className="nav-bttn">
               <Link className="nav-link" to="/Room" id="acolor">
                 <AiFillPieChart size={20} style={{ marginRight: "15px" }} />{" "}
                 <span style={{ marginRight: "35px" }}>Rooms</span>
               </Link>
             </Button>
-          </li>
+          </li> */}
+      
 
 
 

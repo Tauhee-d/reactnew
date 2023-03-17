@@ -309,22 +309,29 @@ const PatientProfile = () => {
   // };
   
   const [patientId, setPatientId] = useState("");
+  const [title, setTitle] = useState("");
   const [imageFiles, setImageFiles] = useState([]);
   
   const handlePatientIdChange = (event) => {
     setPatientId(event.target.value);
+  };
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
   };
   
   const handleImageFileChange = (event) => {
     setImageFiles([...imageFiles, event.target.files[0]]); // add the new file to the existing files array
   };
   
+ 
   const handleUpload = (event) => {
     event.preventDefault();
-    imageFiles.forEach((file) => handleImageUpload(patientId, file)); // upload each file
+    imageFiles.forEach((file) => handleImageUpload(patientId, title, file)); // upload each file with patientId and title
+    setIsFormOpen2(false);
   };
   
-  const handleImageUpload = async (patientId, imageFile) => {
+  
+  const handleImageUpload = async (patientId, title, imageFile) => {
     const storageRef = firebase.storage().ref();
     const imageId = Date.now(); // generate a unique ID for the uploaded image
     const imageRef = storageRef.child(`images/${patientId}/${imageId}`);
@@ -339,9 +346,10 @@ const PatientProfile = () => {
     if (patientData.exists) {
       images = patientData.data().images || []; // get the existing images for the patient, if any
     }
-    images.push({ id: imageId, url: downloadURL }); // add the new image to the patient's images
+    images.push({ id: imageId, title: title, url: downloadURL }); // add the new image to the patient's images with title
     await patientRef.set({ images }, { merge: true }); // update the patient's document with the new image
   };
+  
   
   
   // const handleImageFileChange = (event) => {
@@ -629,6 +637,11 @@ const PatientProfile = () => {
                                       <label>
                                         Patient ID:
                                         <input type="text" value={patientId} onChange={handlePatientIdChange} />
+                                      </label>
+                                      <br />
+                                      <label>
+                                        Title:
+                                        <input type="text" value={title} onChange={handleTitleChange} />
                                       </label>
                                       <br />
                                       <label>

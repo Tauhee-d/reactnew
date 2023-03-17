@@ -1,0 +1,9 @@
+.Doc-Container{
+    display: flex;
+}
+.Doc-left{
+    flex:1
+}
+.Doc-right{
+    flex: 6;
+}

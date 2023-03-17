@@ -13,6 +13,7 @@ import UserRoleContext from './components/ContextApi/UserRoleContext'
 import Alert from "./pages/Alert/Alert";
 import Protected from "./components/ProtectedRoutes/Protected";
 import Attachments from "./pages/Room/PatientProfile/Attachments";
+import Doctor from "./pages/Doctors/Doctor";
 
 
 const App = () => {
@@ -93,6 +94,7 @@ const App = () => {
           </ProtectedElement>
         }
       /> */}
+      <Route path="/Doctor" index element={<Doctor />} />
       <Route path="/Alert" index element={<Alert />} />
       <Route path="/Attachments" index element={<Attachments />} />
       <Route path="/PatientList" index element={<PatientList />} />
