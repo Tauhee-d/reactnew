@@ -8,25 +8,32 @@ import { Table, TableBody, TableCell, TableRow } from "@mui/material";
 import { Scrollbars } from "react-custom-scrollbars-2";
 
 const Doctor = () => {
+
     const [users,setUsers]=useState('')
     useEffect(() => {
-        const fetchData = async () => {
-          const data = await getUsers();
-          setUsers(data);
-        };
-        fetchData();
-      }, []);
-      console.log("object",users)
+     const fetchData = async () => {
+        const data = await getUsers()
+        setUsers(data)
+     }
+     fetchData()
+    }, [])
+    console.log("first",users)
 
-
-    const data = users.map((data => {
-        return(
+   
+    const docList = users.map((data,i)=> {
+        return (
             <>
-            <TableCell>{data.id}</TableCell>
-                        <TableCell>{data.firstName}{data.lastName}</TableCell>
+            <TableRow>
+                <TableCell>{data.id}</TableCell>
+                <TableCell>{data.firstName}{data.lastName}</TableCell>
+                <TableCell>{data.email}</TableCell>
+                <TableCell>{data.role}</TableCell>
+            </TableRow>
             </>
         )
-    }))
+    })
+    
+   
     
   return (
     <div className='Doc-Container'>
@@ -35,28 +42,19 @@ const Doctor = () => {
         </div>
         <div className="Doc-right">
             <SubTopbar/>
-            <div>
-
-           {users.map((data => {
-            return(
-                <>
-                <Table>
+                 <Table>
                     <TableRow>
-                        <TableCell>Id</TableCell>
-                        <TableCell>Doctor</TableCell>
+                        <TableCell>ID</TableCell>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Email</TableCell>
+                        <TableCell>Role</TableCell>
                     </TableRow>
                     <TableBody>
-                        {/* <TableCell>{data.id}</TableCell>
-                        <TableCell>{data.firstName}{data.lastName}</TableCell> */}
-                        {data}
+                        {docList}
                     </TableBody>
-                </Table>
-                {/* <p>{data.id}</p> */}
-                </>
-            )
-           }))}
-
-            </div>
+                 </Table>
+             
+           
 
 
         </div>
