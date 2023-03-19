@@ -42,6 +42,9 @@ const Attachments = () => {
       const handleUpload = (event) => {
         event.preventDefault();
         imageFiles.forEach((file) => handleImageUpload(patientId, title, file)); // upload each file with patientId and title
+        setIsFormOpen2(false);
+        // patientData()
+        
       };
       
       
@@ -153,11 +156,11 @@ const [selectedImage, setSelectedImage] = useState("");
       console.log("first",patientData.data())
       setPatientData(patientData.data());
     };
-    fetchPatientData();
+     fetchPatientData();
   }, [ID]);
 
 
-
+  
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
@@ -171,7 +174,8 @@ const [selectedImage, setSelectedImage] = useState("");
   const deletePatientData = async (ID) => {
     await firebase.firestore().collection("patients").doc(ID).delete();
     console.log("Patient data deleted successfully!");
-  };
+    // patientData()
+    };
   
 
 
@@ -273,7 +277,7 @@ const [selectedImage, setSelectedImage] = useState("");
                         </div>
                         
                           <div className="gallery">
-          {patientData &&
+          {/* {patientData &&
             patientData.images &&
             patientData.images.map((image) => (
               
@@ -297,11 +301,32 @@ const [selectedImage, setSelectedImage] = useState("");
                   </div>
                   </div>
               
-            ))}
+            ))} */}
+            {patientData?.images?.map((image) => (
+  <div style={{ height: '400px' }}>
+    <img
+      className="single-img"
+      key={image.id}
+      width={320}
+      height={250}
+      src={image.url}
+      alt="patient image"
+      onClick={() => handleImageClick(image)}
+    />
+    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+      <p>Title:{image.title}</p>
+      <button className="dlt-btn" onClick={() => deletePatientData(ID)}>Delete</button>
+    </div>
+  </div>
+))}
+
 
                   <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-                    <img src={selectedImage.src} alt={selectedImage.alt} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                    <img src={selectedImage.url} alt={selectedImage.alt} style={{ width: "1300px", height: "620px", objectFit: "contain" }} />
                   </Modal>
+
+                
+
 
         </div>
 

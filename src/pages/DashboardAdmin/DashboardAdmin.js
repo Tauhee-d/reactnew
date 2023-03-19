@@ -1,528 +1,656 @@
-import React from "react";
-import './DashboardAdmin.css'
+import React, { useState, useEffect } from "react";
 import {
-  Button,
-  Card,
-  Table,
-  Container,
-  Row,
-  Col,
-  Form,
-  OverlayTrigger,
+  LineChart,
   Tooltip,
-} from "react-bootstrap";
-import MainNavbar from "../../components/Navbar/Navbar";
-import SubTopbar from '../../components/SubTopbar/SubTopbar'
-import { Scrollbars } from 'react-custom-scrollbars-2';
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Legend,
+  Line,
+} from "recharts";
+import { TiGroupOutline } from "react-icons/ti";
 
-function DashboardAdmin() {
-  return (
-    <>
-    <div className="Maincontainer" >
-    <div className="leftBox">
+import Navbar from "../../components/Navbar/Navbar";
+import SubTopbar from "../../components/SubTopbar/SubTopbar";
+// import "./DashboardDoc.css";
+import { Table, TableBody, TableCell, TableRow } from "@mui/material";
+import { Scrollbars } from "react-custom-scrollbars-2";
+import { useNavigate } from "react-router-dom";
+import getPatients from "../../Firebase/firebaseControllers/hosPatientList";
+import getMessage from "../../Firebase/firebaseControllers/Message";
 
-    <MainNavbar/>
-    </div>
-    <div className="rightBox">
-    <Scrollbars>
-    <SubTopbar/>
-      <Container fluid>
-        <Row>
-          <Col lg="3" sm="6">
-            <Card className="card-stats">
-              <Card.Body>
-                <Row>
-                  <Col xs="5">
-                    <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-chart text-warning"></i>
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Number</p>
-                      <Card.Title as="h4">150GB</Card.Title>
-                    </div>
-                  </Col>
-                </Row>
-              </Card.Body>
-              <Card.Footer>
-                <hr></hr>
-                <div className="stats">
-                  <i className="fas fa-redo mr-1"></i>
-                  Update Now
-                </div>
-              </Card.Footer>
-            </Card>
-          </Col>
-          <Col lg="3" sm="6">
-            <Card className="card-stats">
-              <Card.Body>
-                <Row>
-                  <Col xs="5">
-                    <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-light-3 text-success"></i>
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Revenue</p>
-                      <Card.Title as="h4">$ 1,345</Card.Title>
-                    </div>
-                  </Col>
-                </Row>
-              </Card.Body>
-              <Card.Footer>
-                <hr></hr>
-                <div className="stats">
-                  <i className="far fa-calendar-alt mr-1"></i>
-                  Last day
-                </div>
-              </Card.Footer>
-            </Card>
-          </Col>
-          <Col lg="3" sm="6">
-            <Card className="card-stats">
-              <Card.Body>
-                <Row>
-                  <Col xs="5">
-                    <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-vector text-danger"></i>
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Errors</p>
-                      <Card.Title as="h4">23</Card.Title>
-                    </div>
-                  </Col>
-                </Row>
-              </Card.Body>
-              <Card.Footer>
-                <hr></hr>
-                <div className="stats">
-                  <i className="far fa-clock-o mr-1"></i>
-                  In the last hour
-                </div>
-              </Card.Footer>
-            </Card>
-          </Col>
-          <Col lg="3" sm="6">
-            <Card className="card-stats">
-              <Card.Body>
-                <Row>
-                  <Col xs="5">
-                    <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-favourite-28 text-primary"></i>
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Followers</p>
-                      <Card.Title as="h4">+45K</Card.Title>
-                    </div>
-                  </Col>
-                </Row>
-              </Card.Body>
-              <Card.Footer>
-                <hr></hr>
-                <div className="stats">
-                  <i className="fas fa-redo mr-1"></i>
-                  Update now
-                </div>
-              </Card.Footer>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col md="8">
-            <Card>
-              <Card.Header>
-                <Card.Title as="h4">Users Behavior</Card.Title>
-                <p className="card-category">24 Hours performance</p>
-              </Card.Header>
-              <Card.Body>
-                <div className="ct-chart" id="chartHours">
-                 
-                </div>
-              </Card.Body>
-              <Card.Footer>
-                <div className="legend">
-                  <i className="fas fa-circle text-info"></i>
-                  Open <i className="fas fa-circle text-danger"></i>
-                  Click <i className="fas fa-circle text-warning"></i>
-                  Click Second Time
-                </div>
-                <hr></hr>
-                <div className="stats">
-                  <i className="fas fa-history"></i>
-                  Updated 3 minutes ago
-                </div>
-              </Card.Footer>
-            </Card>
-          </Col>
-          <Col md="4">
-            <Card>
-              <Card.Header>
-                <Card.Title as="h4">Email Statistics</Card.Title>
-                <p className="card-category">Last Campaign Performance</p>
-              </Card.Header>
-              <Card.Body>
-                <div
-                  className="ct-chart ct-perfect-fourth"
-                  id="chartPreferences"
-                >
-                
-                </div>
-                <div className="legend">
-                  <i className="fas fa-circle text-info"></i>
-                  Open <i className="fas fa-circle text-danger"></i>
-                  Bounce <i className="fas fa-circle text-warning"></i>
-                  Unsubscribe
-                </div>
-                <hr></hr>
-                <div className="stats">
-                  <i className="far fa-clock"></i>
-                  Campaign sent 2 days ago
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col md="6">
-            <Card>
-              <Card.Header>
-                <Card.Title as="h4">2017 Sales</Card.Title>
-                <p className="card-category">All products including Taxes</p>
-              </Card.Header>
-              <Card.Body>
-              
-              </Card.Body>
-              <Card.Footer>
-                <div className="legend">
-                  <i className="fas fa-circle text-info"></i>
-                  Tesla Model S <i className="fas fa-circle text-danger"></i>
-                  BMW 5 Series
-                </div>
-                <hr></hr>
-                <div className="stats">
-                  <i className="fas fa-check"></i>
-                  Data information certified
-                </div>
-              </Card.Footer>
-            </Card>
-          </Col>
-          <Col md="6">
-            <Card className="card-tasks">
-              <Card.Header>
-                <Card.Title as="h4">Tasks</Card.Title>
-                <p className="card-category">Backend development</p>
-              </Card.Header>
-              <Card.Body>
-                <div className="table-full-width">
-                  <Table>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <Form.Check className="mb-1 pl-0">
-                            <Form.Check.Label>
-                              <Form.Check.Input
-                                defaultValue=""
-                                type="checkbox"
-                              ></Form.Check.Input>
-                              <span className="form-check-sign"></span>
-                            </Form.Check.Label>
-                          </Form.Check>
-                        </td>
-                        <td>
-                          Sign contract for "What are conference organizers
-                          afraid of?"
-                        </td>
-                        <td className="td-actions text-right">
-                          <OverlayTrigger
-                            overlay={
-                              <Tooltip id="tooltip-488980961">
-                                Edit Task..
-                              </Tooltip>
-                            }
-                          >
-                            <Button
-                              className="btn-simple btn-link p-1"
-                              type="button"
-                              variant="info"
-                            >
-                              <i className="fas fa-edit"></i>
-                            </Button>
-                          </OverlayTrigger>
-                          <OverlayTrigger
-                            overlay={
-                              <Tooltip id="tooltip-506045838">Remove..</Tooltip>
-                            }
-                          >
-                            <Button
-                              className="btn-simple btn-link p-1"
-                              type="button"
-                              variant="danger"
-                            >
-                              <i className="fas fa-times"></i>
-                            </Button>
-                          </OverlayTrigger>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <Form.Check className="mb-1 pl-0">
-                            <Form.Check.Label>
-                              <Form.Check.Input
-                                defaultChecked
-                                defaultValue=""
-                                type="checkbox"
-                              ></Form.Check.Input>
-                              <span className="form-check-sign"></span>
-                            </Form.Check.Label>
-                          </Form.Check>
-                        </td>
-                        <td>
-                          Lines From Great Russian Literature? Or E-mails From
-                          My Boss?
-                        </td>
-                        <td className="td-actions text-right">
-                          <OverlayTrigger
-                            overlay={
-                              <Tooltip id="tooltip-537440761">
-                                Edit Task..
-                              </Tooltip>
-                            }
-                          >
-                            <Button
-                              className="btn-simple btn-link p-1"
-                              type="button"
-                              variant="info"
-                            >
-                              <i className="fas fa-edit"></i>
-                            </Button>
-                          </OverlayTrigger>
-                          <OverlayTrigger
-                            overlay={
-                              <Tooltip id="tooltip-21130535">Remove..</Tooltip>
-                            }
-                          >
-                            <Button
-                              className="btn-simple btn-link p-1"
-                              type="button"
-                              variant="danger"
-                            >
-                              <i className="fas fa-times"></i>
-                            </Button>
-                          </OverlayTrigger>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <Form.Check className="mb-1 pl-0">
-                            <Form.Check.Label>
-                              <Form.Check.Input
-                                defaultChecked
-                                defaultValue=""
-                                type="checkbox"
-                              ></Form.Check.Input>
-                              <span className="form-check-sign"></span>
-                            </Form.Check.Label>
-                          </Form.Check>
-                        </td>
-                        <td>
-                          Flooded: One year later, assessing what was lost and
-                          what was found when a ravaging rain swept through
-                          metro Detroit
-                        </td>
-                        <td className="td-actions text-right">
-                          <OverlayTrigger
-                            overlay={
-                              <Tooltip id="tooltip-577232198">
-                                Edit Task..
-                              </Tooltip>
-                            }
-                          >
-                            <Button
-                              className="btn-simple btn-link p-1"
-                              type="button"
-                              variant="info"
-                            >
-                              <i className="fas fa-edit"></i>
-                            </Button>
-                          </OverlayTrigger>
-                          <OverlayTrigger
-                            overlay={
-                              <Tooltip id="tooltip-773861645">Remove..</Tooltip>
-                            }
-                          >
-                            <Button
-                              className="btn-simple btn-link p-1"
-                              type="button"
-                              variant="danger"
-                            >
-                              <i className="fas fa-times"></i>
-                            </Button>
-                          </OverlayTrigger>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <Form.Check className="mb-1 pl-0">
-                            <Form.Check.Label>
-                              <Form.Check.Input
-                                defaultChecked
-                                type="checkbox"
-                              ></Form.Check.Input>
-                              <span className="form-check-sign"></span>
-                            </Form.Check.Label>
-                          </Form.Check>
-                        </td>
-                        <td>
-                          Create 4 Invisible User Experiences you Never Knew
-                          About
-                        </td>
-                        <td className="td-actions text-right">
-                          <OverlayTrigger
-                            overlay={
-                              <Tooltip id="tooltip-422471719">
-                                Edit Task..
-                              </Tooltip>
-                            }
-                          >
-                            <Button
-                              className="btn-simple btn-link p-1"
-                              type="button"
-                              variant="info"
-                            >
-                              <i className="fas fa-edit"></i>
-                            </Button>
-                          </OverlayTrigger>
-                          <OverlayTrigger
-                            overlay={
-                              <Tooltip id="tooltip-829164576">Remove..</Tooltip>
-                            }
-                          >
-                            <Button
-                              className="btn-simple btn-link p-1"
-                              type="button"
-                              variant="danger"
-                            >
-                              <i className="fas fa-times"></i>
-                            </Button>
-                          </OverlayTrigger>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <Form.Check className="mb-1 pl-0">
-                            <Form.Check.Label>
-                              <Form.Check.Input
-                                defaultValue=""
-                                type="checkbox"
-                              ></Form.Check.Input>
-                              <span className="form-check-sign"></span>
-                            </Form.Check.Label>
-                          </Form.Check>
-                        </td>
-                        <td>Read "Following makes Medium better"</td>
-                        <td className="td-actions text-right">
-                          <OverlayTrigger
-                            overlay={
-                              <Tooltip id="tooltip-160575228">
-                                Edit Task..
-                              </Tooltip>
-                            }
-                          >
-                            <Button
-                              className="btn-simple btn-link p-1"
-                              type="button"
-                              variant="info"
-                            >
-                              <i className="fas fa-edit"></i>
-                            </Button>
-                          </OverlayTrigger>
-                          <OverlayTrigger
-                            overlay={
-                              <Tooltip id="tooltip-922981635">Remove..</Tooltip>
-                            }
-                          >
-                            <Button
-                              className="btn-simple btn-link p-1"
-                              type="button"
-                              variant="danger"
-                            >
-                              <i className="fas fa-times"></i>
-                            </Button>
-                          </OverlayTrigger>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <Form.Check className="mb-1 pl-0">
-                            <Form.Check.Label>
-                              <Form.Check.Input
-                                defaultValue=""
-                                disabled
-                                type="checkbox"
-                              ></Form.Check.Input>
-                              <span className="form-check-sign"></span>
-                            </Form.Check.Label>
-                          </Form.Check>
-                        </td>
-                        <td>Unfollow 5 enemies from twitter</td>
-                        <td className="td-actions text-right">
-                          <OverlayTrigger
-                            overlay={
-                              <Tooltip id="tooltip-938342127">
-                                Edit Task..
-                              </Tooltip>
-                            }
-                          >
-                            <Button
-                              className="btn-simple btn-link p-1"
-                              type="button"
-                              variant="info"
-                            >
-                              <i className="fas fa-edit"></i>
-                            </Button>
-                          </OverlayTrigger>
-                          <OverlayTrigger
-                            overlay={
-                              <Tooltip id="tooltip-119603706">Remove..</Tooltip>
-                            }
-                          >
-                            <Button
-                              className="btn-simple btn-link p-1"
-                              type="button"
-                              variant="danger"
-                            >
-                              <i className="fas fa-times"></i>
-                            </Button>
-                          </OverlayTrigger>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </div>
-              </Card.Body>
-              <Card.Footer>
-                <hr></hr>
-                <div className="stats">
-                  <i className="now-ui-icons loader_refresh spin"></i>
-                  Updated 3 minutes ago
-                </div>
-              </Card.Footer>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
-      {/* <Rooms/> */}
-      </Scrollbars>
-      </div>
-      </div>
-    </>
+const DashboardAdmin = () => {
+  const navigate = useNavigate();
+
+  const [greeting, setGreeting] = useState("");
+  const date = new Date();
+  const hours = date.getHours();
+
+  useEffect(() => {
+    if (hours >= 5 && hours < 12) {
+      setGreeting("Good Morning");
+    } else if (hours >= 12 && hours < 18) {
+      setGreeting("Good Afternoon");
+    } else {
+      setGreeting("Good Evening");
+    }
+  }, []);
+
+  const [currentTime, setCurrentTime] = useState(new Date());
+  
+
+  const currentDate = new Date();
+
+  const Name = sessionStorage.getItem("name");
+
+  const [roomsDataroom, setRoomsData] = useState([]);
+  const [message, setMessage] = useState([]);
+
+
+  const highTemperature = roomsDataroom.filter((item) => item.latestTemp >= 95);
+  const moderateTemperature = roomsDataroom.filter(
+    (item) => item.latestTemp < 95
   );
-}
+console.log("first",highTemperature)
+console.log("secound",highTemperature)
+  const sortedData = roomsDataroom.sort(
+    (a, b) => new Date(b.addedon * 1000) - new Date(a.addedon * 1000)
+  );
+  const recentData = sortedData.slice(0, 6);
+
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getPatients();
+      setRoomsData(data);
+      const data1 = await getMessage();
+      setMessage(data1);
+
+    };
+    fetchData();
+  }, []);
+
+  const [data, setData] = useState([
+    {
+      gender: "Male",
+      count: roomsDataroom.filter((patient) => patient.gender === "male")
+        .length,
+    },
+    {
+      gender: "Female",
+      count: roomsDataroom.filter((patient) => patient.gender === "female")
+        .length,
+    },
+    {
+      date: "date",
+      count: roomsDataroom.filter((patient) => patient.addedon === "date")
+        .length,
+    },
+  ]);
+
+
+ 
+
+
+  const [graphData, setGraphData] = useState([]);
+
+  useEffect(() => {
+    setGraphData(data);
+  }, []);
+
+  const t1 = roomsDataroom.map((data, i) => {
+    const handleAddPatient = () => {
+      navigate("/PatientProfile", { state: { id: data.id } });
+     
+    };
+
+    return (
+      <>
+        <TableRow
+          key={i}
+          onClick={handleAddPatient}
+          style={{ cursor: "pointer" }}
+          className='table'
+        >
+          <TableCell style={{ fontSize: "12px" }}>{data.id}</TableCell>
+          <TableCell style={{ fontSize: "12px" }}>
+            {data.fName} {data.lName}
+          </TableCell>
+          <TableCell style={{ fontSize: "12px" }}>{data.department}</TableCell>
+          <TableCell style={{ fontSize: "12px" }}>{data.gender}</TableCell>
+          <TableCell style={{ fontSize: "12px" }}>{data.status}</TableCell>
+        </TableRow>
+      </>
+    );
+  });
+
+
+
+
+  const mappedData = message.map(({ formData: { title, patientID, attenderID } }) => ({
+    title,
+    patientID,
+    attenderID,
+    
+  }));
+  
+  
+  // console.log("mappedData",mappedData);
+  const t2 = message.map((data, i) => {
+    const handleNotification = () => {
+      navigate("/PatientProfile", { state: { id: data.formData.patientID } });
+     
+    };
+    // console.log("recentData",recentData);
+    console.log("message",message)
+    return (
+      <>
+         <TableRow
+          key={i}
+          onClick={handleNotification}
+          style={{ cursor: "pointer" }}
+          className='table'
+        >
+          <TableCell style={{ fontSize: "12px" }}>{data.formData.patientID}</TableCell>
+          {/* <TableCell style={{ fontSize: "12px" }}>
+            {data.fName} {data.lName}
+          </TableCell> */}
+          <TableCell style={{ fontSize: "12px" }}>{data.formData.title}</TableCell>
+        </TableRow>
+
+
+
+       
+      </>
+    );
+  });
+  const HigherTemperature = highTemperature.map((data, i) => {
+    const handleNotification = () => {
+      navigate("/PatientProfile", { state: { id: data.id } });
+     
+    };
+    return (
+      <>
+        <TableRow
+          key={i}
+          onClick={handleNotification}
+          style={{ cursor: "pointer" }}
+          className='table'
+        >
+          <TableCell style={{ fontSize: "12px" }}>
+            {data.fName} {data.lName}
+          </TableCell>
+
+          <TableCell style={{ padding: "2px", fontSize: "12px" }}>
+            {" "}
+            <div
+              style={{
+                backgroundColor: "rgb(231, 106, 129)",
+                color: "white",
+                textAlign: "center",
+                padding: "2px",
+                borderRadius: "4px",
+                fontSize: "12px",
+              }}
+            >
+              {data.latestTemp}
+            </div>
+          </TableCell>
+        </TableRow>
+      </>
+    );
+  });
+  const ModerateTemperature = moderateTemperature.map((data, i) => {
+    const handleNotification = () => {
+      navigate("/PatientProfile", { state: { id: data.id } });
+     
+    };
+    return (
+      <>
+        <TableRow
+          key={i}
+          onClick={handleNotification}
+          style={{ cursor: "pointer" }}
+          className='table'
+        >
+          <TableCell style={{ fontSize: "12px" }}>
+            {data.fName} {data.lName}
+          </TableCell>
+
+          <TableCell style={{ fontSize: "12px" }}>{data.latestTemp}</TableCell>
+        </TableRow>
+      </>
+    );
+  });
+
+
+  // Patient Added this month
+
+  const currentMonth = new Date().getMonth();
+  const currentYear = new Date().getFullYear(); 
+  const firstDayOfMonth = new Date(currentYear, currentMonth, 1); 
+  const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0); 
+  
+  const patientsAddedThisMonth = roomsDataroom.filter(patient => {
+    const date = new Date(patient.addedOn * 1000); 
+    return date >= firstDayOfMonth && date <= lastDayOfMonth; 
+  });
+
+const count = patientsAddedThisMonth.length;
+
+const totalPatientCount = roomsDataroom.length;
+
+// Patient filter according to their gender 
+const filterGender = "male";
+const filteredPatients = roomsDataroom.filter(patient => patient.gender === filterGender);
+const malecount = filteredPatients.length;
+
+const filterFemale = "female";
+const filtered = roomsDataroom.filter(patient => patient.gender === filterFemale);
+const femalecount = filtered.length;
+
+
+  return (
+    <div className="MedDashboard">
+      <div className="Med-left">
+        <Navbar />
+      </div>
+      <div className="Med-right">
+        <SubTopbar />
+
+        <div style={{ margin: "20px" }}>
+          <h3>
+            {greeting} Mr.{Name}
+          </h3>
+          <div style={{ fontSize: "10px" }}>
+            <span>{currentDate.toDateString()}</span>
+            <span style={{ marginLeft: "100px" }}>
+              {" "}
+              {currentTime.toLocaleTimeString()}
+            </span>
+          </div>
+        </div>
+
+        <div className="Container">
+          <div className="Container-left">
+            <div className="con-one">
+             
+              <div className="statistics">
+                    <div style={{display:'flex',justifyContent:'space-between',marginTop:'20px'}}>
+                      <span style={{fontWeight:'bold'}}>Patients</span>
+                      <span>This month</span>
+                    </div>
+                    <div>
+                      <div style={{display:'flex',justifyContent:'space-around',alignItems:'center'}}>
+                          <span style={{fontSize:"40px"}}>{count}</span>
+                          <span>New Patients</span>
+                      </div>
+                      <div style={{display:'flex',justifyContent:'space-around',alignItems:'center'}}>
+                      <span style={{fontSize:"40px"}}>{totalPatientCount}</span>
+                          <span>Total Patients</span>
+                      </div>
+                    </div>
+               
+              </div>
+              <div className="statistics1">
+                <div style={{marginTop:'20px'}}>
+                <span style={{fontWeight:'bold'}}>Gender</span>
+                  </div>
+                  <div className="gender"  style={{display:'flex',height:'200px',flexDirection:'column'}}>
+                    <div>
+
+                  <span style={{marginLeft:'15px'}}>  <TiGroupOutline size={60} /> </span>
+                  <div>
+
+                  <span>Total Patient</span>
+                    <span style={{marginLeft:'10px'}} >{totalPatientCount}</span>
+                  </div>
+                    </div>
+                  <div>
+                    
+                    <div style={{display:'flex',justifyContent:'space-between',width:'150px'}}>
+                      <div>Women:{femalecount}</div>
+                      <div>Men:{malecount}</div>
+                    </div>
+                  </div>
+
+                  </div>
+              
+
+               
+              </div>
+              <div className="notification">
+              <span style={{fontWeight:'bold'}}>Notification</span>
+
+                <Scrollbars>
+                  <Table>
+                    <TableRow >
+                      <TableCell>ID</TableCell>
+                      {/* <TableCell>Name</TableCell> */}
+                      <TableCell>Message</TableCell>
+                    </TableRow>
+
+                    <TableBody>
+                      {/* <Scrollbars> */}
+
+                      {t2}
+                      {/* </Scrollbars> */}
+                    </TableBody>
+                  </Table>
+                </Scrollbars>
+              </div>
+            </div>
+            <div className="con-two">
+              <div className="rec-patient">
+              <span style={{fontWeight:'bold'}}>Recent Patient</span>
+                <Scrollbars>
+                  <Table>
+                    <TableRow>
+                      <TableCell>ID</TableCell>
+                      <TableCell>Patient</TableCell>
+                      <TableCell>Department</TableCell>
+                      <TableCell>Gender</TableCell>
+                      <TableCell>Status</TableCell>
+                    </TableRow>
+
+                    <TableBody>
+                      {/* <Scrollbars> */}
+
+                      {t1}
+                      {/* </Scrollbars> */}
+                    </TableBody>
+                  </Table>
+                </Scrollbars>
+              </div>
+            </div>
+          </div>
+          {/* <div className="Container-right">
+            <div className="alerts">
+              <div className="high-temparature">
+                <span style={{fontWeight:'bold',fontSize:'14px'}}>High Temperature Alerts</span>
+
+                <Scrollbars>
+                  <Table>
+                    <thead>
+                      <TableRow>
+                        <TableCell>Name</TableCell>
+
+                        <TableCell>Alert</TableCell>
+                      </TableRow>
+                    </thead>
+                    <TableBody>{HigherTemperature}</TableBody>
+                  </Table>
+                </Scrollbars>
+              </div>
+              <div className="low-temparature">
+                <span style={{fontWeight:'bold',fontSize:'14px'}}>Moderate and low fever Alerts</span>
+
+                <Scrollbars>
+                  <Table>
+                    <thead>
+                      <TableRow>
+                        <TableCell>Name</TableCell>
+
+                        <TableCell>Alert</TableCell>
+                      </TableRow>
+                    </thead>
+                    <TableBody>{ModerateTemperature}</TableBody>
+                  </Table>
+                </Scrollbars>
+              </div>
+            </div>
+          </div> */}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default DashboardAdmin;
+
+
+
+
+
+
+
+
+
+// import React, { useEffect, useState } from "react";
+// import Paper from "@mui/material/Paper";
+// import Table from "@mui/material/Table";
+// import TableBody from "@mui/material/TableBody";
+// import TableCell from "@mui/material/TableCell";
+// import TableContainer from "@mui/material/TableContainer";
+// import TableHead from "@mui/material/TableHead";
+// import TablePagination from "@mui/material/TablePagination";
+// import TableRow from "@mui/material/TableRow";
+// import { Button, Grid } from "@mui/material";
+// import { useNavigate } from "react-router-dom";
+// import AddBoxIcon from "@mui/icons-material/AddBox";
+// import { useDispatch, useSelector } from "react-redux";
+// import { deleteStudentAction, fetchStudentAction } from "../actions/regActions";
+// import DeleteIcon from "@mui/icons-material/Delete";
+// import Swal from "sweetalert2";
+// import { MoonLoader } from "react-spinners";
+// import "./listStudent.css";
+
+// const ListStudents = () => {
+//   const [page, setPage] = useState(0),
+//     [rowsPerPage, setRowsPerPage] = useState(10),
+//     [rows, setRow] = useState([]),
+//     [loading, setLoading] = useState(true),
+//     navigate = useNavigate(),
+//     dispatch = useDispatch(),
+//     listStud = useSelector((state) => state.fetchStudent.items),
+//     columns = [
+//       { id: "studentName", label: "Student Name", minWidth: 150 },
+//       { id: "email", label: "Email", minWidth: 100 },
+//       {
+//         id: "PhNum",
+//         label: "Phone Number",
+//         minWidth: 130,
+//         align: "right",
+//       },
+//       {
+//         id: "RegDate",
+//         label: "Registration Date",
+//         minWidth: 130,
+//         align: "right",
+//       },
+//       {
+//         id: "gender",
+//         label: "Gender",
+//         minWidth: 130,
+//         align: "right",
+//       },
+//       {
+//         id: "regNumber",
+//         label: "Register Number",
+//         minWidth: 130,
+//         align: "right",
+//       },
+//       {
+//         id: "nationality",
+//         label: "Nationality",
+//         minWidth: 130,
+//         align: "right",
+//       },
+//       {
+//         id: "delete",
+//         label: "Delete",
+//         minWidth: 70,
+//         align: "right",
+//       },
+//     ];
+
+//   const handleChangePage = (event, newPage) => {
+//     setPage(newPage);
+//   };
+
+//   const handleChangeRowsPerPage = (event) => {
+//     setRowsPerPage(+event.target.value);
+//     setPage(0);
+//   };
+
+//   useEffect(() => {
+//     dispatch(fetchStudentAction());
+//   }, [dispatch]);
+
+//   const createData = (
+//     _id,
+//     studentName,
+//     email,
+//     PhNum,
+//     RegDate,
+//     gender,
+//     regNumber,
+//     nationality
+//   ) => {
+//     return {
+//       _id,
+//       studentName,
+//       email,
+//       PhNum,
+//       RegDate,
+//       gender,
+//       regNumber,
+//       nationality,
+//     };
+//   };
+
+//   useEffect(() => {
+//     setLoading(listStud.loading);
+//     if (listStud && listStud.length) {
+//       let students = [];
+//       setLoading(false);
+//       listStud.forEach((data) => {
+//         students.push(
+//           createData(
+//             data._id,
+//             data.name,
+//             data.email,
+//             data.phNo,
+//             data.regDate,
+//             data.gender,
+//             data.regNumber,
+//             data.nationality
+//           )
+//         );
+//       });
+//       setRow(students);
+//     }
+//   }, [listStud]);
+
+//   const deleteStudent = (studentDt) => {
+//     Swal.fire({
+//       title: `Do you want to delete ${studentDt.studentName}'s record ?`,
+//       showDenyButton: true,
+//       confirmButtonText: "Yes",
+//       denyButtonText: "No",
+//     }).then((result) => {
+//       if (result.isConfirmed) {
+//         const studentData = rows.filter((stud) => studentDt._id !== stud._id);
+//         setRow(studentData);
+//         dispatch(deleteStudentAction(studentDt._id));
+//         Swal.fire("SUCCESS", "Deleted Successfully", "success");
+//       }
+//     });
+//   };
+
+//   return (
+//     <>
+//       <Button
+//         startIcon={<AddBoxIcon />}
+//         style={{ margin: "20px", float: "right", backgroundColor: "#370041" }}
+//         variant='contained'
+//         onClick={() => navigate("/regStudent")}
+//       >
+//         Register Student
+//       </Button>
+//       <Grid container direction='column' alignItems='center' justify='center'>
+//         <Paper
+//           sx={{
+//             width: "97.5%",
+//             overflow: "hidden",
+//           }}
+//         >
+//           <TableContainer sx={{ maxHeight: 700 }}>
+//             <Table stickyHeader aria-label='sticky table'>
+//               <TableHead>
+//                 <TableRow>
+//                   {columns.map((column) => (
+//                     <TableCell
+//                       key={column.id}
+//                       align={column.align}
+//                       style={{
+//                         minWidth: column.minWidth,
+//                         backgroundColor: "#6A1B76",
+//                         color: "#fff",
+//                       }}
+//                     >
+//                       {column.label}
+//                     </TableCell>
+//                   ))}
+//                 </TableRow>
+//               </TableHead>
+//               <TableBody>
+//                 {rows
+//                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+//                   .map((row) => {
+//                     return (
+//                       <TableRow
+//                         hover
+//                         role='checkbox'
+//                         tabIndex={-1}
+//                         key={row._id}
+//                       >
+//                         {columns.map((column) => {
+//                           const value = row[column.id];
+//                           return (
+//                             <TableCell key={column.id} align={column.align}>
+//                               {column.id === "delete" ? (
+//                                 <Grid item xs={8}>
+//                                   <DeleteIcon
+//                                     style={{ color: "red", cursor: "pointer" }}
+//                                     onClick={() => deleteStudent(row)}
+//                                   />
+//                                 </Grid>
+//                               ) : (
+//                                 value
+//                               )}
+//                             </TableCell>
+//                           );
+//                         })}
+//                       </TableRow>
+//                     );
+//                   })}
+//               </TableBody>
+//             </Table>
+//           </TableContainer>
+//           {!rows.length && (
+//             <MoonLoader
+//               color='#6A1B76'
+//               loading={loading}
+//               size={100}
+//               id='loader'
+//             />
+//           )}
+
+//           <TablePagination
+//             rowsPerPageOptions={[10, 25, 100]}
+//             component='div'
+//             count={rows.length}
+//             rowsPerPage={rowsPerPage}
+//             page={page}
+//             onPageChange={handleChangePage}
+//             onRowsPerPageChange={handleChangeRowsPerPage}
+//           />
+//         </Paper>
+//       </Grid>
+//     </>
+//   );
+// };
+
+// export default ListStudents;

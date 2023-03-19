@@ -7,8 +7,8 @@ const getUsers =  async() => {
 
 
 //   console.log(doc.id, ' => ', "output:",doc.data());
-  return snapshot.docs.map(doc => doc.data());
-  // return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  // return snapshot.docs.map(doc => doc.data());
+  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
 
 }
