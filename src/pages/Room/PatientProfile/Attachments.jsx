@@ -43,6 +43,9 @@ const Attachments = () => {
         event.preventDefault();
         imageFiles.forEach((file) => handleImageUpload(patientId, title, file)); // upload each file with patientId and title
         setIsFormOpen2(false);
+        setPatientId('')
+        setTitle('')
+
         // patientData()
         
       };
@@ -313,7 +316,7 @@ const [selectedImage, setSelectedImage] = useState("");
       alt="patient image"
       onClick={() => handleImageClick(image)}
     />
-    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between',width:'320px' }}>
       <p>Title:{image.title}</p>
       <button className="dlt-btn" onClick={() => deletePatientData(ID)}>Delete</button>
     </div>
