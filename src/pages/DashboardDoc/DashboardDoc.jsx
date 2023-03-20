@@ -234,7 +234,7 @@ const DashboardDoc = () => {
       </div>
       <div className="Med-right">
         <SubTopbar />
-
+        <Scrollbars>
         <div style={{ margin: "20px" }}>
           <h3>
             {greeting} Dr.{Name}
@@ -411,6 +411,7 @@ const DashboardDoc = () => {
             </div>
           </div>
         </div>
+        </Scrollbars>
       </div>
     </div>
   );

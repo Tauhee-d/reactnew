@@ -5,6 +5,7 @@ import Login from "./pages/Login/Login";
 import DashboardAdmin from "./pages/DashboardAdmin/DashboardAdmin";
 import DashboardDoc from "./pages/DashboardDoc/DashboardDoc";
 import Room from "./pages/Room/Room/Room";
+import DocPatientList from "./pages/Doctors/PatientList";
 import PatientList from "./pages/Room/PatientList/PatientList";
 import PatientProfile from "./pages/Room/PatientProfile/PatientProfile";
 import { useState } from "react";
@@ -19,6 +20,9 @@ import Patient from "./pages/Patient/Patient";
 
 const App = () => {
   const [userRole, setUserRole] = useState(null);
+  // const [dummy,setDummy] = useState(null);
+// console.log("first",dummy)
+
 
 
   const UserTypes = {
@@ -98,7 +102,7 @@ const App = () => {
       <Route path="/Doctor" index element={<Doctor />} />
       <Route path="/Alert" index element={<Alert />} />
       <Route path="/Attachments" index element={<Attachments />} />
-      <Route path="/PatientList" index element={<PatientList />} />
+      <Route path="/DocPatientList" index element={<DocPatientList />} />
       <Route path="/PatientProfile" index element={<PatientProfile />} />
 
      

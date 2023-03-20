@@ -89,7 +89,7 @@ const DashboardAdmin = () => {
     return (
       <>
         <TableRow
-          key={i}
+          key={data.id}
           onClick={handleAddPatient}
           style={{ cursor: "pointer" }}
           className="table"
@@ -149,7 +149,7 @@ const DashboardAdmin = () => {
     return (
       <>
         <TableRow
-          key={i}
+          key={data.id}
           onClick={handleNotification}
           style={{ cursor: "pointer" }}
           className="table"

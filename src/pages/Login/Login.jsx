@@ -8,6 +8,8 @@ function SignIn() {
   const navigation = useNavigate();
   const { userRole, setUserRole } = useContext(UserRoleContext);
 
+  // const [dummy,setDummy] = useContext(UserRoleContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userId, setUserId] = useState("");
@@ -27,11 +29,18 @@ function SignIn() {
         docRef.get().then((doc) => {
           if (doc.exists) {
             const user = doc.data();
+            const firstName = user.firstName;
+            const lastName = user.lastName;
+            const id = user.id;
+            const hospitalID = user.hospitalID;
             const role = user.role;
             sessionStorage.setItem("name", user.firstName);
             setUserRole(role);
+            // setDummy({firstName:firstName,lastName:lastName,id:id,hospitalID:hospitalID,role:role});
+
             navigation("/dashboard");
-            console.log("first", role);
+            // console.log("first", dummy);
+            // console.log("first1", dummy.role);
           } else {
             console.log("no role found for user");
           }

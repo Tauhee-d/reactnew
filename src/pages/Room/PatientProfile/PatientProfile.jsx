@@ -1,4 +1,4 @@
-import React,{useEffect,useState,useContext} from 'react'
+import React, { useEffect, useState, useContext } from "react";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import "./PatientProfile.css";
 import SubTopbar from "../../../components/SubTopbar/SubTopbar";
@@ -14,8 +14,6 @@ import { db } from "../../../Firebase/firebase";
 import firebase from "firebase/app";
 import { storage } from "../../../Firebase/firebase";
 
-
-
 import {
   LineChart,
   ResponsiveContainer,
@@ -30,16 +28,15 @@ import getPatients from "../../../Firebase/firebaseControllers/hosPatientList";
 import getReadings from "../../../Firebase/firebaseControllers/Readings";
 import getTimeline from "../../../Firebase/firebaseControllers/Timeline";
 import getMessage from "../../../Firebase/firebaseControllers/Message";
-import Attachments from './Attachments';
+import Attachments from "./Attachments";
 // import getImages from "../../../Firebase/firebaseControllers/Images";
 
 const PatientProfile = () => {
   const history = useNavigate();
 
-
   const location = useLocation();
   const ID = location.state.id;
-  const [refID,setRefID] = useState(ID)
+  const [refID, setRefID] = useState(ID);
   console.log("first", ID);
 
   const handleBack = () => {
@@ -72,12 +69,12 @@ const PatientProfile = () => {
     };
     fetchData();
   }, []);
-  
+
   // const Images = img.filter(
   //   (patient) => patient.pid === ID
   //   );
-    // console.log("img", ID);
-    // console.log("Message", Images);
+  // console.log("img", ID);
+  // console.log("Message", Images);
   const Message = message.filter(
     (patient) => patient.formData.patientID === ID
   );
@@ -92,8 +89,6 @@ const PatientProfile = () => {
     (patient) => patient.id === deviceID
   ); //id
   const deviceID1 = readingsData.map((timeline) => timeline.id);
-  // console.log("id1", message);
-  // console.log("id2", Message);
 
   function formatTime(epochTime) {
     const date = new Date(epochTime * 1000); // convert epoch time to milliseconds
@@ -132,15 +127,7 @@ const PatientProfile = () => {
     );
   });
 
-// Attachments
-
-  // const imgUrl = Images.map((item) => {
-  //   return (
-  //     <>
-  //       <p>{item.data}</p>
-  //     </>
-  //   );
-  // });
+  // Attachments
 
   //Message form
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -216,129 +203,36 @@ const PatientProfile = () => {
         console.error("Error sending message to Firestore: ", error);
       });
   };
-  
 
-
-
-
-
-
-
-
-
-
-
-  
-
- 
-
-
-
-
- 
-       
-  
-
-
-
-
-  // const [image, setImage] = useState(null);
-  // const [patientID, setPatientID] = useState('');
-
-
-  // function handleChangeImg(event) {
-  //   if (event.target.files[0]) {
-  //     setImage(event.target.files[0]);
-  //   }
-  // }
-  // function handleChangePatient(event) {
-  //   setPatientID(event.target.value);
-  // }
-  
-
-  // function handleUpload() {
-  //   const storageRef = storage.ref(`images/${image.name}`);
-  //   const uploadTask = storageRef.put(image);
-  //   uploadTask.on(
-  //     'state_changed',
-  //     (snapshot) => {
-  //       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-  //       console.log(`Upload is ${progress}% done`);
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     },
-  //     () => {
-  //       uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-  //         console.log(`File available at ${downloadURL}`);
-  //       });
-  //     }
-  //   );
-  // }
-
-
-
-  // const [patientId, setPatientId] = useState("");
-  // const [imageFile, setImageFile] = useState(null);
-
-  // const handlePatientIdChange = (event) => {
-  //   setPatientId(event.target.value);
-  // };
-
-  // const handleImageFileChange = (event) => {
-  //   setImageFile(event.target.files[0]);
-  // };
-
-  // const handleUpload = (event) => {
-  //   event.preventDefault();
-  //   handleImageUpload(patientId, imageFile);
-  // };
-
-  // const handleImageUpload = async (patientId, imageFile) => {
-  //   const storageRef = firebase.storage().ref();
-  //   const imageRef = storageRef.child(`images/${patientId}/${imageFile.name}`);
-  //   await imageRef.put(imageFile);
-  
-  //   const downloadURL = await imageRef.getDownloadURL();
-  
-  //   const firestoreRef = firebase.firestore().collection("patients");
-  //   await firestoreRef.doc(patientId).set({
-  //     imageUrl: downloadURL,
-  //     patientId: patientId
-  //   });
-  // };
-  
   const [patientId, setPatientId] = useState("");
   const [title, setTitle] = useState("");
   const [imageFiles, setImageFiles] = useState([]);
-  
+
   const handlePatientIdChange = (event) => {
     setPatientId(event.target.value);
   };
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
-  
+
   const handleImageFileChange = (event) => {
     setImageFiles([...imageFiles, event.target.files[0]]); // add the new file to the existing files array
   };
-  
- 
+
   const handleUpload = (event) => {
     event.preventDefault();
     imageFiles.forEach((file) => handleImageUpload(patientId, title, file)); // upload each file with patientId and title
     setIsFormOpen2(false);
   };
-  
-  
+
   const handleImageUpload = async (patientId, title, imageFile) => {
     const storageRef = firebase.storage().ref();
     const imageId = Date.now(); // generate a unique ID for the uploaded image
     const imageRef = storageRef.child(`images/${patientId}/${imageId}`);
     await imageRef.put(imageFile);
-  
+
     const downloadURL = await imageRef.getDownloadURL();
-  
+
     const firestoreRef = firebase.firestore().collection("patients");
     const patientRef = firestoreRef.doc(patientId);
     const patientData = await patientRef.get();
@@ -349,115 +243,11 @@ const PatientProfile = () => {
     images.push({ id: imageId, title: title, url: downloadURL }); // add the new image to the patient's images with title
     await patientRef.set({ images }, { merge: true }); // update the patient's document with the new image
   };
-  
-  
-  
-  // const handleImageFileChange = (event) => {
-  //   const files = event.target.files;
-  //   const newFiles = [];
-  //   for (let i = 0; i < files.length; i++) {
-  //     const file = files[i];
-  //     if (file.type.includes("image") || file.type.includes("pdf")) {
-  //       newFiles.push(file);
-  //     }
-  //   }
-  //   setImageFiles([...imageFiles, ...newFiles]); // add the new files to the existing files array
-  // };
-  // const handleUpload = async (event) => {
-  //   event.preventDefault();
-  //   for (let i = 0; i < imageFiles.length; i++) {
-  //     const file = imageFiles[i];
-  //     await handleFileUpload(patientId, file); // upload each file
-  //   }
-  // };
-  // const handleFileUpload = async (patientId, file) => {
-  //   const storageRef = firebase.storage().ref();
-  //   const fileId = Date.now(); // generate a unique ID for the uploaded file
-  //   const fileRef = storageRef.child(`files/${patientId}/${fileId}`);
-  //   await fileRef.put(file);
-    
-  //   const downloadURL = await fileRef.getDownloadURL();
-  //     //   const firestoreRef = firebase.firestore().collection("patients");
 
-  //   const firestoreRef = firebase.firestore().collection("patients");
-  //   const patientRef = firestoreRef.doc(patientId);
-  //   const patientData = await patientRef.get();
-  //   let files = [];
-  //   if (patientData.exists) {
-  //     files = patientData.data().files || []; // get the existing files for the patient, if any
-  //   }
-  //   files.push({ id: fileId, url: downloadURL }); // add the new file to the patient's files
-  //   await patientRef.set({ files }, { merge: true });
-  //     console.log("object",files);    
-
-  // };
-      
-  
-  
-  
-
-
- 
-
-
-
-    // const [imageUrl, setImageUrl] = useState("");
-  
-    // useEffect(() => {
-    //   const getImageUrl = async () => {
-    //     const firestoreRef = firebase.firestore().collection("patients");
-    //     const doc = await firestoreRef.doc(ID).get();
-    //     const data = doc.data();
-    //     setImageUrl(data.imageUrl);
-    //   };
-  
-    //   getImageUrl();
-    // }, [ID]);
-    // console.log("firstpat",imageUrl)
-  
-    // const [patientData, setPatientData] = useState(null);
-    // useEffect(() => {
-    //   const fetchPatientData = async () => {
-    //     const patientRef = firebase.firestore().collection("patients").doc(ID);
-    //     const patientData = await patientRef.get();
-    //     setPatientData(patientData.data());
-    //   };
-    //   fetchPatientData();
-    // }, [ID]);
-    
-    
-    
-    
-    
-    
-    
-    
-    // console.log("object",doc);
-  // console.log("imageUrl:",imageUrl)
-  // console.log("imageUrl1",ID)
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-  sessionStorage.setItem("id",refID);
-
+  sessionStorage.setItem("id", refID);
 
   return (
     <>
-       
-
-
-    
       <div className="Container">
         <div className="left-profile">
           <Navbar />
@@ -476,12 +266,11 @@ const PatientProfile = () => {
               Back
             </button>
 
-
             <button className="back-room" onClick={handleRoom}>
               Rooms
             </button>
 
-            {patientList.map((patient) => {
+            {patientList.map((patient,i) => {
               const time = formatTime(patient.latestTime);
               return (
                 <>
@@ -492,7 +281,7 @@ const PatientProfile = () => {
                         justifyContent: "space-between",
                       }}
                     >
-                      <div>
+                      <div >
                         <img
                           className="pro-img"
                           src={Avatar}
@@ -510,20 +299,20 @@ const PatientProfile = () => {
                           width: "550px",
                         }}
                       >
-
                         <div className="msg-btn">
                           <div>
-                          
-                           <Link to="/Attachments" style={{textDecoration:'none'}}> Attachments </Link> 
-
-                           
+                            <Link
+                              to="/Attachments"
+                              style={{ textDecoration: "none" }}
+                            >
+                              {" "}
+                              Attachments{" "}
+                            </Link>
                           </div>
                         </div>
 
-
                         <div className="msg-btn">
                           <div>
-                          
                             <span onClick={toggleForm1}>View message </span>
 
                             {isFormOpen1 && (
@@ -547,36 +336,8 @@ const PatientProfile = () => {
                                     </span>
                                   </div>
                                   {msgView}
-                                  {/* <ImageDisplay/> */}
-                                  {/* <img src={imageUrl} alt="patient image" width={200} /> */}
 
-
-
-                                  {/* {patientData && patientData.images && patientData.images.map((image) => (
-                                    <img key={image.id} src={image.url} alt="patient image" />
-                                  ))} */}
-
-
-
-
-
-                                  <div>
-
-
-                                 
-
-
-
-
-
-
-
-
-      {/* {images.map((image) => (
-        <img key={image.url} src={image.url} alt="" width="200" />
-      ))} */}
-    </div>
-                                  {/* <img sizes="400px" src={imageUrl} alt="Image" /> */}
+                                  <div></div>
                                 </div>
                               </div>
                             )}
@@ -609,79 +370,36 @@ const PatientProfile = () => {
                                     </span>
                                   </div>
 
-                                  
-
-
-
-
-
-
-                                  {/* <form onSubmit={handleUpload}>
+                                  <form onSubmit={handleUpload}>
                                     <label>
                                       Patient ID:
-                                      <input type="text" value={patientId} onChange={handlePatientIdChange} />
+                                      <input
+                                        type="text"
+                                        value={patientId}
+                                        onChange={handlePatientIdChange}
+                                      />
                                     </label>
                                     <br />
                                     <label>
-                                      Image:
-                                      <input type="file" onChange={handleImageFileChange} />
+                                      Title:
+                                      <input
+                                        type="text"
+                                        value={title}
+                                        onChange={handleTitleChange}
+                                      />
+                                    </label>
+                                    <br />
+                                    <label>
+                                      Images:
+                                      <input
+                                        type="file"
+                                        onChange={handleImageFileChange}
+                                        multiple
+                                      />
                                     </label>
                                     <br />
                                     <button type="submit">Upload</button>
-                                  </form> */}
-
-
-
-
-                                  <form onSubmit={handleUpload}>
-                                      <label>
-                                        Patient ID:
-                                        <input type="text" value={patientId} onChange={handlePatientIdChange} />
-                                      </label>
-                                      <br />
-                                      <label>
-                                        Title:
-                                        <input type="text" value={title} onChange={handleTitleChange} />
-                                      </label>
-                                      <br />
-                                      <label>
-                                        Images:
-                                        <input type="file" onChange={handleImageFileChange} multiple />
-                                      </label>
-                                      <br />
-                                      <button type="submit">Upload</button>
-                                    </form>
-
-
-
-
-                                  
-
-
-                                
-                                    
-                                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                  </form>
                                 </div>
                               </div>
                             )}

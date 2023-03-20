@@ -1,3 +1,4 @@
+import React,{useState} from "react";
 import { AiFillPieChart,AiOutlineLogout } from "react-icons/ai";
 import { MdDashboard } from "react-icons/md";
 import { HiBellAlert } from "react-icons/hi2";
@@ -12,6 +13,11 @@ import {  NavDropdown, Nav } from "react-bootstrap";
 import Protected from "../ProtectedRoutes/Protected";
 
 const Navbar = ({ Alert }) => {
+  const [active, setActive] = useState(true);
+  const handleDashboardClick = () => {
+    setActive(!active);
+  };
+
 const {userRole} = useContext(UserRoleContext)
   const UserTypes = {
     doctor: "doctor",
@@ -66,9 +72,11 @@ const {userRole} = useContext(UserRoleContext)
         className="nav d-md-block d-none border-primary rounded"
         id="leftside"
       >
-        <li className="nav-item">
+        <li className={`nav-item ${active ? "active" : ""}`}>
+
           <Button className="nav-bttn">
-            <Link className="nav-link" to="/dashboard" id="acolor">
+            <Link className="nav-link" to="/dashboard" id="acolor" onClick={handleDashboardClick}>
+
               <MdDashboard size={20} style={{ marginRight: "15px" }} />
               <span>Dashboard</span>
             </Link>
@@ -76,9 +84,9 @@ const {userRole} = useContext(UserRoleContext)
         </li>
         <Protected>
         {userRole === UserTypes.admin || userRole === UserTypes.doctor ? (
-          <li className="nav-item">
-            <Button className="nav-bttn">
-              <Link className="nav-link" to="/Room" id="acolor">
+        <li className={`nav-item ${active ? "active" : ""}`}>
+        <Button className="nav-bttn">
+              <Link className="nav-link" to="/Room" id="acolor" onClick={handleDashboardClick}>
                 <AiFillPieChart size={20} style={{ marginRight: "15px" }} />{" "}
                 <span style={{ marginRight: "35px" }}>Rooms</span>
               </Link>
@@ -89,9 +97,9 @@ const {userRole} = useContext(UserRoleContext)
         </Protected>
         {/* <Protected> */}
         {userRole === UserTypes.admin ? (
-           <li className="nav-item">
-           <Button className="nav-bttn">
-             <Link className="nav-link" to="/Doctor" id="acolor">
+        <li className={`nav-item ${active ? "active" : ""}`}>
+        <Button className="nav-bttn">
+             <Link className="nav-link" to="/Doctor" id="acolor" onClick={handleDashboardClick}>
                <AiFillPieChart size={20} style={{ marginRight: "15px" }} />{" "}
                <span style={{ marginRight: "35px" }}>Doctor</span>
              </Link>
@@ -99,6 +107,17 @@ const {userRole} = useContext(UserRoleContext)
          </li>
         
         ) : null}
+        {userRole === UserTypes.admin ? (
+        <li className={`nav-item ${active ? "active" : ""}`}>
+        <Button className="nav-bttn">
+             <Link className="nav-link" to="/DocPatientList" id="acolor" onClick={handleDashboardClick}>
+               <AiFillPieChart size={20} style={{ marginRight: "15px" }} />{" "}
+               <span style={{ marginRight: "35px" }}>Patient</span>
+             </Link>
+           </Button>
+         </li>
+        
+        ) : null} 
         {/* </Protected> */}
             
 
@@ -116,7 +135,7 @@ const {userRole} = useContext(UserRoleContext)
 
          <li className="nav-item">
             <Button className="nav-bttn">
-              <Link className="nav-link" to="/Alert" id="acolor">
+              <Link className="nav-link" to="/Alert" id="acolor" onClick={handleDashboardClick}>
                 <HiBellAlert size={20} style={{ marginRight: "15px" }} />{" "}
                 <span style={{ marginRight: "35px" }}>Alert</span>
               </Link>

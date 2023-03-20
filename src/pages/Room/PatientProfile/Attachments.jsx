@@ -49,12 +49,14 @@ const Attachments = () => {
         // patientData()
         
       };
-      
-      
+
+
       const handleImageUpload = async (patientId, title, imageFile) => {
         const storageRef = firebase.storage().ref();
-        const imageId = Date.now(); // generate a unique ID for the uploaded image
-        const imageRef = storageRef.child(`images/${patientId}/${imageId}`);
+        const imageId = Date.now(); // generate a unique ID for the uploaded file
+        const fileExtension = imageFile.name.split('.').pop();
+        const filePath = `images/${patientId}/${patientId}/${imageId}.${fileExtension}`; // set the storage path for the file
+        const imageRef = storageRef.child(filePath);
         await imageRef.put(imageFile);
       
         const downloadURL = await imageRef.getDownloadURL();
@@ -64,11 +66,32 @@ const Attachments = () => {
         const patientData = await patientRef.get();
         let images = [];
         if (patientData.exists) {
-          images = patientData.data().images || []; // get the existing images for the patient, if any
+          images = patientData.data().images || []; // get the existing files for the patient, if any
         }
-        images.push({ id: imageId, title: title, url: downloadURL }); // add the new image to the patient's images with title
-        await patientRef.set({ images }, { merge: true }); // update the patient's document with the new image
+        images.push({ id: imageId, title: title, url: downloadURL }); // add the new file to the patient's files with title
+        await patientRef.set({ images }, { merge: true }); // update the patient's document with the new file
       };
+      
+      
+      
+      // const handleImageUpload = async (patientId, title, imageFile) => {
+      //   const storageRef = firebase.storage().ref();
+      //   const imageId = Date.now(); // generate a unique ID for the uploaded image
+      //   const imageRef = storageRef.child(`images/${patientId}/${imageId}`);
+      //   await imageRef.put(imageFile);
+      
+      //   const downloadURL = await imageRef.getDownloadURL();
+      
+      //   const firestoreRef = firebase.firestore().collection("patients");
+      //   const patientRef = firestoreRef.doc(patientId);
+      //   const patientData = await patientRef.get();
+      //   let images = [];
+      //   if (patientData.exists) {
+      //     images = patientData.data().images || []; // get the existing images for the patient, if any
+      //   }
+      //   images.push({ id: imageId, title: title, url: downloadURL }); // add the new image to the patient's images with title
+      //   await patientRef.set({ images }, { merge: true }); // update the patient's document with the new image
+      // };
 
 
 
@@ -315,7 +338,7 @@ const [selectedImage, setSelectedImage] = useState("");
                   </div>
               
             ))} */}
-            {patientData?.images?.map((image) => (
+            {/* {patientData?.images?.map((image) => (
   <div style={{ height: '400px' }}>
     <img
       className="single-img"
@@ -331,7 +354,38 @@ const [selectedImage, setSelectedImage] = useState("");
       <button className="dlt-btn" onClick={() => deletePatientData(ID,image.id)}>Delete</button>
     </div>
   </div>
+))} */}
+
+
+
+
+{patientData?.images?.map((image) => (
+  <div style={{ height: '400px' }}>
+    {image.type === 'pdf' ? (
+      <embed
+        src={image.url}
+        width="100%"
+        height="100%"
+        type="application/pdf"
+      />
+    ) : (
+      <img
+        className="single-img"
+        key={image.id}
+        width={320}
+        height={250}
+        src={image.url}
+        alt="patient image"
+        onClick={() => handleImageClick(image)}
+      />
+    )}
+    <div style={{ display: 'flex', justifyContent: 'space-between',width:'320px' }}>
+      <p>Title:{image.title}</p>
+      <button className="dlt-btn" onClick={() => deletePatientData(ID,image.id)}>Delete</button>
+    </div>
+  </div>
 ))}
+
 
 
                   <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
