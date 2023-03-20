@@ -174,12 +174,20 @@ const [selectedImage, setSelectedImage] = useState("");
 
 //   // delete option
 
-  const deletePatientData = async (ID) => {
-    await firebase.firestore().collection("patients").doc(ID).delete();
-    console.log("Patient data deleted successfully!");
-    // patientData()
+  // const deletePatientData = async (ID) => {
+  //   await firebase.firestore().collection("patients").doc(ID).delete();
+  //   console.log("Patient data deleted successfully!");
+  //   // patientData()
+  //   };
+    const deletePatientData = async (ID, imageID) => {
+      await firebase.firestore().collection("patients").doc(ID).update({
+        images: firebase.firestore.FieldValue.arrayRemove(imageID)
+      });
+      console.log("Image deleted successfully!");
+            console.log("deltedddd",imageID)
+
     };
-  
+    
 
 
 
@@ -189,15 +197,17 @@ const [selectedImage, setSelectedImage] = useState("");
       const patientData = await patientRef.get();
       if (patientData.exists) {
         const files = patientData.data().files || []; // get the existing files for the patient, if any
+        
         return files;
-
+        
       } else {
         return [];
       }
-
+      
     };
     const DATA = getUploadedFiles(ID)
     console.log("first",getUploadedFiles)
+
 
 
 
@@ -318,7 +328,7 @@ const [selectedImage, setSelectedImage] = useState("");
     />
     <div style={{ display: 'flex', justifyContent: 'space-between',width:'320px' }}>
       <p>Title:{image.title}</p>
-      <button className="dlt-btn" onClick={() => deletePatientData(ID)}>Delete</button>
+      <button className="dlt-btn" onClick={() => deletePatientData(ID,image.id)}>Delete</button>
     </div>
   </div>
 ))}

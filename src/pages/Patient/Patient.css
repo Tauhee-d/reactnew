@@ -1,9 +1,0 @@
-.Patient{
-    display: flex;
-}
-.patient-left{
-    flex: 1;
-}
-.patient-right{
-    flex: 4;
-}

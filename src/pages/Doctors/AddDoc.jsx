@@ -7,53 +7,79 @@ import Button from '@mui/material/Button'
 import { useState } from 'react';
 import { db } from '../../Firebase/firebase';
 import firebase from '@firebase/app';
+import { auth } from '../../Firebase/firebase';
 import getUsers from '../../Firebase/firebaseControllers/Users';
 import Swal from 'sweetalert2'
  
 
 
 const AddDoc = ({closeEvent}) => {
-    const [id,setId] = useState('')
-    const [hospitalId,setHospitalId] = useState('')
-    const [lastName,setLastName] = useState('')
-    const [firstName,setFirstName] = useState('')
-    const [email,setEmail] = useState('')
-    const [role,setRole] = useState('')
-    const [rows, setRows] =useState([]);
+    // const [id,setId] = useState('')
+    // const [hospitalId,setHospitalId] = useState('')
+    // const [lastName,setLastName] = useState('')
+    // const [firstName,setFirstName] = useState('')
+    // const [email,setEmail] = useState('')
+    // const [role,setRole] = useState('')
+    // const [rows, setRows] =useState([]);
 
 
 
 
-    const createUser = async(event) => {
-        event.preventDefault();
+
+
     
-        if (
-           
-          !email ||
-          !id ||
-          !lastName ||
-          !firstName ||
-          !role ||
-          !hospitalId
-        ) {
-          console.log("Please fill in all fields.");
-          return;
-        }
-        db.collection("users")
-          .add({
-            email,id,lastName,firstName,role,hospitalId,
-            addedOn: firebase.firestore.FieldValue.serverTimestamp(),
-          })
-          .then(() => {
+        const [firstName, setFirstName] = useState('');
+        const [lastName, setLastName] = useState('');
+        const [email, setEmail] = useState('');
+        const [password, setPassword] = useState('');
+      
+        const createUser = async (e) => {
+          e.preventDefault();
+          try {
+            const { user } = await firebase.auth().createUserWithEmailAndPassword(email, password);
+            await firebase.firestore().collection('users').doc(user.uid).set({ firstName,lastName,email, role: 'doctor',hospitalID:'123456' });
+            console.log('User created successfully');
             closeEvent()
             Swal.fire("Added Sucessfully!")
             getUsers()
+          } catch (error) {
+            console.error('Error creating user', error);
+          }
+        };
+      
+
+
+
+    // const createUser = async(event) => {
+    //     event.preventDefault();
+    
+    //     if (
            
-          })
-          .catch((error) => {
-            console.error("Error sending message to Firestore: ", error);
-          });
-      };
+    //       !email ||
+    //       !id ||
+    //       !lastName ||
+    //       !firstName ||
+    //       !role ||
+    //       !hospitalId
+    //     ) {
+    //       console.log("Please fill in all fields.");
+    //       return;
+    //     }
+    //     db.collection("users")
+    //       .add({
+    //         email,id,lastName,firstName,role,hospitalId,
+    //         addedOn: firebase.firestore.FieldValue.serverTimestamp(),
+    //       })
+    //       .then(() => {
+    //         closeEvent()
+    //         Swal.fire("Added Sucessfully!")
+    //         getUsers()
+           
+    //       })
+    //       .catch((error) => {
+    //         console.error("Error sending message to Firestore: ", error);
+    //       });
+    //   };
 
 
 
@@ -68,23 +94,17 @@ const AddDoc = ({closeEvent}) => {
       </IconButton>
       <Box height={20}/>
       <Grid container spacing={2}>
-      <Grid item xs={6}>
-        <TextField id="outlined-basic" label="id" variant="outlined" size='small' sx={{minWidth:'100%'}} value={id} onChange={(e) => setId(e.target.value)} />
+          <Grid item xs={6}>
+        <TextField id="outlined-basic" label="firstName" variant="outlined" size='small' sx={{minWidth:'100%'}} value={firstName} onChange={(e) => setFirstName(e.target.value)} />
         </Grid>
-      <Grid item xs={6}>
-        <TextField id="outlined-basic" label="hospitalId" variant="outlined" size='small' sx={{minWidth:'100%'}} value={hospitalId} onChange={(e) => setHospitalId(e.target.value)} />
-        </Grid>
-        <Grid item xs={6}>
-        <TextField id="outlined-basic" label="firstName" variant="outlined" size='small' sx={{minWidth:'100%'}} value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
-        </Grid>
-        <Grid item xs={6}>
+          <Grid item xs={6}>
         <TextField id="outlined-basic" label="lastName" variant="outlined" size='small' sx={{minWidth:'100%'}} value={lastName} onChange={(e) => setLastName(e.target.value)} />
         </Grid>
-        <Grid item xs={12}>
+          <Grid item xs={12}>
         <TextField id="outlined-basic" label="email" variant="outlined" size='small' sx={{minWidth:'100%'}} value={email} onChange={(e) => setEmail(e.target.value)} />
         </Grid>
         <Grid item xs={12}>
-        <TextField id="outlined-basic" label="role" variant="outlined" size='small' sx={{minWidth:'100%'}} value={role} onChange={(e) => setRole(e.target.value)} />
+        <TextField id="outlined-basic" label="password" variant="outlined" size='small' sx={{minWidth:'100%'}} value={password} onChange={(e) => setPassword(e.target.value)} />
         </Grid>
         <Grid item xs={12}>
             <Typography>

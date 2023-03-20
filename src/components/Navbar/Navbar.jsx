@@ -127,10 +127,7 @@ const {userRole} = useContext(UserRoleContext)
 
         <AiOutlineLogout size={20} style={{ marginLeft: "18px" }} />
         <span style={{marginLeft:'17px'}} onClick={handleLogout}>logout</span>
-        {/* <NavDropdown className="log-btn" title='logout' > */}
-
-        {/* <NavDropdown.Item  onClick={handleLogout} >{userRole}</NavDropdown.Item> */}
-      {/* </NavDropdown> */}
+       
       </Button>
 
         </li>
@@ -143,3 +140,38 @@ const {userRole} = useContext(UserRoleContext)
 };
 
 export default Navbar;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

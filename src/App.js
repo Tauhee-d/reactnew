@@ -4,7 +4,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import DashboardAdmin from "./pages/DashboardAdmin/DashboardAdmin";
 import DashboardDoc from "./pages/DashboardDoc/DashboardDoc";
-import Patient1 from "./pages/Patient/Patient";
 import Room from "./pages/Room/Room/Room";
 import PatientList from "./pages/Room/PatientList/PatientList";
 import PatientProfile from "./pages/Room/PatientProfile/PatientProfile";
@@ -14,6 +13,8 @@ import Alert from "./pages/Alert/Alert";
 import Protected from "./components/ProtectedRoutes/Protected";
 import Attachments from "./pages/Room/PatientProfile/Attachments";
 import Doctor from "./pages/Doctors/Doctor";
+import Patient from "./pages/Patient/Patient";
+
 
 
 const App = () => {
@@ -47,7 +48,7 @@ const App = () => {
               ) : userRole === UserTypes.doctor ? (
                 <DashboardDoc />
               ) : userRole === UserTypes.patient ? (
-                <Patient1 />
+                <Patient/>
               ) : null}
             </ProtectedElement>
           }

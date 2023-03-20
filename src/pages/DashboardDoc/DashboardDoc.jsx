@@ -1,15 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  LineChart,
-  Tooltip,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Legend,
-  Line,
-} from "recharts";
 import { TiGroupOutline } from "react-icons/ti";
-
 import Navbar from "../../components/Navbar/Navbar";
 import SubTopbar from "../../components/SubTopbar/SubTopbar";
 import "./DashboardDoc.css";
@@ -37,7 +27,6 @@ const DashboardDoc = () => {
   }, []);
 
   const [currentTime, setCurrentTime] = useState(new Date());
-  
 
   const currentDate = new Date();
 
@@ -46,19 +35,16 @@ const DashboardDoc = () => {
   const [roomsDataroom, setRoomsData] = useState([]);
   const [message, setMessage] = useState([]);
 
-
   const highTemperature = roomsDataroom.filter((item) => item.latestTemp >= 95);
   const moderateTemperature = roomsDataroom.filter(
     (item) => item.latestTemp < 95
   );
-console.log("first",highTemperature)
-console.log("secound",highTemperature)
+  console.log("first", highTemperature);
+  console.log("secound", highTemperature);
   const sortedData = roomsDataroom.sort(
     (a, b) => new Date(b.addedon * 1000) - new Date(a.addedon * 1000)
   );
   const recentData = sortedData.slice(0, 6);
-
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,7 +52,6 @@ console.log("secound",highTemperature)
       setRoomsData(data);
       const data1 = await getMessage();
       setMessage(data1);
-
     };
     fetchData();
   }, []);
@@ -89,10 +74,6 @@ console.log("secound",highTemperature)
     },
   ]);
 
-
- 
-
-
   const [graphData, setGraphData] = useState([]);
 
   useEffect(() => {
@@ -102,7 +83,6 @@ console.log("secound",highTemperature)
   const t1 = roomsDataroom.map((data, i) => {
     const handleAddPatient = () => {
       navigate("/PatientProfile", { state: { id: data.id } });
-     
     };
 
     return (
@@ -111,7 +91,7 @@ console.log("secound",highTemperature)
           key={i}
           onClick={handleAddPatient}
           style={{ cursor: "pointer" }}
-          className='table'
+          className="table"
         >
           <TableCell style={{ fontSize: "12px" }}>{data.id}</TableCell>
           <TableCell style={{ fontSize: "12px" }}>
@@ -125,50 +105,45 @@ console.log("secound",highTemperature)
     );
   });
 
+  const mappedData = message.map(
+    ({ formData: { title, patientID, attenderID } }) => ({
+      title,
+      patientID,
+      attenderID,
+    })
+  );
 
-
-
-  const mappedData = message.map(({ formData: { title, patientID, attenderID } }) => ({
-    title,
-    patientID,
-    attenderID,
-    
-  }));
-  
-  
   // console.log("mappedData",mappedData);
   const t2 = message.map((data, i) => {
     const handleNotification = () => {
       navigate("/PatientProfile", { state: { id: data.formData.patientID } });
-     
     };
     // console.log("recentData",recentData);
-    console.log("message",message)
+    console.log("message", message);
     return (
       <>
-         <TableRow
+        <TableRow
           key={i}
           onClick={handleNotification}
           style={{ cursor: "pointer" }}
-          className='table'
+          className="table"
         >
-          <TableCell style={{ fontSize: "12px" }}>{data.formData.patientID}</TableCell>
+          <TableCell style={{ fontSize: "12px" }}>
+            {data.formData.patientID}
+          </TableCell>
           {/* <TableCell style={{ fontSize: "12px" }}>
             {data.fName} {data.lName}
           </TableCell> */}
-          <TableCell style={{ fontSize: "12px" }}>{data.formData.title}</TableCell>
+          <TableCell style={{ fontSize: "12px" }}>
+            {data.formData.title}
+          </TableCell>
         </TableRow>
-
-
-
-       
       </>
     );
   });
   const HigherTemperature = highTemperature.map((data, i) => {
     const handleNotification = () => {
       navigate("/PatientProfile", { state: { id: data.id } });
-     
     };
     return (
       <>
@@ -176,7 +151,7 @@ console.log("secound",highTemperature)
           key={i}
           onClick={handleNotification}
           style={{ cursor: "pointer" }}
-          className='table'
+          className="table"
         >
           <TableCell style={{ fontSize: "12px" }}>
             {data.fName} {data.lName}
@@ -204,7 +179,6 @@ console.log("secound",highTemperature)
   const ModerateTemperature = moderateTemperature.map((data, i) => {
     const handleNotification = () => {
       navigate("/PatientProfile", { state: { id: data.id } });
-     
     };
     return (
       <>
@@ -212,7 +186,7 @@ console.log("secound",highTemperature)
           key={i}
           onClick={handleNotification}
           style={{ cursor: "pointer" }}
-          className='table'
+          className="table"
         >
           <TableCell style={{ fontSize: "12px" }}>
             {data.fName} {data.lName}
@@ -224,32 +198,34 @@ console.log("secound",highTemperature)
     );
   });
 
-
   // Patient Added this month
 
   const currentMonth = new Date().getMonth();
-  const currentYear = new Date().getFullYear(); 
-  const firstDayOfMonth = new Date(currentYear, currentMonth, 1); 
-  const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0); 
-  
-  const patientsAddedThisMonth = roomsDataroom.filter(patient => {
-    const date = new Date(patient.addedOn * 1000); 
-    return date >= firstDayOfMonth && date <= lastDayOfMonth; 
+  const currentYear = new Date().getFullYear();
+  const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+  const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0);
+
+  const patientsAddedThisMonth = roomsDataroom.filter((patient) => {
+    const date = new Date(patient.addedOn * 1000);
+    return date >= firstDayOfMonth && date <= lastDayOfMonth;
   });
 
-const count = patientsAddedThisMonth.length;
+  const count = patientsAddedThisMonth.length;
 
-const totalPatientCount = roomsDataroom.length;
+  const totalPatientCount = roomsDataroom.length;
 
-// Patient filter according to their gender 
-const filterGender = "male";
-const filteredPatients = roomsDataroom.filter(patient => patient.gender === filterGender);
-const malecount = filteredPatients.length;
+  // Patient filter according to their gender
+  const filterGender = "male";
+  const filteredPatients = roomsDataroom.filter(
+    (patient) => patient.gender === filterGender
+  );
+  const malecount = filteredPatients.length;
 
-const filterFemale = "female";
-const filtered = roomsDataroom.filter(patient => patient.gender === filterFemale);
-const femalecount = filtered.length;
-
+  const filterFemale = "female";
+  const filtered = roomsDataroom.filter(
+    (patient) => patient.gender === filterFemale
+  );
+  const femalecount = filtered.length;
 
   return (
     <div className="MedDashboard">
@@ -275,57 +251,86 @@ const femalecount = filtered.length;
         <div className="Container">
           <div className="Container-left">
             <div className="con-one">
-             
               <div className="statistics">
-                    <div style={{display:'flex',justifyContent:'space-between',marginTop:'20px'}}>
-                      <span style={{fontWeight:'bold'}}>Patients</span>
-                      <span>This month</span>
-                    </div>
-                    <div>
-                      <div style={{display:'flex',justifyContent:'space-around',alignItems:'center'}}>
-                          <span style={{fontSize:"40px"}}>{count}</span>
-                          <span>New Patients</span>
-                      </div>
-                      <div style={{display:'flex',justifyContent:'space-around',alignItems:'center'}}>
-                      <span style={{fontSize:"40px"}}>{totalPatientCount}</span>
-                          <span>Total Patients</span>
-                      </div>
-                    </div>
-               
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginTop: "20px",
+                  }}
+                >
+                  <span style={{ fontWeight: "bold" }}>Patients</span>
+                  <span>This month</span>
+                </div>
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-around",
+                      alignItems: "center",
+                    }}
+                  >
+                    <span style={{ fontSize: "40px" }}>{count}</span>
+                    <span>New Patients</span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-around",
+                      alignItems: "center",
+                    }}
+                  >
+                    <span style={{ fontSize: "40px" }}>
+                      {totalPatientCount}
+                    </span>
+                    <span>Total Patients</span>
+                  </div>
+                </div>
               </div>
               <div className="statistics1">
-                <div style={{marginTop:'20px'}}>
-                <span style={{fontWeight:'bold'}}>Gender</span>
-                  </div>
-                  <div className="gender"  style={{display:'flex',height:'200px',flexDirection:'column'}}>
+                <div style={{ marginTop: "20px" }}>
+                  <span style={{ fontWeight: "bold" }}>Gender</span>
+                </div>
+                <div
+                  className="gender"
+                  style={{
+                    display: "flex",
+                    height: "200px",
+                    flexDirection: "column",
+                  }}
+                >
+                  <div>
+                    <span style={{ marginLeft: "15px" }}>
+                      {" "}
+                      <TiGroupOutline size={60} />{" "}
+                    </span>
                     <div>
-
-                  <span style={{marginLeft:'15px'}}>  <TiGroupOutline size={60} /> </span>
-                  <div>
-
-                  <span>Total Patient</span>
-                    <span style={{marginLeft:'10px'}} >{totalPatientCount}</span>
-                  </div>
+                      <span>Total Patient</span>
+                      <span style={{ marginLeft: "10px" }}>
+                        {totalPatientCount}
+                      </span>
                     </div>
+                  </div>
                   <div>
-                    
-                    <div style={{display:'flex',justifyContent:'space-between',width:'150px'}}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "150px",
+                      }}
+                    >
                       <div>Women:{femalecount}</div>
                       <div>Men:{malecount}</div>
                     </div>
                   </div>
-
-                  </div>
-              
-
-               
+                </div>
               </div>
               <div className="notification">
-              <span style={{fontWeight:'bold'}}>Notification</span>
+                <span style={{ fontWeight: "bold" }}>Notification</span>
 
                 <Scrollbars>
                   <Table>
-                    <TableRow >
+                    <TableRow>
                       <TableCell>ID</TableCell>
                       {/* <TableCell>Name</TableCell> */}
                       <TableCell>Message</TableCell>
@@ -343,7 +348,7 @@ const femalecount = filtered.length;
             </div>
             <div className="con-two">
               <div className="rec-patient">
-              <span style={{fontWeight:'bold'}}>Recent Patient</span>
+                <span style={{ fontWeight: "bold" }}>Recent Patient</span>
                 <Scrollbars>
                   <Table>
                     <TableRow>
@@ -368,7 +373,9 @@ const femalecount = filtered.length;
           <div className="Container-right">
             <div className="alerts">
               <div className="high-temparature">
-                <span style={{fontWeight:'bold',fontSize:'14px'}}>High Temperature Alerts</span>
+                <span style={{ fontWeight: "bold", fontSize: "14px" }}>
+                  High Temperature Alerts
+                </span>
 
                 <Scrollbars>
                   <Table>
@@ -384,7 +391,9 @@ const femalecount = filtered.length;
                 </Scrollbars>
               </div>
               <div className="low-temparature">
-                <span style={{fontWeight:'bold',fontSize:'14px'}}>Moderate and low fever Alerts</span>
+                <span style={{ fontWeight: "bold", fontSize: "14px" }}>
+                  Moderate and low fever Alerts
+                </span>
 
                 <Scrollbars>
                   <Table>
