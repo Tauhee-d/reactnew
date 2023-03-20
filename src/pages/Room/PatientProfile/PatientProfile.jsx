@@ -223,25 +223,33 @@ const PatientProfile = () => {
     event.preventDefault();
     imageFiles.forEach((file) => handleImageUpload(patientId, title, file)); // upload each file with patientId and title
     setIsFormOpen2(false);
+    setPatientId('')
+    setTitle('')
+
+    // patientData()
+    
   };
+
 
   const handleImageUpload = async (patientId, title, imageFile) => {
     const storageRef = firebase.storage().ref();
-    const imageId = Date.now(); // generate a unique ID for the uploaded image
-    const imageRef = storageRef.child(`images/${patientId}/${imageId}`);
+    const imageId = Date.now(); // generate a unique ID for the uploaded file
+    const fileExtension = imageFile.name.split('.').pop();
+    const filePath = `images/${patientId}/${patientId}/${imageId}.${fileExtension}`; // set the storage path for the file
+    const imageRef = storageRef.child(filePath);
     await imageRef.put(imageFile);
-
+  
     const downloadURL = await imageRef.getDownloadURL();
-
+  
     const firestoreRef = firebase.firestore().collection("patients");
     const patientRef = firestoreRef.doc(patientId);
     const patientData = await patientRef.get();
     let images = [];
     if (patientData.exists) {
-      images = patientData.data().images || []; // get the existing images for the patient, if any
+      images = patientData.data().images || []; // get the existing files for the patient, if any
     }
-    images.push({ id: imageId, title: title, url: downloadURL }); // add the new image to the patient's images with title
-    await patientRef.set({ images }, { merge: true }); // update the patient's document with the new image
+    images.push({ id: imageId, title: title, url: downloadURL }); // add the new file to the patient's files with title
+    await patientRef.set({ images }, { merge: true }); // update the patient's document with the new file
   };
 
   sessionStorage.setItem("id", refID);
@@ -790,3 +798,5 @@ const PatientProfile = () => {
 };
 
 export default PatientProfile;
+
+

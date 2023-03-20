@@ -5,25 +5,28 @@ import SubTopbar from "../../../components/SubTopbar/SubTopbar";
 import { GrAttachment } from "react-icons/gr";
 import { MdOutlineCancel } from "react-icons/md";
 import Modal from "react-modal";
-import axios from 'axios';
-
-
-
-
 import { db } from "../../../Firebase/firebase";
 import firebase from "firebase/app";
 import Scrollbars from "react-custom-scrollbars-2";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { Button, CardActionArea, CardActions } from '@mui/material';
 
 const Attachments = () => {
+  const [isFormOpen2, setIsFormOpen2] = useState(false);
+  const handleCancel2 = () => {
+    setIsFormOpen2(false);
+  };
+  const toggleForm2 = () => {
+    setIsFormOpen2(!isFormOpen2);
+  };
+  const AttachCancel = () => {
+    window.history.back();
+  };
 
-    const [isFormOpen2, setIsFormOpen2] = useState(false);
-    const handleCancel2 = () => {
-        setIsFormOpen2(false);
-      };
-    const toggleForm2 = () => {
-        setIsFormOpen2(!isFormOpen2); 
-      };
-      const [patientId, setPatientId] = useState("");
+  const [patientId, setPatientId] = useState("");
       const [title, setTitle] = useState("");
       const [imageFiles, setImageFiles] = useState([]);
       
@@ -71,106 +74,12 @@ const Attachments = () => {
         images.push({ id: imageId, title: title, url: downloadURL }); // add the new file to the patient's files with title
         await patientRef.set({ images }, { merge: true }); // update the patient's document with the new file
       };
-      
-      
-      
-      // const handleImageUpload = async (patientId, title, imageFile) => {
-      //   const storageRef = firebase.storage().ref();
-      //   const imageId = Date.now(); // generate a unique ID for the uploaded image
-      //   const imageRef = storageRef.child(`images/${patientId}/${imageId}`);
-      //   await imageRef.put(imageFile);
-      
-      //   const downloadURL = await imageRef.getDownloadURL();
-      
-      //   const firestoreRef = firebase.firestore().collection("patients");
-      //   const patientRef = firestoreRef.doc(patientId);
-      //   const patientData = await patientRef.get();
-      //   let images = [];
-      //   if (patientData.exists) {
-      //     images = patientData.data().images || []; // get the existing images for the patient, if any
-      //   }
-      //   images.push({ id: imageId, title: title, url: downloadURL }); // add the new image to the patient's images with title
-      //   await patientRef.set({ images }, { merge: true }); // update the patient's document with the new image
-      // };
 
+  // fetching details from firestore
 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
 
-
-      // {patientData &&
-      //   patientData.images &&
-      //   patientData.images.map((image) => (
-
-         
-      // const [patientID, setPatientID] = useState('');
-      // const [title, setTitle] = useState('');
-      // const [file, setFile] = useState(null);
-      // const [filename, setFilename] = useState('');
-    
-      // const handleSubmit = async (e) => {
-      //   e.preventDefault();
-    
-      //   const formData = new FormData();
-      //   formData.append('file', file);
-      //   formData.append('patientID', patientID);
-      //   formData.append('title', title);
-    
-      //   try {
-      //     const res = await axios.post('http://localhost:5000/upload', formData, {
-      //       headers: {
-      //         'Content-Type': 'multipart/form-data',
-      //       },
-      //     });
-      //     setFilename(res.data.filename);
-      //     console.log('File uploaded successfull');
-      //   } catch (err) {
-      //     console.error(err);
-      //   }
-      // };
-    
-    
-    
-
-
-      // const [files, setFiles] = useState([]);
-
-      // useEffect(() => {
-      //   const getFiles = async () => {
-      //     try {
-      //       const res = await axios.get('http://localhost:5000/files');
-      //       setFiles(res.data);
-      //     } catch (err) {
-      //       console.error(err);
-      //     }
-      //   };
-      //   getFiles();
-      // }, []);
-      // console.log("first11",files)
-
-
-    
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// fetching details from firestore
-
-const [modalIsOpen, setModalIsOpen] = useState(false);
-const [selectedImage, setSelectedImage] = useState("");
-  
   const ID = sessionStorage.getItem("id");
   console.log("object1111111", ID);
 
@@ -179,61 +88,45 @@ const [selectedImage, setSelectedImage] = useState("");
     const fetchPatientData = async () => {
       const patientRef = firebase.firestore().collection("patients").doc(ID);
       const patientData = await patientRef.get();
-      console.log("first",patientData.data())
+      console.log("first", patientData.data());
       setPatientData(patientData.data());
     };
-     fetchPatientData();
+    fetchPatientData();
   }, [ID]);
-
-
-  
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
     setModalIsOpen(true);
   };
 
+  //   // delete option
 
-
-//   // delete option
-
-  // const deletePatientData = async (ID) => {
-  //   await firebase.firestore().collection("patients").doc(ID).delete();
-  //   console.log("Patient data deleted successfully!");
-  //   // patientData()
-  //   };
-    const deletePatientData = async (ID, imageID) => {
-      await firebase.firestore().collection("patients").doc(ID).update({
-        images: firebase.firestore.FieldValue.arrayRemove(imageID)
+  const deletePatientData = async (ID, imageID) => {
+    await firebase
+      .firestore()
+      .collection("patients")
+      .doc(ID)
+      .update({
+        images: firebase.firestore.FieldValue.arrayRemove(imageID),
       });
-      console.log("Image deleted successfully!");
-            console.log("deltedddd",imageID)
-
-    };
-    
-
-
+    console.log("Image deleted successfully!");
+    console.log("deltedddd", imageID);
+  };
 
   const getUploadedFiles = async () => {
-      const firestoreRef = firebase.firestore().collection("patients");
-      const patientRef = firestoreRef.doc(ID);
-      const patientData = await patientRef.get();
-      if (patientData.exists) {
-        const files = patientData.data().files || []; // get the existing files for the patient, if any
-        
-        return files;
-        
-      } else {
-        return [];
-      }
-      
-    };
-    const DATA = getUploadedFiles(ID)
-    console.log("first",getUploadedFiles)
+    const firestoreRef = firebase.firestore().collection("patients");
+    const patientRef = firestoreRef.doc(ID);
+    const patientData = await patientRef.get();
+    if (patientData.exists) {
+      const files = patientData.data().files || []; // get the existing files for the patient, if any
 
-
-
-
+      return files;
+    } else {
+      return [];
+    }
+  };
+  const DATA = getUploadedFiles(ID);
+  console.log("first", getUploadedFiles);
 
   return (
     <div style={{ display: "flex" }}>
@@ -243,39 +136,40 @@ const [selectedImage, setSelectedImage] = useState("");
       <div style={{ flex: 7 }} className="Attach-right">
         <SubTopbar />
         <Scrollbars>
+          <div style={{ padding: "20px" }}>
+            <div>
+              <div>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <span className="add-btn" onClick={toggleForm2}>
+                    Add <GrAttachment />
+                  </span>
+                  <span className="Attach-cancel" onClick={AttachCancel}>
+                    <MdOutlineCancel size={25} />
+                  </span>
+                </div>
 
-        <div style={{padding:'20px'}} >
-        <div>
-                          <div>
-                            <span className="add-btn" onClick={toggleForm2}>
-                             Add <GrAttachment />
-                            </span>
+                {isFormOpen2 && (
+                  <div className="msg-container1">
+                    <div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <span style={{ fontWeight: "bold" }}>Attachments </span>
+                        <span
+                          style={{ fontWeight: "bold" }}
+                          onClick={handleCancel2}
+                        >
+                          {" "}
+                          <MdOutlineCancel />{" "}
+                        </span>
+                      </div>
 
-                            {isFormOpen2 && (
-                              <div className="msg-container1">
-                                <div>
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "space-between",
-                                    }}
-                                  >
-                                    <span style={{ fontWeight: "bold" }}>
-                                      Attachments{" "}
-                                    </span>
-                                    <span
-                                      style={{ fontWeight: "bold" }}
-                                      onClick={handleCancel2}
-                                    >
-                                      {" "}
-                                      <MdOutlineCancel />{" "}
-                                    </span>
-                                  </div>
-
-                                  
-
-
-                                  <form onSubmit={handleUpload}>
+                      <form onSubmit={handleUpload}>
                                       <label>
                                         Patient ID:
                                         <input type="text" value={patientId} onChange={handlePatientIdChange} />
@@ -293,126 +187,125 @@ const [selectedImage, setSelectedImage] = useState("");
                                       <br />
                                       <button type="submit">Upload</button>
                                     </form>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
 
-{/* <form onSubmit={handleSubmit}>
-      <input type="text" placeholder="Patient ID" value={patientID} onChange={(e) => setPatientID(e.target.value)} />
-      <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
-      <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-      <button type="submit">Upload</button>
-    </form> */}
+            <div className="gallery">
+              {patientData?.images?.map((image) => (
+                <div style={{ height: "400px" }}>
+                  <Card sx={{ maxWidth: 345 }}>
 
-
-
-
-
-
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        
-                          <div className="gallery">
-          {/* {patientData &&
-            patientData.images &&
-            patientData.images.map((image) => (
-              
-                  <div style={{height:'400px'}} >
-
-                  <img
-                    className="single-img"
-                    key={image.id}
-                    width={320}
-                    height={250}
-                    src={image.url}
-                    alt="patient image"
+                  {image.type === "pdf" ? (
+                    <embed
+                      src={image.url}
+                      width="100%"
+                      height="100%"
+                      type="application/pdf"
+                    />
+                  ) : (
+                    // <img
+                    //   className="single-img"
+                    //   key={image.id}
+                    //   width={320}
+                    //   height={250}
+                    //   src={image.url}
+                    //   alt="patient image"
+                    //   onClick={() => handleImageClick(image)}
+                    // />
+                    <CardMedia
+                    component="img"
+                    height="140"
+                    image={image.url}
+                    alt="green iguana"
                     onClick={() => handleImageClick(image)}
-
+          
                   />
-                  <div style={{display:'flex',justifyContent:'space-around'}}>
-                  <p>Title:{image.title}</p>
-                  <button className="dlt-btn" onClick={() => deletePatientData(ID)}>Delete</button>
 
 
+                  )}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "320px",
+                    }}
+                  >
+                    {/* <p>Title:{image.title}</p>
+                    <button
+                      className="dlt-btn"
+                      onClick={() => deletePatientData(ID, image.id)}
+                    >
+                      Delete
+                    </button> */}
+                     <CardContent>
+          <Typography gutterBottom variant="h6" component="div">
+                Title: {image.title}
+          </Typography>
+          <CardActions>
+        <Button  onClick={() => deletePatientData(ID, image.id)} size="small" color="primary">
+          Delete
+        </Button>
+      </CardActions>
+        </CardContent>
                   </div>
-                  </div>
-              
-            ))} */}
-            {/* {patientData?.images?.map((image) => (
-  <div style={{ height: '400px' }}>
-    <img
-      className="single-img"
-      key={image.id}
-      width={320}
-      height={250}
-      src={image.url}
-      alt="patient image"
-      onClick={() => handleImageClick(image)}
-    />
-    <div style={{ display: 'flex', justifyContent: 'space-between',width:'320px' }}>
-      <p>Title:{image.title}</p>
-      <button className="dlt-btn" onClick={() => deletePatientData(ID,image.id)}>Delete</button>
-    </div>
-  </div>
-))} */}
+                  </Card>
+                </div>
+              ))}
 
 
 
 
-{patientData?.images?.map((image) => (
-  <div style={{ height: '400px' }}>
-    {image.type === 'pdf' ? (
-      <embed
-        src={image.url}
-        width="100%"
-        height="100%"
-        type="application/pdf"
-      />
-    ) : (
-      <img
-        className="single-img"
-        key={image.id}
-        width={320}
-        height={250}
-        src={image.url}
-        alt="patient image"
-        onClick={() => handleImageClick(image)}
-      />
-    )}
-    <div style={{ display: 'flex', justifyContent: 'space-between',width:'320px' }}>
-      <p>Title:{image.title}</p>
-      <button className="dlt-btn" onClick={() => deletePatientData(ID,image.id)}>Delete</button>
-    </div>
-  </div>
-))}
+
+
+      {/* <CardActionArea>
+       
+       
+      </CardActionArea> */}
+     
+   
 
 
 
-                  <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-                    <img src={selectedImage.url} alt={selectedImage.alt} style={{ width: "1300px", height: "620px", objectFit: "contain" }} />
-                  </Modal>
-
-                
 
 
-        </div>
 
-{/* {files.map((file) => (
-        <div key={file._id}>
-          <h3>{file.title}</h3>
-          {file.fileType === 'application/pdf' ? (
-            <embed src={`http://localhost:5000/upload${file.url}`} type="application/pdf" width="100%" height="600px" />
-          ) : (
-            <img src={`http://localhost:5000/upload${file.url}`} alt={file.title} />
-          )}
-        </div>
-      ))} */}
 
+
+
+
+
+
+
+
+              <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={() => setModalIsOpen(false)}
+              >
+                <img
+                  src={selectedImage.url}
+                  alt={selectedImage.alt}
+                  style={{
+                    width: "1300px",
+                    height: "620px",
+                    objectFit: "contain",
+                  }}
+                />
+              </Modal>
+            </div>
+          </div>
+        </Scrollbars>
       </div>
-      </Scrollbars>
-    </div>
     </div>
   );
 };
 
 export default Attachments;
+
+
+
+
+
+

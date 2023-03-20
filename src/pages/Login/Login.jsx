@@ -1,4 +1,7 @@
 import { useEffect, useState, useContext } from "react";
+import Grid from '@mui/system/Unstable_Grid/Grid';
+import TextField from '@mui/material/TextField';
+import { IconButton, Typography,Box, Button } from '@mui/material'
 import { db } from "../../Firebase/firebase";
 import { auth } from "../../Firebase/firebase";
 import { useNavigate } from "react-router-dom";
@@ -54,17 +57,18 @@ function SignIn() {
   return (
     <div>
       <div className="sigin">
-        <div className="sigin-container">
+        <div className="sigin-container" style={{padding:'20px'}}>
           <form onSubmit={handleSubmit}>
             <h2 style={{ marginBottom: "50px" }}>SignIn</h2>
-            <label style={{ margin: "10px" }}>
+            {/* <label style={{ margin: "10px" }}>
               Email:
+            </label>
+            
               <input
                 type="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
               />
-            </label>
             <br />
             <label style={{ margin: "10px" }}>
               Password:
@@ -74,10 +78,23 @@ function SignIn() {
                 onChange={(event) => setPassword(event.target.value)}
               />
             </label>
-            <br />
-            <button style={{ margin: "10px" }} type="submit">
-              Sign In
-            </button>
+            <br /> */}
+            <Grid container spacing={2}>
+          <Grid item xs={10} style={{marginLeft:'8%'}}>
+        <TextField id="outlined-basic" label="email" variant="outlined" size='small' sx={{minWidth:'100%'}} value={email} onChange={(e) => setEmail(e.target.value)} />
+        </Grid>
+          <Grid item xs={10} style={{marginLeft:'8%'}}>
+        <TextField id="outlined-basic" label="password" variant="outlined" size='small' sx={{minWidth:'100%'}} value={password} onChange={(e) => setPassword(e.target.value)} />
+        </Grid>
+        <Grid item xs={12}>
+            <Typography>
+                <button >Submit</button>
+
+
+            </Typography>
+        </Grid>
+      </Grid>
+            
           </form>
         </div>
       </div>

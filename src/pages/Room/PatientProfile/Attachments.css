@@ -18,6 +18,10 @@
    
 
 }
+.Attach-cancel:hover{
+    cursor: pointer;
+
+}
 .add-btn{
     border: 1px solid skyblue;
     border-radius: 12px;
