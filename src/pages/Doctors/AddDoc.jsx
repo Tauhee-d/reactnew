@@ -32,9 +32,17 @@ const AddDoc = ({closeEvent}) => {
         const [lastName, setLastName] = useState('');
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
+        const [error, setError] = useState(null);
+
       
         const createUser = async (e) => {
           e.preventDefault();
+
+          if (!email || !password || !firstName || !lastName) {
+            setError('Please fill in all required fields');
+            return;
+          }
+
           try {
             const { user } = await firebase.auth().createUserWithEmailAndPassword(email, password);
             await firebase.firestore().collection('users').doc(user.uid).set({ firstName,lastName,email, role: 'doctor',hospitalID:'123456' });
@@ -109,6 +117,8 @@ const AddDoc = ({closeEvent}) => {
         <Grid item xs={12}>
             <Typography>
                 <Button onClick={createUser}>Submit</Button>
+                {error && <p style={{color:'red'}} >{error}</p>}
+
             </Typography>
         </Grid>
       </Grid>
