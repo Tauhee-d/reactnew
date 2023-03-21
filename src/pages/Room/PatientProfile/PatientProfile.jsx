@@ -29,6 +29,7 @@ import getReadings from "../../../Firebase/firebaseControllers/Readings";
 import getTimeline from "../../../Firebase/firebaseControllers/Timeline";
 import getMessage from "../../../Firebase/firebaseControllers/Message";
 import Attachments from "./Attachments";
+import Temperature from "./Temperature";
 // import getImages from "../../../Firebase/firebaseControllers/Images";
 
 const PatientProfile = () => {
@@ -37,7 +38,7 @@ const PatientProfile = () => {
   const location = useLocation();
   const ID = location.state.id;
   const [refID, setRefID] = useState(ID);
-  console.log("first", ID);
+  console.log("ssssss", ID);
 
   const handleBack = () => {
     window.history.back();
@@ -122,6 +123,8 @@ const PatientProfile = () => {
   const msgView = Message.map((data) => {
     return (
       <>
+      
+        <p> Sended by: <span style={{fontWeight:'bold'}}>{data.formData.attender}</span> </p>
         <p>{data.formData.description}</p>
       </>
     );
@@ -204,13 +207,16 @@ const PatientProfile = () => {
       });
   };
 
-  const [patientId, setPatientId] = useState("");
+  const [patientId, setPatientId] = useState(ID);
   const [title, setTitle] = useState("");
   const [imageFiles, setImageFiles] = useState([]);
+  sessionStorage.setItem('PatID',patientId)
 
-  const handlePatientIdChange = (event) => {
-    setPatientId(event.target.value);
-  };
+
+
+  // const handlePatientIdChange = (event) => {
+  //   setPatientId(event.target.value);
+  // };
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
@@ -299,6 +305,7 @@ const PatientProfile = () => {
                         <span style={{ fontSize: "30px", marginLeft: "10px" }}>
                           {patient.fName} {patient.lName}
                         </span>
+                        <div> <Temperature/></div>
                       </div>
                       <div
                         style={{
@@ -379,7 +386,7 @@ const PatientProfile = () => {
                                   </div>
 
                                   <form onSubmit={handleUpload}>
-                                    <label>
+                                    {/* <label>
                                       Patient ID:
                                       <input
                                         type="text"
@@ -387,7 +394,7 @@ const PatientProfile = () => {
                                         onChange={handlePatientIdChange}
                                       />
                                     </label>
-                                    <br />
+                                    <br /> */}
                                     <label>
                                       Title:
                                       <input

@@ -82,7 +82,7 @@ const {userRole} = useContext(UserRoleContext)
             </Link>
           </Button>
         </li>
-        <Protected>
+        {/* <Protected> */}
         {userRole === UserTypes.admin || userRole === UserTypes.doctor ? (
         <li className={`nav-item ${active ? "active" : ""}`}>
         <Button className="nav-bttn">
@@ -94,7 +94,7 @@ const {userRole} = useContext(UserRoleContext)
           </li>
         
         ) : <Navigate to="/"/>}
-        </Protected>
+        {/* </Protected> */}
         {/* <Protected> */}
         {userRole === UserTypes.admin ? (
         <li className={`nav-item ${active ? "active" : ""}`}>

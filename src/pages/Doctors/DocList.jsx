@@ -189,8 +189,10 @@ console.log("setFormid11111",formId)
           </TableHead>
           <TableBody>
             {rows
+
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
+                // console.log("rowsssssss",row)
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                    
@@ -200,8 +202,8 @@ console.log("setFormid11111",formId)
                         <TableCell  align='left'> {row.role} </TableCell>
                         <TableCell  align='left'> 
                         <Stack spacing={2} direction='row'>
-                            <EditIcon style={{fontSize:'20px',color:'blue',cursor:'pointer'}}onClick={()=> {editUser(row)}} />
-                            {/* <EditIcon style={{fontSize:'20px',color:'blue',cursor:'pointer'}}onClick={()=> {editUser(row.id,row.hospitalID,row.firstName,row.lastname,row.email,row.role)}} /> */}
+                            {/* <EditIcon style={{fontSize:'20px',color:'blue',cursor:'pointer'}}onClick={()=> {editUser(row.id)}} /> */}
+                            <EditIcon style={{fontSize:'20px',color:'blue',cursor:'pointer'}}onClick={()=> {editUser(row.id,row.hospitalID,row.firstName,row.lastname,row.email,row.role)}} />
                             <DeleteIcon style={{fontSize:'20px',color:'red',cursor:'pointer'}} onClick={()=> {deleteUser(row)}} />
                         </Stack>
                          </TableCell>
