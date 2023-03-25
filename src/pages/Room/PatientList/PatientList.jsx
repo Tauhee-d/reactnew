@@ -65,8 +65,8 @@ const Patient = () => {
         <Scrollbars>
           <SubTopbar />
             
-          <button className='back-button1' onClick={handleClick}> <span> <TiArrowLeft size={22}/> </span> Back</button>
-          <div>
+          <div style={{display:'flex'}}>
+          <button className='handleBack' onClick={handleClick}> <span> <TiArrowLeft size={22}/> </span> Back</button>
 
           <button className="room-btn" onClick={() => setShowRooms(!showRooms)}> {showRooms ? ' Without Devices' : 'With Devices'}</button>
           </div>

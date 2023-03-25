@@ -118,16 +118,14 @@ font-weight: bold;
     background-color: white;
     cursor: pointer;
     color: #687786;
-    display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
     width: 9rem;
     border: none;
     border-radius: 14px;
-    margin-left: 150px;
+    margin-left: 50px;
+    height: 30px;
     margin-top: 30px;
-    
     border:1px solid #2C74B3;
     color:#2C74B3 ;
     

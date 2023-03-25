@@ -19,8 +19,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Swal from 'sweetalert2'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import AddDoc from './AddDoc';
-import EditDoc from './EditDoc';
+import AddNurse from './AddNurse';
+import EditNurse from './EditNurse';
 import firebase from '@firebase/app';
 const style = {
     position: 'absolute',
@@ -40,7 +40,7 @@ const rows = [
 
 ];
 
-export default function DocList() {
+export default function NurseList() {
 
 
     
@@ -67,9 +67,8 @@ export default function DocList() {
           admin: "admin",
           nurse:'nurse'
         };
-        const DocData = data.filter(user => user.role === UserTypes.doctor)
-        setRows(DocData)
-        console.log("DOctor",rows)
+        const NurseData = data.filter(user => user.role === UserTypes.nurse)
+        setRows(NurseData)
     }
     fetchData()
 }, []) 
@@ -131,7 +130,41 @@ console.log("setFormid11111",formId)
         }
     })
   }
+  // const deleteUser = async (userDt) => {
+  //   Swal.fire({
+  //     title: `Do you want to delete ${userDt.firstName}'s record?`,
+  //     text: "You won't be able to revert this",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "blue",
+  //     cancelButtonColor: "red",
+  //     confirmButtonText: "Yes, delete it!",
+  //   }).then(async (result) => {
+  //     if (result.isConfirmed) {
+  //       try {
+  //         // Delete the user from authentication
+  //         const user = firebase.auth().currentUser;
+  //         await user.delete();
+          
+  //         // Delete the user from the users collection
+  //         const docRef = firebase.firestore().collection("users").doc(userDt.id);
+  //         await docRef.delete();
+          
+  //         Swal.fire("SUCCESS", "Deleted Successfully", "success");
+          
+  //         // Remove the user from the rows state
+  //         const userData = rows.filter((user) => user.id !== userDt.id);
+  //         setRows(userData);
+  //       } catch (error) {
+  //         console.error("Error deleting user", error);
+  //         Swal.fire("ERROR", "Failed to delete user", "error");
+  //       }
+  //     }
+  //   });
+  // };
   
+
+
   
  
   return (
@@ -144,7 +177,7 @@ console.log("setFormid11111",formId)
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-            <AddDoc closeEvent={handleClose}/>
+            <AddNurse closeEvent={handleClose}/>
          
         </Box>
       </Modal>
@@ -154,12 +187,12 @@ console.log("setFormid11111",formId)
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-            <EditDoc closeEvent={handleEditClose} fId={formId}/>
+            <EditNurse closeEvent={handleEditClose} fId={formId}/>
         </Box>
       </Modal>
     </div>
         <div style={{ display:'flex',justifyContent:'space-between'}} >
-            <Typography style={{fontWeight:'bold'}}>Doctor List</Typography>
+            <Typography style={{fontWeight:'bold'}}>Nurse List</Typography>
             <Typography style={{border:"1px solid blue",borderRadius:"5px",backgroundColor:'blue'}}>
                 <Button style={{color:'white'}} endIcon={<AddCircleIcon />} onClick={handleOpen}>Add</Button>
             </Typography>

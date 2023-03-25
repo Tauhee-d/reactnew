@@ -9,44 +9,45 @@
     /* height: 100vh; */
 }
 .back-button1{
+    display: flex;
+    /* position: fixed; */
+    
+}
+.handleBack{
+    
+    width: 5rem;
+    justify-content: center;
+    align-items: center;
     background-color: white;
     color: #2C74B3;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    width: 5rem;
     border: none;
     border-radius: 16px;
     margin-left: 30px;
     margin-top: 30px;
     border: 1px solid #2C74B3;
-
 }
-.back-button1:hover{
+.handleBack:hover{
     background-color: #2C74B3;
     color: white;
 }
 
-.back-room{
-    background-color: white;
-    cursor: pointer;
-    color: #687786;
-    display: flex;
+.handleRoom{
+  
+   
+    width: 5rem;
     justify-content: center;
     align-items: center;
-    position: fixed;
-    width: 5rem;
-    border: none;
-    border-radius: 14px;
-    margin-left: 150px;
-    margin-top: 30px;
-    border:1px solid #2C74B3;
+    background-color: white;
     color: #2C74B3;
-  
+    cursor: pointer;
+    border: none;
+    border-radius: 16px;
+    margin-left: 30px;
+    margin-top: 30px;
+    border: 1px solid #2C74B3;
 }
-.back-room:hover{
+.handleRoom:hover{
     color: white;
     background-color: #2C74B3;
 }

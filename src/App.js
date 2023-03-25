@@ -14,8 +14,9 @@ import Alert from "./pages/Alert/Alert";
 import Protected from "./components/ProtectedRoutes/Protected";
 import Attachments from "./pages/Room/PatientProfile/Attachments";
 import Doctor from "./pages/Doctors/Doctor";
-import Patient from "./pages/Patient/Patient";
+import Nurse from "./pages/Nurse/Nurse";
 import Profile from "./components/Profile/Profile";
+import DashboardNurse from "./pages/Nurse/DashboardNurse";
 
 
 
@@ -28,8 +29,8 @@ const App = () => {
 
   const UserTypes = {
     doctor: "doctor",
-    patient: "patient",
     admin: "admin",
+    nurse:'nurse'
   };
 
   
@@ -52,8 +53,8 @@ const App = () => {
                 <DashboardAdmin />
               ) : userRole === UserTypes.doctor ? (
                 <DashboardDoc />
-              ) : userRole === UserTypes.patient ? (
-                <Patient/>
+              ) : userRole === UserTypes.nurse ? (
+                <DashboardNurse/>
               ) : null}
             </ProtectedElement>
           }
@@ -73,6 +74,8 @@ const App = () => {
               <Room />
             ) : userRole === UserTypes.doctor ? (
               <Room />
+            ) : userRole === UserTypes.nurse ? (
+              <Room/>
             ) : null}
           </ProtectedElement>
         }
@@ -101,6 +104,7 @@ const App = () => {
         }
       /> */}
       <Route path="/Doctor" index element={<Doctor />} />
+      <Route path="/Nurse" index element={<Nurse />} />
       <Route path="/Alert" index element={<Alert />} />
       <Route path="/Attachments" index element={<Attachments />} />
       <Route path="/DocPatientList" index element={<DocPatientList />} />

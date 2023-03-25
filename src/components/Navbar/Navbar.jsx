@@ -21,7 +21,7 @@ const Navbar = ({ Alert }) => {
 const {userRole} = useContext(UserRoleContext)
   const UserTypes = {
     doctor: "doctor",
-    patient: "patient",
+    nurse: "nurse",
     admin: "admin",
   };
   const Role = sessionStorage.getItem("user");
@@ -83,7 +83,7 @@ const {userRole} = useContext(UserRoleContext)
           </Button>
         </li>
         {/* <Protected> */}
-        {userRole === UserTypes.admin || userRole === UserTypes.doctor ? (
+        {userRole === UserTypes.admin || userRole === UserTypes.nurse || userRole === UserTypes.doctor ? (
         <li className={`nav-item ${active ? "active" : ""}`}>
         <Button className="nav-bttn">
               <Link className="nav-link" to="/Room" id="acolor" onClick={handleDashboardClick}>
@@ -107,6 +107,17 @@ const {userRole} = useContext(UserRoleContext)
          </li>
         
         ) : null}
+           {userRole === UserTypes.admin ? (
+        <li className={`nav-item ${active ? "active" : ""}`}>
+        <Button className="nav-bttn">
+             <Link className="nav-link" to="/Nurse" id="acolor" onClick={handleDashboardClick}>
+               <AiFillPieChart size={20} style={{ marginRight: "15px" }} />{" "}
+               <span style={{ marginRight: "35px" }}>Nurse</span>
+             </Link>
+           </Button>
+         </li>
+        
+        ) : null} 
         {userRole === UserTypes.admin ? (
         <li className={`nav-item ${active ? "active" : ""}`}>
         <Button className="nav-bttn">
@@ -118,17 +129,11 @@ const {userRole} = useContext(UserRoleContext)
          </li>
         
         ) : null} 
+     
         {/* </Protected> */}
             
 
-        {/* <li className="nav-item">
-            <Button className="nav-bttn">
-              <Link className="nav-link" to="/Room" id="acolor">
-                <AiFillPieChart size={20} style={{ marginRight: "15px" }} />{" "}
-                <span style={{ marginRight: "35px" }}>Rooms</span>
-              </Link>
-            </Button>
-          </li> */}
+      
       
 
 

@@ -28,22 +28,58 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = () => {
 
+  const [userId, setUserId] = useState(" ");
+
+
     // profile image
-    const [profilePicture, setProfilePicture] = useState('');
 
     const handleProfilePictureChange = (event) => {
       const file = event.target.files[0];
-      const reader = new FileReader();
-  
-      reader.onload = () => {
-        setProfilePicture(reader.result);
-      };
-  
-      reader.readAsDataURL(file);
+      const storageRef = firebase.storage().ref(`users/${userId}/profilePicture.jpg`);
+    
+      storageRef.put(file).then(() => {
+        console.log('Image uploaded successfully');
+        storageRef.getDownloadURL().then((url) => {
+          console.log('Download URL:', url);
+          // save the URL in Firestore for the user
+          db.collection('users').doc(userId).update({ profilePicture: url }).then(() => {
+            console.log('Profile picture URL saved in Firestore');
+          }).catch((error) => {
+            console.error('Error saving profile picture URL in Firestore', error);
+          });
+        }).catch((error) => {
+          console.error('Error getting download URL', error);
+        });
+      }).catch((error) => {
+        console.error('Error uploading image', error);
+      });
     };
 
-    const UserID = sessionStorage.getItem("userID");
-    const Name = sessionStorage.getItem("name");
+    const [profilePicture, setProfilePicture] = useState('');
+
+    useEffect(() => {
+      db.collection('users').doc(userId).onSnapshot((doc) => {
+        const data = doc.data();
+        if (data && data.profilePicture) {
+          setProfilePicture(data.profilePicture);
+        }
+      });
+    }, [userId]);
+    
+
+
+
+
+
+
+
+
+
+
+
+    
+    // const UserID = sessionStorage.getItem("userID");
+    // const Name = sessionStorage.getItem("name");
 
 
     // edit form
@@ -64,80 +100,92 @@ const Profile = () => {
       p: 4,
     };
 
-    const [profile, setProfile] = useState({
-      age: '',gender:'',pEmail:'',phone:'',speciality:'', address: '', qualification: '' });
+   
+    const [age, setAge] = useState('');
+    const [gender, setGender] = useState('');
+    const [speciality, setSpeciality] = useState('');
+    const [address, setAddress] = useState('');
+    const [phone, setPhone] = useState('');
+    const [pEmail, setPEmail] = useState('');
+    const [qualification, setQualification] = useState('');
+
   
+    const Name = sessionStorage.getItem("name");
     useEffect(() => {
-      const fetchProfile = async () => {
-        const profileRef = firebase.firestore().collection('profiles').doc(UserID);
-        const profileDoc = await profileRef.get();
-        if (profileDoc.exists) {
-          setProfile(profileDoc.data());
+      
+      const userId1 = sessionStorage.getItem("userID");
+        setUserId(userId1);
+      }, []);
+    console.log("fyvhvhhg",userId)
+    useEffect(() => {
+      if (userId) {
+        // Fetch the user's existing age and address data when the user ID is available
+        const firestore = firebase.firestore();
+        const userDocRef = firestore.collection('users').doc(userId);
+        userDocRef.get().then((doc) => {
+          const userData = doc.data();
+          setAge(userData.age || '');
+          setGender(userData.gender || '');
+          setSpeciality(userData.speciality || '');
+          setAddress(userData.address || '');
+          setPhone(userData.phone || '');
+          setPEmail(userData.pEmail || '');
+          setQualification(userData.qualification || '');
+        });
+      }
+    }, [userId]);
+      // edit form
+      const handleAgeChange = (event) => {
+        setAge(event.target.value);
+      };
+      const handleGenderChange = (event) => {
+        setGender(event.target.value);
+      };
+      const handleSpecialityChange = (event) => {
+        setSpeciality(event.target.value);
+      };      
+      const handleAddressChange = (event) => {
+        setAddress(event.target.value);
+      };
+      const handlePhoneChange = (event) => {
+        setPhone(event.target.value);
+      };
+      const handlePEmailChange = (event) => {
+        setPEmail(event.target.value);
+      };
+      const handleQualificationChange = (event) => {
+        setQualification(event.target.value);
+      };
+     
+    
+      const handleSubmit = (event) => {
+        event.preventDefault();
+        if (userId) {
+          // Update the user's age and address data in Firestore
+          const firestore = firebase.firestore();
+          const userDocRef = firestore.collection('users').doc(userId);
+          userDocRef.set({
+            age,
+            gender,
+            speciality,
+            address,
+            phone,
+            pEmail,
+            qualification,
+
+          }, { merge: true });
+            Swal.fire("Uploaded Sucessfully!");
+           handleClose(true)
         }
       };
+
   
-      fetchProfile();
-    }, [UserID]);
   
-    const handleChange = (e) => {
-      setProfile({
-        ...profile,
-        [e.target.name]: e.target.value,
-      });
-    };
 
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const profileRef = firebase.firestore().collection('profiles').doc(UserID);
-  //   await profileRef.set(profile, { merge: true });
-  //   alert('Profile updated successfully!');
-  // };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+
   
-    // Upload the profile picture to Firebase Storage
-    const storageRef = firebase.storage().ref();
-    const fileRef = storageRef.child(`${UserID}/profilePicture`);
-    await fileRef.putString(profilePicture, 'data_url');
   
-    // Update the profile data in Firestore
-    const profileRef = firebase.firestore().collection('profiles').doc(UserID);
-    await profileRef.set({
-      ...profile,
-      profilePicture: await fileRef.getDownloadURL(), // Add the download URL of the uploaded image to Firestore
-    }, { merge: true });
-  
-    Swal.fire("Uploaded Sucessfully!");
-    handleClose(true)
-  };
-
-
-
-  // fetching profile data from firestore
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const collectionRef = firebase.firestore().collection("profiles");
-    collectionRef.get().then((querySnapshot) => {
-      const newData = [];
-      querySnapshot.forEach((doc) => {
-        const docData = doc.data();
-        const item = {
-          image: docData.image,
-          age: docData.age,
-          gender: docData.gender,
-          pEmail: docData.pEmail,
-          phone: docData.phone,
-          speciality: docData.speciality,
-          address: docData.address,
-          qualification: docData.qualification,
-        };
-        newData.push(item);
-      });
-      setData(newData);
-    });
-  }, []);
   
   return (
     <div style={{display:'flex'}}>
@@ -150,20 +198,21 @@ const Profile = () => {
         <div style={{display:'flex',justifyContent:'space-between',padding:'10px'}}>
             <div style={{display:'flex'}}>
         <div>
-            <Avatar src={profilePicture}  style={{marginLeft:'23px'}} />
-      <input
-        accept="image/*"
-        type="file"
-        id="profile-picture-input"
-        style={{ display: 'none' }}
-        onChange={handleProfilePictureChange}
-      />
-      <label htmlFor="profile-picture-input">
-        <IconButton component="span">
-          {/* <PhotoCamera  /> */}
-          <span style={{fontSize:'10px', fontWeight:'bold'}}>Edit Profile</span>
-        </IconButton>
-      </label>
+          
+          <Avatar src={profilePicture}  style={{marginLeft:'23px'}} />
+          <input
+            accept="image/*"
+            type="file"
+            id="profile-picture-input"
+            style={{ display: 'none' }}
+            onChange={handleProfilePictureChange}
+          />
+          <label htmlFor="profile-picture-input">
+            <IconButton component="span">
+              {/* <PhotoCamera  /> */}
+              <span style={{fontSize:'10px', fontWeight:'bold'}}>Edit Profile</span>
+            </IconButton>
+          </label>
 
             </div>
             <div style={{fontSize:'30px'}}>Dr.{Name}</div>
@@ -183,13 +232,14 @@ const Profile = () => {
                    
                 
                   <form onSubmit={handleSubmit} className={classes.root}>
-                    <TextField label="Age" name="age" value={profile.age} onChange={handleChange} fullWidth />
-                    <TextField label="Gender" name="gender" value={profile.gender} onChange={handleChange} fullWidth />
-                    <TextField label="Speciality" name="speciality" value={profile.speciality} onChange={handleChange} fullWidth />
-                    <TextField label="Address" name="address" value={profile.address} onChange={handleChange} fullWidth />
-                    <TextField label="Phone" name="phone" value={profile.phone} onChange={handleChange} fullWidth />
-                    <TextField label="Personal Email" name="pEmail" value={profile.pEmail} onChange={handleChange} fullWidth />
-                    <TextField label="Qualification" name="qualification" value={profile.qualification} onChange={handleChange} fullWidth />
+                 
+                    <TextField label="Age" name="age" value={age} onChange={handleAgeChange} fullWidth />
+                    <TextField label="Gender" name="gender" value={gender} onChange={handleGenderChange} fullWidth />
+                    <TextField label="Speciality" name="speciality" value={speciality} onChange={handleSpecialityChange} fullWidth />
+                    <TextField label="Address" name="address" value={address} onChange={handleAddressChange} fullWidth />
+                    <TextField label="Phone" name="phone" value={phone} onChange={handlePhoneChange} fullWidth />
+                    <TextField label="Personal Email" name="pEmail" value={pEmail} onChange={handlePEmailChange} fullWidth />
+                    <TextField label="Qualification" name="qualification" value={qualification} onChange={handleQualificationChange} fullWidth />
                     <Button type="submit" variant="contained" color="primary">
                       Save
                     </Button>
@@ -202,35 +252,35 @@ const Profile = () => {
         <hr/>
             <div style={{display:'flex'}}>
             <div style={{flex:'1'}}>
-            {data.map((row) => {
-              return (
-                <div key={row.pEmail}>
+          
+               
+                <div key={pEmail}>
                   <span style={{fontWeight:"bold"}}>General Information</span>
-                  {/* <div style={{diaplay:'flex',justifyContent:'space-between'}}> */}
+                
                   <div style={{display:'flex',justifyContent:"space-between", margin:'5px'}}>
-                    <p style={{fontSize:'14px'}}>Age</p><p style={{fontSize:'14px'}}>{row.age}</p>
+                    <p style={{fontSize:'14px'}}>Age</p><p style={{fontSize:'14px'}}>{age}</p>
                   </div>
                   <div style={{display:'flex',justifyContent:"space-between", margin:'5px'}}>
-                    <p style={{fontSize:'14px'}}>Gender</p><p style={{fontSize:'14px'}}>{row.gender}</p>
+                    <p style={{fontSize:'14px'}}>Gender</p><p style={{fontSize:'14px'}}>{gender}</p>
                   </div>
                   <div style={{display:'flex',justifyContent:"space-between", margin:'5px'}}>
-                    <p style={{fontSize:'14px'}}>Speciality</p><p style={{fontSize:'14px'}}>{row.speciality}</p>
+                    <p style={{fontSize:'14px'}}>Speciality</p><p style={{fontSize:'14px'}}>{speciality}</p>
                   </div>
                   <span style={{fontWeight:"bold"}}>Contact Information</span>
 
                   <div style={{display:'flex',justifyContent:"space-between", margin:'5px'}}>
-                    <p style={{fontSize:'14px'}}>Address</p><p style={{fontSize:'14px'}}>{row.address}</p>
+                    <p style={{fontSize:'14px'}}>Address</p><p style={{fontSize:'14px'}}>{address}</p>
                   </div>
                   <div style={{display:'flex',justifyContent:"space-between", margin:'5px'}}>
-                    <p style={{fontSize:'14px'}}>Phone</p><p style={{fontSize:'14px'}}>{row.phone}</p>
+                    <p style={{fontSize:'14px'}}>Phone</p><p style={{fontSize:'14px'}}>{phone}</p>
                   </div>
                   <div style={{display:'flex',justifyContent:"space-between", margin:'5px'}}>
-                    <p style={{fontSize:'14px'}}>Personal Email</p><p style={{fontSize:'14px'}}>{row.pEmail}</p>
+                    <p style={{fontSize:'14px'}}>Personal Email</p><p style={{fontSize:'14px'}}>{pEmail}</p>
                   </div>
                 
                 </div>
-              );
-            })}
+              
+       
                 
             </div>
             <div className="vertical-line"></div>
@@ -250,3 +300,24 @@ const Profile = () => {
 }
 
 export default Profile
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

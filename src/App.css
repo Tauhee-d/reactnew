@@ -1,3 +1,9 @@
-.containers {
-  /* display: flex; */
+.body-container {
+  display: flex;
+}
+.body-left{
+flex:1
+}
+.body-right{
+flex:7
 }

@@ -1,0 +1,9 @@
+.Nurse-Container{
+    display: flex;
+}
+.Nurse-left{
+    flex:1
+}
+.Nurse-right{
+    flex: 6;
+}

@@ -23,21 +23,16 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import {
-  Modal,
-  TextField,
-  Button,
-  Box,
-  TableBody,
-  TableCell,
-  TableRow,
-} from "@mui/material";
+import { Modal, TextField, Button, Box,} from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,TablePagination } from '@material-ui/core';
+
 import getPatients from "../../../Firebase/firebaseControllers/hosPatientList";
 import getReadings from "../../../Firebase/firebaseControllers/Readings";
 import getTimeline from "../../../Firebase/firebaseControllers/Timeline";
 import getMessage from "../../../Firebase/firebaseControllers/Message";
 import Attachments from "./Attachments";
 import Temperature from "./Temperature";
+
 // import getImages from "../../../Firebase/firebaseControllers/Images";
 
 const PatientProfile = () => {
@@ -66,8 +61,9 @@ const PatientProfile = () => {
 
   const location = useLocation();
   const ID = location.state.id;
+  const Name = sessionStorage.getItem("name");
+  const UserID = sessionStorage.getItem("userID");
   const [refID, setRefID] = useState(ID);
-  console.log("ssssss", ID);
 
   const handleBack = () => {
     window.history.back();
@@ -100,11 +96,7 @@ const PatientProfile = () => {
     fetchData();
   }, []);
 
-  // const Images = img.filter(
-  //   (patient) => patient.pid === ID
-  //   );
-  // console.log("img", ID);
-  // console.log("Message", Images);
+  
   const Message = message.filter(
     (patient) => patient.formData.patientID === ID
   );
@@ -135,17 +127,22 @@ const PatientProfile = () => {
     { time: "05:00", temp: "170" },
     { time: "06:00", temp: "140" },
   ];
-  const ModerateTemperature = Data.map((data, i) => {
+ 
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const indexOfLastRow = (page + 1) * rowsPerPage;
+  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+  const currentRows = Data.slice(indexOfFirstRow, indexOfLastRow);
+  
+  const ModerateTemperature = currentRows.map((data, i) => {
     return (
-      <>
-        <TableRow key={i} className="table" style={{ cursor: "pointer" }}>
-          <TableCell style={{ fontSize: "12px" }}>{data.time}</TableCell>
-
-          <TableCell style={{ fontSize: "12px" }}>{data.temp}</TableCell>
-        </TableRow>
-      </>
+      <TableRow key={i}>
+        <TableCell style={{ fontSize: "12px" }}>{data.time}</TableCell>
+        <TableCell style={{ fontSize: "12px" }}>{data.temp}</TableCell>
+      </TableRow>
     );
   });
+  
 
   //Message view
 
@@ -167,15 +164,12 @@ const PatientProfile = () => {
   // Attachments
 
   //Message form
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [isFormOpen1, setIsFormOpen1] = useState(false);
-  const [isFormOpen2, setIsFormOpen2] = useState(false);
+  
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     title: "",
-    attender: "",
-    attenderID: "",
-    patientID: "",
+    attender: Name,
+    patientID: ID,
     description: "",
   });
  
@@ -193,10 +187,7 @@ const PatientProfile = () => {
 
     if (
       !formData.title ||
-      !formData.attender ||
-      !formData.attenderID ||
-      !formData.description ||
-      !formData.patientID
+      !formData.description 
     ) {
       setError("Please fill in all fields.");
       return;
@@ -209,11 +200,15 @@ const PatientProfile = () => {
       .then(() => {
         setError("");
         setFormData("");
-        setIsFormOpen(false);
+        handleClose1()
         console.log("Message successfully sent to Firestore!");
+        Swal.fire("Message Sent Sucessfully!")
+
       })
       .catch((error) => {
         console.error("Error sending message to Firestore: ", error);
+        Swal.fire("Error sending message",error)
+
       });
   };
 
@@ -278,7 +273,7 @@ const PatientProfile = () => {
           <Scrollbars>
             <SubTopbar />
 
-            <button className="back-button1" onClick={handleBack}>
+            <button className="handleBack" onClick={handleBack}>
               {" "}
               <span>
                 {" "}
@@ -287,7 +282,7 @@ const PatientProfile = () => {
               Back
             </button>
 
-            <button className="back-room" onClick={handleRoom}>
+            <button className="handleRoom" onClick={handleRoom}>
               Rooms
             </button>
 
@@ -295,7 +290,7 @@ const PatientProfile = () => {
               const time = formatTime(patient.latestTime);
               return (
                 <>
-                  <div style={{ padding: "50px", marginTop: "50px" }}>
+                  <div style={{ padding: "50px" }}>
                     <div
                       style={{
                         display: "flex",
@@ -366,7 +361,14 @@ const PatientProfile = () => {
                                       <MdOutlineCancel />{" "}
                                     </span>
                                   </div>
+                                  <div style={{height:'300px'}}>
+
+                                  <Scrollbars>
+
                                   {msgView}
+                                  </Scrollbars>
+
+                                  </div>
 
                                   <div></div>
                                 </div>
@@ -500,7 +502,7 @@ const PatientProfile = () => {
                                       onChange={handleChange}
                                       className="form-input"
                                     />
-                                    <div
+                                    {/* <div
                                       style={{
                                         display: "flex",
                                         justifyContent: "space-between",
@@ -542,16 +544,15 @@ const PatientProfile = () => {
                                           style={{ width: "100px" }}
                                         />
                                       </div>
-                                    </div>
-                                    <label className="label">PatientID*</label>
+                                    </div> */}
+                                    {/* <label className="label">PatientID*</label>
                                     <input
                                       type="text"
                                       name="patientID"
                                       value={formData.patientID}
                                       onChange={handleChange}
                                       className="form-input"
-                                      // style={{width:'270px'}}
-                                    />
+                                    /> */}
                                     <label className="label">
                                       Description*
                                     </label>
@@ -824,17 +825,30 @@ const PatientProfile = () => {
               >
                 <h5 style={{ margin: "50px" }}>Readings Table</h5>
 
-                <Scrollbars>
-                  <TableRow>
-                    <TableCell style={{ marginLeft: "300px", width: "300px" }}>
-                      Time
-                    </TableCell>
-                    <TableCell>Temp</TableCell>
-                    {/* <TableCell>Temp</TableCell> */}
-                  </TableRow>
+                <TableContainer component={Paper} style={{ maxHeight: 400 }}>
+                  <Table stickyHeader>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell style={{ marginLeft: "300px", width: "300px" }}>Time</TableCell>
+                        <TableCell>Temp</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>{ModerateTemperature}</TableBody>
+                  </Table>
+                </TableContainer>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25]}
+                  component="div"
+                  count={Data.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onPageChange={(event, newPage) => setPage(newPage)}
+                  onRowsPerPageChange={(event) => {
+                    setRowsPerPage(parseInt(event.target.value, 10));
+                    setPage(0);
+                  }}
+                />
 
-                  <TableBody>{ModerateTemperature}</TableBody>
-                </Scrollbars>
               </div>
             </div>
           </Scrollbars>

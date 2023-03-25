@@ -13,14 +13,8 @@ import Swal from 'sweetalert2'
  
 
 
-const AddDoc = ({closeEvent}) => {
-    // const [id,setId] = useState('')
-    // const [hospitalId,setHospitalId] = useState('')
-    // const [lastName,setLastName] = useState('')
-    // const [firstName,setFirstName] = useState('')
-    // const [email,setEmail] = useState('')
-    // const [role,setRole] = useState('')
-    // const [rows, setRows] =useState([]);
+const AddNurse = ({closeEvent}) => {
+ 
 
 
     const [rows, setRows] =useState([]);
@@ -45,17 +39,21 @@ const AddDoc = ({closeEvent}) => {
           }
 
           try {
+            // const { user } = await firebase.auth().createUserWithEmailAndPassword(email, password);
+            // await firebase.firestore().collection('users').doc(user.uid).set({ firstName,lastName,email, role: 'nurse',hospitalID:'123456',id:user.uid });
+            // console.log('nurse created successfully');
             const { user } = await firebase.auth().createUserWithEmailAndPassword(email, password);
-            const userData = {
-              firstName,
-              lastName,
-              email,
-              role: 'doctor',
-              hospitalID: '123456',
-              userID: user.uid // add user ID field
-            };
-            await firebase.firestore().collection('users').doc(user.uid).set(userData);
-            console.log('nurse created successfully');
+              const userData = {
+                firstName,
+                lastName,
+                email,
+                role: 'nurse',
+                hospitalID: '123456',
+                userID: user.uid // add user ID field
+              };
+              await firebase.firestore().collection('users').doc(user.uid).set(userData);
+              console.log('nurse created successfully');
+            console.log("first",user)
             closeEvent()
             Swal.fire("Added Sucessfully!")
           
@@ -69,44 +67,14 @@ const AddDoc = ({closeEvent}) => {
 
 
 
-    // const createUser = async(event) => {
-    //     event.preventDefault();
     
-    //     if (
-           
-    //       !email ||
-    //       !id ||
-    //       !lastName ||
-    //       !firstName ||
-    //       !role ||
-    //       !hospitalId
-    //     ) {
-    //       console.log("Please fill in all fields.");
-    //       return;
-    //     }
-    //     db.collection("users")
-    //       .add({
-    //         email,id,lastName,firstName,role,hospitalId,
-    //         addedOn: firebase.firestore.FieldValue.serverTimestamp(),
-    //       })
-    //       .then(() => {
-    //         closeEvent()
-    //         Swal.fire("Added Sucessfully!")
-    //         getUsers()
-           
-    //       })
-    //       .catch((error) => {
-    //         console.error("Error sending message to Firestore: ", error);
-    //       });
-    //   };
-
 
 
   return (
     <div>
       <Box sx={{m:2}}/>
       <Typography>
-        Add Doctor
+        Add Nurse
       </Typography>
       <IconButton style={{position:'absolute',top:'0',right:'0'}} onClick={closeEvent}>
         <CloseIcon/>
@@ -137,4 +105,4 @@ const AddDoc = ({closeEvent}) => {
   )
 }
 
-export default AddDoc
+export default AddNurse

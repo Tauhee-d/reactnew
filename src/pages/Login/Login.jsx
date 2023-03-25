@@ -7,55 +7,49 @@ import { auth } from "../../Firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import UserRoleContext from "../../components/ContextApi/UserRoleContext";
+
 function SignIn() {
   const navigation = useNavigate();
   const { userRole, setUserRole } = useContext(UserRoleContext);
 
-  // const [dummy,setDummy] = useContext(UserRoleContext);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const [userId, setUserId] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     sessionStorage.clear();
     setIsLoading(true);
-
+    setErrorMessage(""); // reset error message
 
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        console.log("first", userCredential);
         const uId = userCredential.user.uid;
-        console.log("uId", uId);
         const docRef = db.collection("users").doc(uId);
-        console.log("f",docRef)
+
         docRef.get().then((doc) => {
           if (doc.exists) {
             const user = doc.data();
-            const firstName = user.firstName;
-            const lastName = user.lastName;
-            const id = user.id;
-            const hospitalID = user.hospitalID;
             const role = user.role;
             sessionStorage.setItem("name", user.firstName);
             sessionStorage.setItem("userID", user.id);
             setUserRole(role);
-            // setDummy({firstName:firstName,lastName:lastName,id:id,hospitalID:hospitalID,role:role});
 
             navigation("/dashboard");
-            // console.log("first", dummy);
-            // console.log("first1", dummy.role);
           } else {
-            console.log("no role found for user");
+            setErrorMessage("No role found for user");
           }
         });
       })
       .catch((error) => {
-        console.log(error);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setErrorMessage(errorMessage);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -66,42 +60,22 @@ function SignIn() {
 
           <form onSubmit={handleSubmit}>
             <h2 style={{ marginBottom: "50px" }}>SignIn</h2>
-            {/* <label style={{ margin: "10px" }}>
-              Email:
-            </label>
-            
-              <input
-                type="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-              />
-            <br />
-            <label style={{ margin: "10px" }}>
-              Password:
-              <input
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-              />
-            </label>
-            <br /> */}
+
             <Grid container spacing={2}>
-          <Grid item xs={10} style={{marginLeft:'8%'}}>
-        <TextField id="outlined-basic" label="email" variant="outlined" size='small' sx={{minWidth:'100%'}} value={email} onChange={(e) => setEmail(e.target.value)} />
-        </Grid>
-          <Grid item xs={10} style={{marginLeft:'8%'}}>
-        <TextField id="outlined-basic" label="password" variant="outlined" size='small' sx={{minWidth:'100%'}} value={password} onChange={(e) => setPassword(e.target.value)} />
-        </Grid>
-        <Grid item xs={12}>
-            <Typography>
-                <button >Submit</button>
+              <Grid item xs={10} style={{marginLeft:'8%'}}>
+                <TextField id="outlined-basic" label="email" variant="outlined" size='small' sx={{minWidth:'100%'}} value={email} onChange={(e) => setEmail(e.target.value)} />
+              </Grid>
+              <Grid item xs={10} style={{marginLeft:'8%'}}>
+                <TextField id="outlined-basic" label="password" variant="outlined" size='small' sx={{minWidth:'100%'}} value={password} onChange={(e) => setPassword(e.target.value)} />
+              </Grid>
+              <Grid item xs={12}>
+                {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+                <Button variant="contained" type="submit" disabled={isLoading}>
+                  {isLoading ? "Loading..." : "Submit"}
+                </Button>
+              </Grid>
+            </Grid>
 
-                {isLoading && <p>Loading...</p>}
-
-            </Typography>
-        </Grid>
-      </Grid>
-            
           </form>
         </div>
       </div>
