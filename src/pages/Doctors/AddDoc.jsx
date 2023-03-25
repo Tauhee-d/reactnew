@@ -23,6 +23,7 @@ const AddDoc = ({closeEvent}) => {
     // const [rows, setRows] =useState([]);
 
 
+    const [rows, setRows] =useState([]);
 
 
 
@@ -47,9 +48,12 @@ const AddDoc = ({closeEvent}) => {
             const { user } = await firebase.auth().createUserWithEmailAndPassword(email, password);
             await firebase.firestore().collection('users').doc(user.uid).set({ firstName,lastName,email, role: 'doctor',hospitalID:'123456' });
             console.log('User created successfully');
+            console.log("first",user)
             closeEvent()
             Swal.fire("Added Sucessfully!")
-            getUsers()
+          
+            const data = await getUsers()
+            setRows(data)
           } catch (error) {
             console.error('Error creating user', error);
           }

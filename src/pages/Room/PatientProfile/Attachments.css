@@ -33,7 +33,7 @@
 .add-btn:hover{
     background-color: skyblue;
     color: white;
-    width: 200px;
+    width: 75px;
     cursor: pointer;
 }
 .dlt-btn{

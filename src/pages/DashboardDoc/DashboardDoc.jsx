@@ -5,10 +5,9 @@ import SubTopbar from "../../components/SubTopbar/SubTopbar";
 import "./DashboardDoc.css";
 import { Table, TableBody, TableCell, TableRow } from "@mui/material";
 import { Scrollbars } from "react-custom-scrollbars-2";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import getPatients from "../../Firebase/firebaseControllers/hosPatientList";
 import getMessage from "../../Firebase/firebaseControllers/Message";
-
 const DashboardDoc = () => {
   const navigate = useNavigate();
 
@@ -235,7 +234,8 @@ const DashboardDoc = () => {
       <div className="Med-right">
         <SubTopbar />
         <Scrollbars>
-        <div style={{ margin: "20px" }}>
+        <div style={{ margin: "20px", display:'flex',justifyContent:'space-between' }}>
+          <div>
           <h3>
             {greeting} Dr.{Name}
           </h3>
@@ -245,6 +245,11 @@ const DashboardDoc = () => {
               {" "}
               {currentTime.toLocaleTimeString()}
             </span>
+          </div>
+          </div>
+          <div>
+          <Link to="/Profile" style={{ textDecoration: "none" }} >
+                              {" "}  Profile{" "} </Link>
           </div>
         </div>
 

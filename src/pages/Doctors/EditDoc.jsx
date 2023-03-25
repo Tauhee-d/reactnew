@@ -79,7 +79,7 @@ const EditDoc = ({fId,closeEvent}) => {
       <Box height={20}/>
       <Grid container spacing={2}>
       <Grid item xs={6}>
-        <TextField id="outlined-basic" label="id" variant="outlined" size='small' sx={{minWidth:'100%'}} value={id} onChange={(e) => setId(e.target.value)} />
+        <TextField id="outlined-basic" label="role" variant="outlined" size='small' sx={{minWidth:'100%'}} value={id} onChange={(e) => setId(e.target.value)} />
         </Grid>
       <Grid item xs={6}>
         <TextField id="outlined-basic" label="hospitalId" variant="outlined" size='small' sx={{minWidth:'100%'}} value={hospitalId} onChange={(e) => setHospitalId(e.target.value)} />

@@ -34,9 +34,6 @@ const Rooms = () => {
           data.push({ id: doc.id, ...doc.data() });
         });
         setDocuments(data);
-        // {documents.map((doc)=> {
-        //   // console.log("first",`{doc.id}`)
-        // })}
         console.log("object",roomsDataroom);
       });
     }, []);
@@ -54,31 +51,17 @@ const Rooms = () => {
 
 
 
-
-
-            
-          
-              {/* {documents.map((doc) => (
-          <div key={doc.id}>
-            <p>dvjhds</p>
-            {doc.name}
-            {doc.id}
-            {doc.patient}
-            
-            
-            </div>
-        ))} */}
               {roomsDataroom.map((data,i) => {
                 return (
                   <div
-                    key={data.id}
+                  key={`room-card-${data.id}`}
                     id="room-card-1"
                     style={{ cursor: "pointer" }}
                     onClick={() =>
                       history("/PatientList", { state: { id: data.id } })
                     }
                   >
-                            {/* <div className={`card ${index % 2 === 0 ? 'even' : 'odd'}`}> */}
+                          
 
                     <Card
                       variant="outlined"
@@ -93,8 +76,6 @@ const Rooms = () => {
                             fontSize={"12px"}
                             fontWeight={"bold"}
                             color="text.secondary"
-                            // backgroundColor={" red"}
-                            // backgroundColor={" #5A96BB"}
                             padding={"8px"}
                             gutterBottom
                           >
@@ -114,9 +95,6 @@ const Rooms = () => {
                           <span style={{display:'flex', top:'3',marginBottom:'10px', fontSize:'12px'}}> Total Patients{" "}</span> 
                             </span>
                           </Typography>
-                          {/* <Typography sx={{ mt: 1.5 }} color="text.secondary">
-                            Devices
-                          </Typography> */}
                           <Typography variant="body2">
                             <span style={{ marginLeft: "10px" }}>
                               {data.device}

@@ -15,6 +15,7 @@ import Protected from "./components/ProtectedRoutes/Protected";
 import Attachments from "./pages/Room/PatientProfile/Attachments";
 import Doctor from "./pages/Doctors/Doctor";
 import Patient from "./pages/Patient/Patient";
+import Profile from "./components/Profile/Profile";
 
 
 
@@ -103,7 +104,9 @@ const App = () => {
       <Route path="/Alert" index element={<Alert />} />
       <Route path="/Attachments" index element={<Attachments />} />
       <Route path="/DocPatientList" index element={<DocPatientList />} />
+      <Route path="/PatientList" index element={<PatientList />} />
       <Route path="/PatientProfile" index element={<PatientProfile />} />
+      <Route path="/Profile" index element={<Profile />} />
 
      
     </Routes>

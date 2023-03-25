@@ -21,8 +21,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import AddDoc from './AddDoc';
 import EditDoc from './EditDoc';
-import { async } from 'q';
-
+import firebase from '@firebase/app';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -106,9 +105,11 @@ console.log("setFormid11111",formId)
         confirmButtonColor:"blue",
         cancelButtonColor:'red',
         confirmButtonText:'Yes,delete it!'
-    }).then((result) => {
+    }).then(async(result) => {
         if(result.isConfirmed){
             console.log("objectdelete",userDt.id);
+            const user = firebase.auth().currentUser;
+            await user.delete();
             const docRef = db.collection('users').doc(userDt.id);
             docRef.delete().then(() => {
                 Swal.fire("SUCCESS", "Deleted Successfully", "success");
@@ -123,25 +124,40 @@ console.log("setFormid11111",formId)
         }
     })
   }
-//   const deleteApi = async (id) => {
-//     const userDoc = doc(db,'users',id)
-//     await deleteDoc(userDoc)
-//     Swal.fire("Deleted Sucessfully!")
-//     users
-//   } 
-  function deleteApi(id) {
-    const docRef = db.collection("users").doc(id);
-    docRef
-      .delete()
-      .then(() => {
-        console.log("first",id)
-        Swal.fire("Deleted Sucessfully!")
-        getUsers()
-    })
-      .catch((error) => {
-        console.error("Error removing document: ", error);
-      });
-  }
+  // const deleteUser = async (userDt) => {
+  //   Swal.fire({
+  //     title: `Do you want to delete ${userDt.firstName}'s record?`,
+  //     text: "You won't be able to revert this",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "blue",
+  //     cancelButtonColor: "red",
+  //     confirmButtonText: "Yes, delete it!",
+  //   }).then(async (result) => {
+  //     if (result.isConfirmed) {
+  //       try {
+  //         // Delete the user from authentication
+  //         const user = firebase.auth().currentUser;
+  //         await user.delete();
+          
+  //         // Delete the user from the users collection
+  //         const docRef = firebase.firestore().collection("users").doc(userDt.id);
+  //         await docRef.delete();
+          
+  //         Swal.fire("SUCCESS", "Deleted Successfully", "success");
+          
+  //         // Remove the user from the rows state
+  //         const userData = rows.filter((user) => user.id !== userDt.id);
+  //         setRows(userData);
+  //       } catch (error) {
+  //         console.error("Error deleting user", error);
+  //         Swal.fire("ERROR", "Failed to delete user", "error");
+  //       }
+  //     }
+  //   });
+  // };
+  
+
 
   
  
@@ -156,6 +172,7 @@ console.log("setFormid11111",formId)
       >
         <Box sx={style}>
             <AddDoc closeEvent={handleClose}/>
+         
         </Box>
       </Modal>
       <Modal
@@ -192,7 +209,7 @@ console.log("setFormid11111",formId)
 
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                // console.log("rowsssssss",row)
+                console.log("rowsssssss",row.id,"hos",row.hospitalID,"fn",row.firstName,"ln",row.lastname,"e",row.email,"r",row.role)
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                    

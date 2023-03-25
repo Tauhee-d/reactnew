@@ -15,11 +15,15 @@ function SignIn() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const [userId, setUserId] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     sessionStorage.clear();
+    setIsLoading(true);
+
 
     auth
       .signInWithEmailAndPassword(email, password)
@@ -38,6 +42,7 @@ function SignIn() {
             const hospitalID = user.hospitalID;
             const role = user.role;
             sessionStorage.setItem("name", user.firstName);
+            sessionStorage.setItem("userID", user.id);
             setUserRole(role);
             // setDummy({firstName:firstName,lastName:lastName,id:id,hospitalID:hospitalID,role:role});
 
@@ -58,6 +63,7 @@ function SignIn() {
     <div>
       <div className="sigin">
         <div className="sigin-container" style={{padding:'20px'}}>
+
           <form onSubmit={handleSubmit}>
             <h2 style={{ marginBottom: "50px" }}>SignIn</h2>
             {/* <label style={{ margin: "10px" }}>
@@ -90,6 +96,7 @@ function SignIn() {
             <Typography>
                 <button >Submit</button>
 
+                {isLoading && <p>Loading...</p>}
 
             </Typography>
         </Grid>

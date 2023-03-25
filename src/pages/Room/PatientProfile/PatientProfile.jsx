@@ -13,7 +13,7 @@ import { GrAttachment } from "react-icons/gr";
 import { db } from "../../../Firebase/firebase";
 import firebase from "firebase/app";
 import { storage } from "../../../Firebase/firebase";
-
+import Swal from "sweetalert2";
 import {
   LineChart,
   ResponsiveContainer,
@@ -23,7 +23,15 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { TableBody, TableCell, TableRow } from "@mui/material";
+import {
+  Modal,
+  TextField,
+  Button,
+  Box,
+  TableBody,
+  TableCell,
+  TableRow,
+} from "@mui/material";
 import getPatients from "../../../Firebase/firebaseControllers/hosPatientList";
 import getReadings from "../../../Firebase/firebaseControllers/Readings";
 import getTimeline from "../../../Firebase/firebaseControllers/Timeline";
@@ -33,6 +41,27 @@ import Temperature from "./Temperature";
 // import getImages from "../../../Firebase/firebaseControllers/Images";
 
 const PatientProfile = () => {
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+  const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
+  const [open2, setOpen2] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleOpen1 = () => setOpen1(true);
+  const handleOpen2 = () => setOpen2(true);
+  const handleClose = () => setOpen(false);
+  const handleClose1 = () => setOpen1(false);
+  const handleClose2 = () => setOpen2(false);
+
   const history = useNavigate();
 
   const location = useLocation();
@@ -123,8 +152,13 @@ const PatientProfile = () => {
   const msgView = Message.map((data) => {
     return (
       <>
-      
-        <p> Sended by: <span style={{fontWeight:'bold'}}>{data.formData.attender}</span> </p>
+        <p>
+          {" "}
+          Sended by:{" "}
+          <span style={{ fontWeight: "bold" }}>
+            {data.formData.attender}
+          </span>{" "}
+        </p>
         <p>{data.formData.description}</p>
       </>
     );
@@ -144,21 +178,7 @@ const PatientProfile = () => {
     patientID: "",
     description: "",
   });
-  const toggleForm = () => {
-    setIsFormOpen(!isFormOpen);
-    setIsFormOpen1(false);
-    setIsFormOpen2(false);
-  };
-  const toggleForm1 = () => {
-    setIsFormOpen1(!isFormOpen1);
-    setIsFormOpen(false);
-    setIsFormOpen2(false);
-  };
-  const toggleForm2 = () => {
-    setIsFormOpen2(!isFormOpen2);
-    setIsFormOpen(false);
-    setIsFormOpen1(false);
-  };
+ 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
@@ -166,17 +186,7 @@ const PatientProfile = () => {
       [name]: value,
     }));
   };
-  const handleCancel = () => {
-    setIsFormOpen(false);
-    setError("");
-    setFormData("");
-  };
-  const handleCancel1 = () => {
-    setIsFormOpen1(false);
-  };
-  const handleCancel2 = () => {
-    setIsFormOpen2(false);
-  };
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -210,9 +220,7 @@ const PatientProfile = () => {
   const [patientId, setPatientId] = useState(ID);
   const [title, setTitle] = useState("");
   const [imageFiles, setImageFiles] = useState([]);
-  sessionStorage.setItem('PatID',patientId)
-
-
+  sessionStorage.setItem("PatID", patientId);
 
   // const handlePatientIdChange = (event) => {
   //   setPatientId(event.target.value);
@@ -228,25 +236,24 @@ const PatientProfile = () => {
   const handleUpload = (event) => {
     event.preventDefault();
     imageFiles.forEach((file) => handleImageUpload(patientId, title, file)); // upload each file with patientId and title
-    setIsFormOpen2(false);
-    setPatientId('')
-    setTitle('')
+    // setIsFormOpen2(false);
+    handleClose(true);
+    setTitle("");
+    Swal.fire("Uploaded Sucessfully!");
 
     // patientData()
-    
   };
-
 
   const handleImageUpload = async (patientId, title, imageFile) => {
     const storageRef = firebase.storage().ref();
     const imageId = Date.now(); // generate a unique ID for the uploaded file
-    const fileExtension = imageFile.name.split('.').pop();
+    const fileExtension = imageFile.name.split(".").pop();
     const filePath = `images/${patientId}/${patientId}/${imageId}.${fileExtension}`; // set the storage path for the file
     const imageRef = storageRef.child(filePath);
     await imageRef.put(imageFile);
-  
+
     const downloadURL = await imageRef.getDownloadURL();
-  
+
     const firestoreRef = firebase.firestore().collection("patients");
     const patientRef = firestoreRef.doc(patientId);
     const patientData = await patientRef.get();
@@ -284,7 +291,7 @@ const PatientProfile = () => {
               Rooms
             </button>
 
-            {patientList.map((patient,i) => {
+            {patientList.map((patient, i) => {
               const time = formatTime(patient.latestTime);
               return (
                 <>
@@ -295,7 +302,7 @@ const PatientProfile = () => {
                         justifyContent: "space-between",
                       }}
                     >
-                      <div >
+                      <div>
                         <img
                           className="pro-img"
                           src={Avatar}
@@ -305,7 +312,10 @@ const PatientProfile = () => {
                         <span style={{ fontSize: "30px", marginLeft: "10px" }}>
                           {patient.fName} {patient.lName}
                         </span>
-                        <div> <Temperature/></div>
+                        <div>
+                          {" "}
+                          <Temperature />
+                        </div>
                       </div>
                       <div
                         style={{
@@ -328,10 +338,16 @@ const PatientProfile = () => {
 
                         <div className="msg-btn">
                           <div>
-                            <span onClick={toggleForm1}>View message </span>
-
-                            {isFormOpen1 && (
-                              <div className="msg-container1">
+                            <span onClick={handleOpen2}>View message </span>
+                            <Modal
+                                open={open2}
+                                onClose={handleClose2}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                              >
+                                <Box sx={style}>
+                            
+                              <div >
                                 <div>
                                   <div
                                     style={{
@@ -344,7 +360,7 @@ const PatientProfile = () => {
                                     </span>
                                     <span
                                       style={{ fontWeight: "bold" }}
-                                      onClick={handleCancel1}
+                                      onClick={handleClose2}
                                     >
                                       {" "}
                                       <MdOutlineCancel />{" "}
@@ -355,78 +371,100 @@ const PatientProfile = () => {
                                   <div></div>
                                 </div>
                               </div>
-                            )}
+                            
+                            </Box>
+                            </Modal>
                           </div>
                         </div>
                         <div>
                           <div>
-                            <span className="attach-btn" onClick={toggleForm2}>
+                            <span className="attach-btn" onClick={handleOpen}>
                               <GrAttachment />
                             </span>
 
-                            {isFormOpen2 && (
-                              <div className="msg-container1">
-                                <div>
+                            <div>
+                              <Modal
+                                open={open}
+                                onClose={handleClose}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                              >
+                                <Box sx={style}>
                                   <div
                                     style={{
                                       display: "flex",
                                       justifyContent: "space-between",
                                     }}
                                   >
-                                    <span style={{ fontWeight: "bold" }}>
+                                    <span
+                                      style={{
+                                        fontWeight: "bold",
+                                        marginBottom: "10px",
+                                      }}
+                                    >
                                       Attachments{" "}
                                     </span>
                                     <span
                                       style={{ fontWeight: "bold" }}
-                                      onClick={handleCancel2}
+                                      onClick={handleClose}
                                     >
                                       {" "}
                                       <MdOutlineCancel />{" "}
                                     </span>
                                   </div>
-
-                                  <form onSubmit={handleUpload}>
-                                    {/* <label>
-                                      Patient ID:
-                                      <input
-                                        type="text"
-                                        value={patientId}
-                                        onChange={handlePatientIdChange}
-                                      />
-                                    </label>
-                                    <br /> */}
-                                    <label>
-                                      Title:
-                                      <input
-                                        type="text"
-                                        value={title}
-                                        onChange={handleTitleChange}
-                                      />
-                                    </label>
+                                  <form
+                                    style={{ backgroundColor: "white" }}
+                                    onSubmit={handleUpload}
+                                  >
+                                    <TextField
+                                      style={{ margin: "5px" }}
+                                      id="outlined-basic"
+                                      size="small"
+                                      sx={{ minWidth: "100%" }}
+                                      label="Title"
+                                      variant="outlined"
+                                      value={title}
+                                      onChange={handleTitleChange}
+                                    />
+                                    <input
+                                      type="file"
+                                      onChange={handleImageFileChange}
+                                    />
                                     <br />
-                                    <label>
-                                      Images:
-                                      <input
-                                        type="file"
-                                        onChange={handleImageFileChange}
-                                        multiple
-                                      />
-                                    </label>
-                                    <br />
-                                    <button type="submit">Upload</button>
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                      }}
+                                    >
+                                      <Button
+                                        style={{ margin: "10px" }}
+                                        type="submit"
+                                      >
+                                        Submit
+                                      </Button>
+                                    </div>
                                   </form>
-                                </div>
-                              </div>
-                            )}
+                                </Box>
+                              </Modal>
+                            </div>
                           </div>
                         </div>
+                        
                         <div className="msg-btn">
                           <div>
-                            <p onClick={toggleForm}>
+                            <p onClick={handleOpen1}>
                               message <AiOutlineMessage />
                             </p>
-                            {isFormOpen && (
-                              <div className="msg-container">
+                            <Modal
+                                open={open1}
+                                onClose={handleClose1}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                              >
+                                <Box sx={style}>
+                          
+                                <div>
                                 <div>
                                   <form
                                     onSubmit={handleSubmit}
@@ -443,7 +481,7 @@ const PatientProfile = () => {
                                       </span>
                                       <span
                                         style={{ fontWeight: "bold" }}
-                                        onClick={handleCancel}
+                                        onClick={handleClose1}
                                       >
                                         {" "}
                                         <MdOutlineCancel />{" "}
@@ -483,7 +521,7 @@ const PatientProfile = () => {
                                           value={formData.attender}
                                           onChange={handleChange}
                                           className="form-input"
-                                          style={{ width: "270px" }}
+                                         
                                         />
                                       </div>
                                       <div
@@ -501,7 +539,7 @@ const PatientProfile = () => {
                                           value={formData.attenderID}
                                           onChange={handleChange}
                                           className="form-input"
-                                          style={{ width: "270px" }}
+                                          style={{ width: "100px" }}
                                         />
                                       </div>
                                     </div>
@@ -531,13 +569,15 @@ const PatientProfile = () => {
                                   </form>
                                 </div>
                               </div>
-                            )}
+                            
+                            </Box>
+                            </Modal>
                           </div>
                         </div>
 
                         <div>
                           <span>
-                            Latset Temperature {patient.latestTemp} C{" "}
+                            Latest Temperature {patient.latestTemp} C{" "}
                           </span>
                           <div>
                             <span
@@ -557,7 +597,7 @@ const PatientProfile = () => {
                       }}
                     ></div>
                     <div className="pro-container">
-                      <div style={{ flex: "2", padding: "15px" }}>
+                      <div style={{ flex: "1", padding: "15px" }}>
                         <h5 style={{ marginTop: "20px", marginBottom: "20px" }}>
                           General Information
                         </h5>
@@ -680,7 +720,7 @@ const PatientProfile = () => {
                       </div>
                       <div className="vertical-line"></div>
 
-                      <div style={{ flex: "3", padding: "15px" }}>
+                      <div style={{ flex: "1", padding: "15px" }}>
                         <h5 style={{ marginTop: "20px", marginBottom: "20px" }}>
                           Latest Diagnoses
                         </h5>
@@ -805,5 +845,3 @@ const PatientProfile = () => {
 };
 
 export default PatientProfile;
-
-

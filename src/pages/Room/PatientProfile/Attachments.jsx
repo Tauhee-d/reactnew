@@ -4,7 +4,6 @@ import Navbar from "../../../components/Navbar/Navbar";
 import SubTopbar from "../../../components/SubTopbar/SubTopbar";
 import { GrAttachment } from "react-icons/gr";
 import { MdOutlineCancel } from "react-icons/md";
-import Modal from "react-modal";
 import { db } from "../../../Firebase/firebase";
 import firebase from "firebase/app";
 import Scrollbars from "react-custom-scrollbars-2";
@@ -12,28 +11,34 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import {  Modal,TextField,Box,Button, CardActionArea, CardActions } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const Attachments = () => {
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-
-  // const location = useLocation();
-  // const PatID = location.state.id;
-
- const PatID = sessionStorage.getItem("PatID")
-  console.log("patID",PatID)
+  const PatID = sessionStorage.getItem("PatID");
+  console.log("patID", PatID);
   const ID = sessionStorage.getItem("id");
   console.log("object1111111", ID);
 
-  const [isFormOpen2, setIsFormOpen2] = useState(false);
-  const handleCancel2 = () => {
-    setIsFormOpen2(false);
-  };
-  const toggleForm2 = () => {
-    setIsFormOpen2(!isFormOpen2);
-  };
+  
+  
   const AttachCancel = () => {
     window.history.back();
   };
@@ -56,9 +61,9 @@ const Attachments = () => {
   const handleUpload = (event) => {
     event.preventDefault();
     imageFiles.forEach((file) => handleImageUpload(patientId, title, file)); // upload each file with patientId and title
-    setIsFormOpen2(false);
-    setPatientId("");
+    Swal.fire("Uploaded Sucessfully!");
     setTitle("");
+    handleClose()
 
     // patientData()
   };
@@ -68,6 +73,7 @@ const Attachments = () => {
     const imageId = Date.now(); // generate a unique ID for the uploaded file
     const fileExtension = imageFile.name.split(".").pop();
     const filePath = `images/${patientId}/${patientId}/${imageId}.${fileExtension}`; // set the storage path for the file
+    // const filePath = `images/${patientId}/${patientId}/${imageId}.${fileExtension}`; // set the storage path for the file
     const imageRef = storageRef.child(filePath);
     await imageRef.put(imageFile);
 
@@ -82,14 +88,13 @@ const Attachments = () => {
     }
     images.push({ id: imageId, title: title, url: downloadURL }); // add the new file to the patient's files with title
     await patientRef.set({ images }, { merge: true }); // update the patient's document with the new file
+    patientData(images)
   };
 
   // fetching details from firestore
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");
-
- 
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const [patientData, setPatientData] = useState(null);
   useEffect(() => {
@@ -104,23 +109,37 @@ const Attachments = () => {
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
-    setModalIsOpen(true);
+    // setModalIsOpen(true);
+  };
+  const handleCloseModal = () => {
+    setSelectedImage(null);
   };
 
   //   // delete option
 
+  // const deletePatientData = async (ID, imageID) => {
+  //   await firebase
+  //     .firestore()
+  //     .collection("patients")
+  //     .doc(ID)
+  //     .delete({
+  //       images: firebase.firestore.FieldValue.arrayRemove(imageID),
+  //     });
+  //   console.log("Image deleted successfully!");
+  //   console.log("deltedddd", imageID);
+  //   console.log("deltedddd1", ID);
+  // };
   const deletePatientData = async (ID, imageID) => {
-    await firebase
-      .firestore()
-      .collection("patients")
-      .doc(ID)
-      .update({
-        images: firebase.firestore.FieldValue.arrayRemove(imageID),
-      });
+    const patientRef = firebase.firestore().collection("patients").doc(ID);
+    await patientRef.update({
+      images: firebase.firestore.FieldValue.arrayRemove(imageID),
+    });
     console.log("Image deleted successfully!");
-    console.log("deltedddd", imageID);
+    console.log("deleted", imageID);
+    console.log("deleted1", ID);
+   
   };
-
+  
   const getUploadedFiles = async () => {
     const firestoreRef = firebase.firestore().collection("patients");
     const patientRef = firestoreRef.doc(ID);
@@ -150,7 +169,7 @@ const Attachments = () => {
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <span className="add-btn" onClick={toggleForm2}>
+                  <span className="add-btn" onClick={handleOpen}>
                     Add <GrAttachment />
                   </span>
                   <span className="Attach-cancel" onClick={AttachCancel}>
@@ -158,58 +177,64 @@ const Attachments = () => {
                   </span>
                 </div>
 
-                {isFormOpen2 && (
-                  <div className="msg-container1">
-                    <div>
+                <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box sx={style}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontWeight: "bold",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        Attachments{" "}
+                      </span>
+                      <span
+                        style={{ fontWeight: "bold" }}
+                        onClick={handleClose}
+                      >
+                        {" "}
+                        <MdOutlineCancel />{" "}
+                      </span>
+                    </div>
+                    <form
+                      style={{ backgroundColor: "white" }}
+                      onSubmit={handleUpload}
+                    >
+                      <TextField
+                        style={{ margin: "5px" }}
+                        id="outlined-basic"
+                        size="small"
+                        sx={{ minWidth: "100%" }}
+                        label="Title"
+                        variant="outlined"
+                        value={title}
+                        onChange={handleTitleChange}
+                      />
+                      <input type="file" onChange={handleImageFileChange} />
+                      <br />
                       <div
                         style={{
                           display: "flex",
-                          justifyContent: "space-between",
+                          justifyContent: "center",
                         }}
                       >
-                        <span style={{ fontWeight: "bold" }}>Attachments </span>
-                        <span
-                          style={{ fontWeight: "bold" }}
-                          onClick={handleCancel2}
-                        >
-                          {" "}
-                          <MdOutlineCancel />{" "}
-                        </span>
+                        <Button style={{ margin: "10px" }} type="submit">
+                          Submit
+                        </Button>
                       </div>
-
-                      <form onSubmit={handleUpload}>
-                        {/* <label>
-                          Patient ID:
-                          <input
-                            type="text"
-                            value={patientId}
-                            onChange={handlePatientIdChange}
-                          />
-                        </label>
-                        <br /> */}
-                        <label>
-                          Title:
-                          <input
-                            type="text"
-                            value={title}
-                            onChange={handleTitleChange}
-                          />
-                        </label>
-                        <br />
-                        <label>
-                          Images:
-                          <input
-                            type="file"
-                            onChange={handleImageFileChange}
-                            multiple
-                          />
-                        </label>
-                        <br />
-                        <button type="submit">Upload</button>
-                      </form>
-                    </div>
-                  </div>
-                )}
+                    </form>
+                  </Box>
+                </Modal>
               </div>
             </div>
 
@@ -225,15 +250,7 @@ const Attachments = () => {
                         type="application/pdf"
                       />
                     ) : (
-                      // <img
-                      //   className="single-img"
-                      //   key={image.id}
-                      //   width={320}
-                      //   height={250}
-                      //   src={image.url}
-                      //   alt="patient image"
-                      //   onClick={() => handleImageClick(image)}
-                      // />
+                    
                       <CardMedia
                         component="img"
                         height="140"
@@ -249,20 +266,14 @@ const Attachments = () => {
                         width: "320px",
                       }}
                     >
-                      {/* <p>Title:{image.title}</p>
-                    <button
-                      className="dlt-btn"
-                      onClick={() => deletePatientData(ID, image.id)}
-                    >
-                      Delete
-                    </button> */}
+                    
                       <CardContent>
                         <Typography gutterBottom variant="h6" component="div">
                           Title: {image.title}
                         </Typography>
                         <CardActions>
                           <Button
-                            onClick={() => deletePatientData(ID, image.id)}
+                            onClick={() => deletePatientData(ID, image.url)}
                             size="small"
                             color="primary"
                           >
@@ -273,22 +284,45 @@ const Attachments = () => {
                     </div>
                   </Card>
                 </div>
+                
               ))}
+  
 
-              <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={() => setModalIsOpen(false)}
-              >
-                <img
-                  src={selectedImage.url}
-                  alt={selectedImage.alt}
-                  style={{
-                    width: "1300px",
-                    height: "620px",
-                    objectFit: "contain",
-                  }}
-                />
-              </Modal>
+            <Modal open={!!selectedImage} onClose={handleCloseModal}>
+  <div onClick={handleCloseModal}>
+    {selectedImage && (
+      <div style={{ 
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        bgcolor: "background.paper",
+        border: "2px solid #000",
+        boxShadow: 24,
+        p: 4,
+        }}>
+        {selectedImage.url.includes('.pdf') ? (
+          <embed 
+            src={selectedImage.url}
+            type="application/pdf"
+            width="750px"
+            height="750px"
+          />
+        ) : (
+          <img 
+            src={selectedImage.url} 
+            style={{
+              width: 1100,
+            }} 
+            alt={selectedImage.title} 
+          />
+        )}
+      </div>
+    )}
+  </div>
+</Modal>
+
+
             </div>
           </div>
         </Scrollbars>

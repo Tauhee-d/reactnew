@@ -102,13 +102,29 @@ border:1px solid #2C74B3;
 }
 .msg-container1{
     height: 200px;
-    width: 600px;
+    width: 400px;
     position: fixed;
-    background-color:white;
-    left: 34rem;
+    /* left: 34rem; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
     border: 2px solid skyblue;
+    background-color: #b6d0e4;
     /* border: 2px solid rgba(235, 230, 230, 0.592); */
+    border-radius: 14px;
+}
+.msg-container2{
+    height: 200px;
+    width: 400px;
+    position: fixed;
+    left: 34rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid skyblue;
+    background-color: #b6d0e4;
     border-radius: 14px;
 }
 .form-input{
@@ -128,7 +144,7 @@ border:1px solid #2C74B3;
 .form-btn{
     margin-top: 22px;
     width: 200px;
-    margin-left: 190px;
+    margin-left: 80px;
     font-weight: bold;
     font-size: 12px;
     color: white;
