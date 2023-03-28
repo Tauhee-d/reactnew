@@ -22,9 +22,10 @@ const EditNurse = ({fId,closeEvent}) => {
     const [rows, setRows] =useState([]);
 
     useEffect(()=> {
-        console.log("fid",fId.id)
+      
+        console.log("fid",fId)
         setId(fId.id)
-        setHospitalId(fId.hospitalId)
+        setHospitalId(fId.hospitalID)
         setFirstName(fId.firstName)
         setLastName(fId.lastName)
         setEmail(fId.email)
@@ -33,12 +34,9 @@ const EditNurse = ({fId,closeEvent}) => {
     },[])
 
 
-
-
     const createUser = async(event,userDt) => {
         event.preventDefault();
-        // console.log("fgcjvjvjgvvjj",userDt.id)
-        // console.log("xxxxxxx",fId.id)
+       
 
         if (!fId || !fId.id) {
             console.error("fId.id is undefined or null");
@@ -57,13 +55,19 @@ const EditNurse = ({fId,closeEvent}) => {
             closeEvent()
             Swal.fire("updated Sucessfully!")
             getUsers()
-            console.log("first","updated")
+          
+
            
           })
           .catch((error) => {
             console.error("Error sending message to Firestore: ", error);
           });
       };
+      useEffect(() => {
+       getUsers()
+       console.log("refreshed")
+      }, [])
+      
 
 
 
@@ -79,7 +83,7 @@ const EditNurse = ({fId,closeEvent}) => {
       <Box height={20}/>
       <Grid container spacing={2}>
       <Grid item xs={6}>
-        <TextField id="outlined-basic" label="role" variant="outlined" size='small' sx={{minWidth:'100%'}} value={id} onChange={(e) => setId(e.target.value)} />
+        <TextField id="outlined-basic" label="id" variant="outlined" size='small' sx={{minWidth:'100%'}} value={id} onChange={(e) => setId(e.target.value)} />
         </Grid>
       <Grid item xs={6}>
         <TextField id="outlined-basic" label="hospitalId" variant="outlined" size='small' sx={{minWidth:'100%'}} value={hospitalId} onChange={(e) => setHospitalId(e.target.value)} />

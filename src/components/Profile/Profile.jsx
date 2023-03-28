@@ -68,20 +68,6 @@ const Profile = () => {
     
 
 
-
-
-
-
-
-
-
-
-
-    
-    // const UserID = sessionStorage.getItem("userID");
-    // const Name = sessionStorage.getItem("name");
-
-
     // edit form
     const [open, setOpen] = useState(false);
     const classes = useStyles();
@@ -198,24 +184,23 @@ const Profile = () => {
         <div style={{display:'flex',justifyContent:'space-between',padding:'10px'}}>
             <div style={{display:'flex'}}>
         <div>
-          
-          <Avatar src={profilePicture}  style={{marginLeft:'23px'}} />
+        <label htmlFor="profile-picture-input" style={{ backgroundColor: 'transparent !important' }} >
+            <IconButton component="span" style={{ backgroundColor: 'transparent !important' }} >
+          <Avatar src={profilePicture}  style={{marginLeft:'2px'}} />
           <input
             accept="image/*"
             type="file"
             id="profile-picture-input"
             style={{ display: 'none' }}
             onChange={handleProfilePictureChange}
+           
           />
-          <label htmlFor="profile-picture-input">
-            <IconButton component="span">
-              {/* <PhotoCamera  /> */}
-              <span style={{fontSize:'10px', fontWeight:'bold'}}>Edit Profile</span>
             </IconButton>
           </label>
+         
 
             </div>
-            <div style={{fontSize:'30px'}}>Dr.{Name}</div>
+            <div style={{fontSize:'30px',marginTop:'10px'}}>Dr.{Name}</div>
             </div>
             <div>
                 

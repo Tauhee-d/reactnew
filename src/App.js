@@ -8,7 +8,7 @@ import Room from "./pages/Room/Room/Room";
 import DocPatientList from "./pages/Doctors/PatientList";
 import PatientList from "./pages/Room/PatientList/PatientList";
 import PatientProfile from "./pages/Room/PatientProfile/PatientProfile";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import UserRoleContext from './components/ContextApi/UserRoleContext'
 import Alert from "./pages/Alert/Alert";
 import Protected from "./components/ProtectedRoutes/Protected";
@@ -17,21 +17,32 @@ import Doctor from "./pages/Doctors/Doctor";
 import Nurse from "./pages/Nurse/Nurse";
 import Profile from "./components/Profile/Profile";
 import DashboardNurse from "./pages/Nurse/DashboardNurse";
+import ForgetPwd from "./pages/Login/ForgetPwd";
 
 
 
 const App = () => {
-  const [userRole, setUserRole] = useState(null);
-  // const [dummy,setDummy] = useState(null);
-// console.log("first",dummy)
-
-
-
+  // const [userRole, setUserRole] = useState(null);
+ 
+ 
+  const [userRole, setUserRole] = useState(sessionStorage.getItem('userRole'));
   const UserTypes = {
     doctor: "doctor",
     admin: "admin",
     nurse:'nurse'
   };
+  
+  useEffect(() => {
+    sessionStorage.setItem('userRole', userRole);
+  }, [userRole]);
+
+
+
+  // const UserTypes = {
+  //   doctor: "doctor",
+  //   admin: "admin",
+  //   nurse:'nurse'
+  // };
 
   
   return (
@@ -105,12 +116,14 @@ const App = () => {
       /> */}
       <Route path="/Doctor" index element={<Doctor />} />
       <Route path="/Nurse" index element={<Nurse />} />
+     
       <Route path="/Alert" index element={<Alert />} />
       <Route path="/Attachments" index element={<Attachments />} />
       <Route path="/DocPatientList" index element={<DocPatientList />} />
       <Route path="/PatientList" index element={<PatientList />} />
       <Route path="/PatientProfile" index element={<PatientProfile />} />
       <Route path="/Profile" index element={<Profile />} />
+      <Route path="/ForgetPwd" index element={<ForgetPwd />} />
 
      
     </Routes>

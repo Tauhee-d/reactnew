@@ -7,6 +7,8 @@ import { auth } from "../../Firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import UserRoleContext from "../../components/ContextApi/UserRoleContext";
+import { Link } from "react-router-dom";
+import ForgetPwd from "./ForgetPwd";
 
 function SignIn() {
   const navigation = useNavigate();
@@ -68,11 +70,15 @@ function SignIn() {
               <Grid item xs={10} style={{marginLeft:'8%'}}>
                 <TextField id="outlined-basic" label="password" variant="outlined" size='small' sx={{minWidth:'100%'}} value={password} onChange={(e) => setPassword(e.target.value)} />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={6}>
                 {errorMessage && <Typography color="error">{errorMessage}</Typography>}
                 <Button variant="contained" type="submit" disabled={isLoading}>
                   {isLoading ? "Loading..." : "Submit"}
                 </Button>
+              </Grid>
+              <Grid item xs={6}>
+             
+               <Link to="ForgetPwd">Forget Password?</Link>
               </Grid>
             </Grid>
 

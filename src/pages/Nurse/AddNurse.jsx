@@ -1,10 +1,9 @@
 import { IconButton, Typography,Box } from '@mui/material'
-import React from 'react'
 import CloseIcon from '@mui/icons-material/Close';
 import Grid from '@mui/system/Unstable_Grid/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button'
-import { useState } from 'react';
+import React,{ useEffect,useState } from 'react';
 import { db } from '../../Firebase/firebase';
 import firebase from '@firebase/app';
 import { auth } from '../../Firebase/firebase';
@@ -39,9 +38,7 @@ const AddNurse = ({closeEvent}) => {
           }
 
           try {
-            // const { user } = await firebase.auth().createUserWithEmailAndPassword(email, password);
-            // await firebase.firestore().collection('users').doc(user.uid).set({ firstName,lastName,email, role: 'nurse',hospitalID:'123456',id:user.uid });
-            // console.log('nurse created successfully');
+           
             const { user } = await firebase.auth().createUserWithEmailAndPassword(email, password);
               const userData = {
                 firstName,
@@ -53,16 +50,26 @@ const AddNurse = ({closeEvent}) => {
               };
               await firebase.firestore().collection('users').doc(user.uid).set(userData);
               console.log('nurse created successfully');
-            console.log("first",user)
             closeEvent()
             Swal.fire("Added Sucessfully!")
           
             const data = await getUsers()
             setRows(data)
+            console.log("refresh",getUsers())
           } catch (error) {
             console.error('Error creating user', error);
           }
         };
+        useEffect(() => {
+          const fetchData = async () => {
+            const data = await getUsers();
+            setRows(data);
+            console.log("object","123456799")
+          };
+        
+          fetchData();
+        }, []);
+        
       
 
 

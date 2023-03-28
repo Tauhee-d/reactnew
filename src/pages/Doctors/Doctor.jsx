@@ -42,23 +42,7 @@ const Doctor = () => {
         const [edit,setEdit]= useState(false) 
    
 
-    // const docList = users.map((data, i) => {
-    //     return (
-    //         <TableRow key={data.id}>
-    //             <TableCell>{data.id}</TableCell>
-    //             <TableCell>{data.firstName} {data.lastName}</TableCell>
-    //             <TableCell>{data.email}</TableCell>
-    //             <TableCell>{data.role}</TableCell>
-    //             <TableCell>
-    //                 <button onClick={() => deleteUser(data.id)}>Delete</button>
-    //             </TableCell>
-    //             <TableCell>
-    //                 {edit === true && <EditDoc ID ={data.id}/>}
-    //                 <button onClick={() => setEdit(true)}>Edit</button>
-    //             </TableCell>
-    //         </TableRow>
-    //     )
-    // })
+   
 
     return (
         <div className='Doc-Container'>

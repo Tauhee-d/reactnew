@@ -85,16 +85,16 @@ console.log("object",rows)
 
   //edit user Data
   
-const editUser = (email,id,lastName,firstName,role,hospitalId)=>{
-    const data1 ={
-        email:email,
-        id:id,
-        lastName:lastName,
-        firstName:firstName,
-        role:role,
-        hospitalId:hospitalId
-    }
-    setFormId(data1)
+
+const editUser = (row)=>{
+  setFormId({
+    id: row.id,
+    hospitalID: row.hospitalID,
+    firstName: row.firstName,
+    lastName: row.lastName,
+    email: row.email,
+    role: row.role
+  });
     handleEditOpen()
 }
 
@@ -182,7 +182,7 @@ console.log("setFormid11111",formId)
 
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                console.log("rowsssssss",row.id,"hos",row.hospitalID,"fn",row.firstName,"ln",row.lastname,"e",row.email,"r",row.role)
+                console.log("rowsssssss",row.id)
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                    
@@ -192,8 +192,8 @@ console.log("setFormid11111",formId)
                         <TableCell  align='left'> {row.role} </TableCell>
                         <TableCell  align='left'> 
                         <Stack spacing={2} direction='row'>
-                            {/* <EditIcon style={{fontSize:'20px',color:'blue',cursor:'pointer'}}onClick={()=> {editUser(row.id)}} /> */}
-                            <EditIcon style={{fontSize:'20px',color:'blue',cursor:'pointer'}}onClick={()=> {editUser(row.id,row.hospitalID,row.firstName,row.lastname,row.email,row.role)}} />
+                            <EditIcon style={{fontSize:'20px',color:'blue',cursor:'pointer'}}onClick={()=> {editUser(row)}} />
+                            {/* <EditIcon style={{fontSize:'20px',color:'blue',cursor:'pointer'}}onClick={()=> {editUser(row.id,row.hospitalID,row.firstName,row.lastname,row.email,row.role)}} /> */}
                             <DeleteIcon style={{fontSize:'20px',color:'red',cursor:'pointer'}} onClick={()=> {deleteUser(row)}} />
                         </Stack>
                          </TableCell>

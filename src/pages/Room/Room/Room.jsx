@@ -19,24 +19,19 @@ const Rooms = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getRooms();
+      console.log("objectRoom",data)
+      // const Message = message.filter(
+      //   (patient) => patient.formData.patientID === ID
+      // );
+      const user = sessionStorage.getItem("userID")
+      const rooms = data.filter((room) =>room)
       setRoomsData(data);
     };
     fetchData();
   }, []);
 
   
-    const [documents, setDocuments] = useState([]);
-  
-    useEffect(() => {
-      db.collection('rooms').onSnapshot((snapshot) => {
-        const data = [];
-        snapshot.forEach((doc) => {
-          data.push({ id: doc.id, ...doc.data() });
-        });
-        setDocuments(data);
-        console.log("object",roomsDataroom);
-      });
-    }, []);
+    
 
   return (
     <>

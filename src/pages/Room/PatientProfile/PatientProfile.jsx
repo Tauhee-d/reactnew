@@ -287,7 +287,13 @@ const PatientProfile = () => {
             </button>
 
             {patientList.map((patient, i) => {
-              const time = formatTime(patient.latestTime);
+              const epochTime = (patient.addedOn);
+                const date = new Date(epochTime * 1000); // convert epoch time to milliseconds and create a new Date object
+
+                const time = `${date.getFullYear().toString().slice(2)}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+
+            console.log(epochTime); // outputs "21-03-23 12:05"
+
               return (
                 <>
                   <div style={{ padding: "50px" }}>
@@ -316,7 +322,7 @@ const PatientProfile = () => {
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
-                          width: "550px",
+                          width: "600px",
                         }}
                       >
                         <div className="msg-btn">
@@ -502,57 +508,7 @@ const PatientProfile = () => {
                                       onChange={handleChange}
                                       className="form-input"
                                     />
-                                    {/* <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                      }}
-                                    >
-                                      <div
-                                        style={{
-                                          display: "flex",
-                                          flexDirection: "column",
-                                        }}
-                                      >
-                                        <label className="label">
-                                          Attender*
-                                        </label>
-                                        <input
-                                          type="text"
-                                          name="attender"
-                                          value={formData.attender}
-                                          onChange={handleChange}
-                                          className="form-input"
-                                         
-                                        />
-                                      </div>
-                                      <div
-                                        style={{
-                                          display: "flex",
-                                          flexDirection: "column",
-                                        }}
-                                      >
-                                        <label className="label">
-                                          AttenderID*
-                                        </label>
-                                        <input
-                                          type="text"
-                                          name="attenderID"
-                                          value={formData.attenderID}
-                                          onChange={handleChange}
-                                          className="form-input"
-                                          style={{ width: "100px" }}
-                                        />
-                                      </div>
-                                    </div> */}
-                                    {/* <label className="label">PatientID*</label>
-                                    <input
-                                      type="text"
-                                      name="patientID"
-                                      value={formData.patientID}
-                                      onChange={handleChange}
-                                      className="form-input"
-                                    /> */}
+                                 
                                     <label className="label">
                                       Description*
                                     </label>
@@ -796,8 +752,10 @@ const PatientProfile = () => {
                 </>
               );
             })}
+
+
             <div className="Container2" style={{ display: "flex" }}>
-              <div
+              {/* <div
                 className="left-container"
                 style={{ flex: "1", padding: "20px" }}
               >
@@ -816,10 +774,10 @@ const PatientProfile = () => {
                     <Tooltip />
                   </LineChart>
                 </ResponsiveContainer>
-              </div>
+              </div> */}
               {/* <div className="vertical-line"></div> */}
 
-              <div
+              {/* <div
                 className="right-container"
                 style={{ flex: "1", marginLeft: "150px" }}
               >
@@ -849,7 +807,7 @@ const PatientProfile = () => {
                   }}
                 />
 
-              </div>
+              </div> */}
             </div>
           </Scrollbars>
         </div>

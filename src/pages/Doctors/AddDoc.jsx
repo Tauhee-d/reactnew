@@ -39,7 +39,7 @@ const AddDoc = ({closeEvent}) => {
         const createUser = async (e) => {
           e.preventDefault();
 
-          if (!email || !password || !firstName || !lastName) {
+          if (!email || !password || !firstName ) {
             setError('Please fill in all required fields');
             return;
           }
@@ -51,6 +51,7 @@ const AddDoc = ({closeEvent}) => {
               lastName,
               email,
               role: 'doctor',
+              // role: 'admin',
               hospitalID: '123456',
               userID: user.uid // add user ID field
             };

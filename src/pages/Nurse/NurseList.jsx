@@ -83,17 +83,19 @@ console.log("object",rows)
   };
 
   //edit user Data
+
   
-const editUser = (email,id,lastName,firstName,role,hospitalId)=>{
-    const data1 ={
-        email:email,
-        id:id,
-        lastName:lastName,
-        firstName:firstName,
-        role:role,
-        hospitalId:hospitalId
-    }
-    setFormId(data1)
+  
+  
+const editUser = (row)=>{
+  setFormId({
+    id: row.id,
+    hospitalID: row.hospitalID,
+    firstName: row.firstName,
+    lastName: row.lastName,
+    email: row.email,
+    role: row.role
+  });
     handleEditOpen()
 }
 
@@ -126,42 +128,10 @@ console.log("setFormid11111",formId)
               });
             const userData = rows.filter((stud) => userDt.id !== stud.id);
         setRows(userData);
-        // dispatch(deleteStudentAction(studentDt._id));
         }
     })
   }
-  // const deleteUser = async (userDt) => {
-  //   Swal.fire({
-  //     title: `Do you want to delete ${userDt.firstName}'s record?`,
-  //     text: "You won't be able to revert this",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "blue",
-  //     cancelButtonColor: "red",
-  //     confirmButtonText: "Yes, delete it!",
-  //   }).then(async (result) => {
-  //     if (result.isConfirmed) {
-  //       try {
-  //         // Delete the user from authentication
-  //         const user = firebase.auth().currentUser;
-  //         await user.delete();
-          
-  //         // Delete the user from the users collection
-  //         const docRef = firebase.firestore().collection("users").doc(userDt.id);
-  //         await docRef.delete();
-          
-  //         Swal.fire("SUCCESS", "Deleted Successfully", "success");
-          
-  //         // Remove the user from the rows state
-  //         const userData = rows.filter((user) => user.id !== userDt.id);
-  //         setRows(userData);
-  //       } catch (error) {
-  //         console.error("Error deleting user", error);
-  //         Swal.fire("ERROR", "Failed to delete user", "error");
-  //       }
-  //     }
-  //   });
-  // };
+  
   
 
 
@@ -215,7 +185,8 @@ console.log("setFormid11111",formId)
 
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                console.log("rowsssssss",row.id,"hos",row.hospitalID,"fn",row.firstName,"ln",row.lastname,"e",row.email,"r",row.role)
+                console.log("rowsssssss",row.id.userID,"hos",row.hospitalID,"fn",row.firstName,"ln",row.lastname,"e",row.email,"r",row.role)
+                // console.log("userID",row)
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                    
@@ -225,8 +196,9 @@ console.log("setFormid11111",formId)
                         <TableCell  align='left'> {row.role} </TableCell>
                         <TableCell  align='left'> 
                         <Stack spacing={2} direction='row'>
-                            {/* <EditIcon style={{fontSize:'20px',color:'blue',cursor:'pointer'}}onClick={()=> {editUser(row.id)}} /> */}
-                            <EditIcon style={{fontSize:'20px',color:'blue',cursor:'pointer'}}onClick={()=> {editUser(row.id,row.hospitalID,row.firstName,row.lastname,row.email,row.role)}} />
+                      
+                            <EditIcon style={{fontSize:'20px',color:'blue',cursor:'pointer'}}onClick={()=> {editUser(row)}} />
+                            {/* <EditIcon style={{fontSize:'20px',color:'blue',cursor:'pointer'}}onClick={()=> {editUser(row.id,row.hospitalID,row.firstName,row.lastname,row.email,row.role)}} /> */}
                             <DeleteIcon style={{fontSize:'20px',color:'red',cursor:'pointer'}} onClick={()=> {deleteUser(row)}} />
                         </Stack>
                          </TableCell>
