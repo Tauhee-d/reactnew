@@ -19,12 +19,20 @@ firebase.initializeApp({
     // measurementId: "G-VKT8L80P4Q"
 
 
-    apiKey: "AIzaSyBUekLmZXlSYHmm2UZP4IHR6e1lTLVI1G0",
-    authDomain: "temporary-01-77297.firebaseapp.com",
-    projectId: "temporary-01-77297",
-    storageBucket: "temporary-01-77297.appspot.com",
-    messagingSenderId: "202589686863",
-    appId: "1:202589686863:web:d8bce8e9f88d2ca589ee3a"
+    // apiKey: "AIzaSyBUekLmZXlSYHmm2UZP4IHR6e1lTLVI1G0",
+    // authDomain: "temporary-01-77297.firebaseapp.com",
+    // projectId: "temporary-01-77297",
+    // storageBucket: "temporary-01-77297.appspot.com",
+    // messagingSenderId: "202589686863",
+    // appId: "1:202589686863:web:d8bce8e9f88d2ca589ee3a"
+
+
+    apiKey: "AIzaSyBtW_wgQKdfgFp9mA1Q5YUl0hPQnKR0OYQ",
+  authDomain: "temporary-02.firebaseapp.com",
+  projectId: "temporary-02",
+  storageBucket: "temporary-02.appspot.com",
+  messagingSenderId: "32300753972",
+  appId: "1:32300753972:web:377629dbf6c05ae01dd661"
 });
 
 export const db = firebase.firestore();

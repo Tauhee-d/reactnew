@@ -73,6 +73,22 @@ export default function DocList() {
     }
     fetchData()
 }, []) 
+// useEffect(() => {
+//   const fetchData = async () => {
+//     const fetchedData = await getUsers()
+//     const UserTypes = {
+//       doctor: "doctor",
+//       admin: "admin",
+//       nurse: "nurse"
+//     };
+//     const filteredData = fetchedData.filter(
+//       user => user.role === UserTypes.doctor
+//     );
+//     setRows(filteredData);
+//   };
+//   fetchData();
+// }, [data]);
+
 console.log("object",rows)
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

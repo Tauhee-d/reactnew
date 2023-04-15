@@ -71,7 +71,7 @@ function SignIn() {
                 <TextField id="outlined-basic" label="password" variant="outlined" size='small' sx={{minWidth:'100%'}} value={password} onChange={(e) => setPassword(e.target.value)} />
               </Grid>
               <Grid item xs={6}>
-                {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+                {/* {errorMessage && <Typography color="error">{errorMessage}</Typography>} */}
                 <Button variant="contained" type="submit" disabled={isLoading}>
                   {isLoading ? "Loading..." : "Submit"}
                 </Button>
@@ -82,6 +82,7 @@ function SignIn() {
               </Grid>
             </Grid>
 
+                {errorMessage && <Typography color="error">{errorMessage}</Typography>}
           </form>
         </div>
       </div>
